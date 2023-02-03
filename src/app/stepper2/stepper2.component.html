@@ -1,0 +1,82 @@
+<!-- <button mat-raised-button (click)="isEditable = !isEditable">
+    {{!isEditable ? 'Enable edit mode' : 'Disable edit mode'}}
+  </button>
+   -->
+  <mat-stepper linear #stepper    labelPosition="bottom"  [orientation]="(stepperOrientation | async)!"  animationDuration="1300">
+    <mat-step [stepControl]="firstFormGroup" [editable]="isEditable" class="">
+      <div class="m-auto">
+        <form [formGroup]="firstFormGroup" class="box">
+            <ng-template matStepLabel>Project Data</ng-template>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Project Name</mat-label>
+              <input matInput formControlName="projectName" placeholder="Last name, First name" required>
+              <mat-error>required</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+                <mat-label>Select Project type</mat-label>
+                <mat-select formControlName="projectType" placeholder="Project type" required>
+                  <mat-option  value="Desktop">Desktop</mat-option>
+                  <mat-option value="Web">Web</mat-option>
+                  <mat-option value="Mobile">Mobile</mat-option>
+                </mat-select>
+                <mat-error>required</mat-error>
+            </mat-form-field>
+                <p-dropdown [options]="categories" formControlName="projectCategory"
+                [styleClass]="firstFormGroup.controls.projectCategory.errors && firstFormGroup.controls.projectCategory.touched?'is-iiinvalid':''"
+                [filter]="true" filterBy="name"
+                 optionLabel="name" [optionValue]="'id'" [showClear]="true" placeholder="Select a Category" class="w-100" ></p-dropdown>
+                 <ng-container *ngIf="firstFormGroup.controls.projectCategory.errors && firstFormGroup.controls.projectCategory.touched">
+                    <small class="p-error" *ngIf="firstFormGroup.controls.projectCategory.errors?.['required']">category is Required</small>
+                </ng-container>
+             
+            <mat-form-field appearance="outline" class="w-100 mt-4">
+                <mat-label>Project description & Actors</mat-label>
+                <textarea rows="10" matInput formControlName="desc" required></textarea>
+                <mat-error>required</mat-error>
+              </mat-form-field>
+            <div class="d-flex justify-content-end">
+              <button  mat-button matStepperNext class="btn btn-success m-3" (click)="goForward(stepper)">Next</button>
+            </div>
+          </form>
+      </div>
+    </mat-step>
+    <mat-step [stepControl]="secondFormGroup"  [editable]="isEditable">
+      <form [formGroup]="secondFormGroup">
+        <ng-template matStepLabel>Test scenarios builder</ng-template>
+        <mat-form-field appearance="fill">
+          <mat-label>Address</mat-label>
+          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                 >
+        </mat-form-field>
+        <div class="d-flex justify-content-end">
+          <button mat-button matStepperNext class="btn btn-success m-3">Next</button>
+          <button  mat-button matStepperPrevious class="btn btn-danger m-3">Back</button>
+        </div>
+      </form>
+    </mat-step>
+    <mat-step [stepControl]="thirdFormGroup" [editable]="isEditable">
+        <form [formGroup]="thirdFormGroup">
+          <ng-template matStepLabel>Test cases generator</ng-template>
+          <mat-form-field appearance="fill">
+            <mat-label>Third</mat-label>
+            <input matInput formControlName="thirdCtrl" placeholder="third form ">
+          </mat-form-field>
+          <div class="d-flex justify-content-end">
+            <button mat-button matStepperNext class="btn btn-success m-3">Next</button>                
+            <button mat-button matStepperPrevious>Back</button>
+          </div>
+        </form>
+      </mat-step>
+    <mat-step>
+      <ng-template matStepLabel>Complete</ng-template>
+      <p>You are now done.</p>
+      <div class="d-flex justify-content-end">
+        <button mat-button matStepperPrevious>Back</button>
+        <button mat-button (click)="stepper.reset()">Reset</button>
+      </div>
+    </mat-step>
+  </mat-stepper>
+  <!-- <div>
+    <button  [disabled]="stepper.selectedIndex === 0" mat-button (click)="goBack(stepper)" type="button">Back</button>
+    <button   mat-button (click)="goForward(stepper)" type="button">Next</button>
+ </div> -->
