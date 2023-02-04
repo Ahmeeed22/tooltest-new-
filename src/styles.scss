@@ -12,3 +12,66 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     border-color: #f44336;
     border-width:2.5px ;
 }
+
+.mat-stepper-label-position-bottom .mat-horizontal-stepper-header {
+  // background-color: aquamarine !important;
+
+}
+
+.mat-step-icon {
+  border-radius: 50%;
+  height: 64px !important;
+  width: 64px !important;
+}
+.mat-stepper-label-position-bottom .mat-horizontal-stepper-header, .mat-vertical-stepper-header {
+  padding: 5px 24px !important;
+}
+.mat-step-icon-content {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  font-size: 35px !important;
+  transform: translate(-50%, -50%);
+  display: flex;
+}
+
+.mat-step-header .mat-step-icon {
+  background-color: rgba(0,0,0,.8) !important;
+  color: #fff;
+}
+.mat-step-icon .mat-icon {
+  font-size: 28px !important;
+  height: 28px !important;
+  width: 28px !important;
+}
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-edit ,.mat-step-header .mat-step-icon-state-done{
+  transition: all 2.6s !important;
+}
+
+.mat-step-header .mat-step-icon-selected, .mat-step-header .mat-step-icon-state-edit {
+  color: #fff;
+  background: #5bc0de !important;
+  border: 2px solid #f5f5f5;
+  outline: 2px solid #5bc0de;
+}
+.mat-step-header .mat-step-icon-state-done{
+  color: #fff;
+  background: #5cb85c !important;
+  border: 2px solid #f5f5f5;
+  outline: 2px solid #5cb85c;
+}
+dd{
+border-color: #5cb85c;
+    color: #fff;
+    background: #5cb85c;
+}
+
+.ng-wizard-theme-circles>ul.step-anchor>li>a {
+    border: 2px solid #f5f5f5;
+    background: #5bc0de;
+
+}
+.mat-vertical-stepper-header{
+  margin: 30px -20px;
+  overflow:  visible !important;
+}

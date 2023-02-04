@@ -104,5 +104,8 @@ export class Stepper2Component implements OnInit ,AfterViewInit {
     console.log(this.firstFormGroup.controls.projectCategory.value);
     
   }
+  resetWizard(){
+    window.location.reload();
+  }
   
 }
