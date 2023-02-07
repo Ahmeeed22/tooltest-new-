@@ -1,0 +1,76 @@
+<mat-card>
+  <mat-card-title>Login</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <p>
+        <mat-form-field>
+          <input
+            type="text"
+            matInput
+            placeholder="E-Mail"
+            formControlName="email"
+          />
+        </mat-form-field>
+
+        <ng-container *ngIf="formData.email.errors && formData.email.touched">
+          <mat-error *ngIf="formData.email.errors?.['required']">
+            Email is Required
+          </mat-error>
+
+          <mat-error *ngIf="formData.email.errors?.['email']">
+            Please enter a valid email
+          </mat-error>
+        </ng-container>
+      </p>
+
+      <p>
+        <mat-form-field>
+          <input
+            type="password"
+            matInput
+            placeholder="Password"
+            formControlName="password"
+          />
+        </mat-form-field>
+
+        <ng-container
+          *ngIf="formData.password.errors && formData.password.touched"
+        >
+          <mat-error *ngIf="formData.password.errors?.['required']">
+            Password is Required
+          </mat-error>
+        </ng-container>
+      </p>
+
+      <div class="social-buttons mt-3">
+        <button
+          icon="pi pi-linkedin"
+          pButton
+          pRipple
+          type="button"
+          label="Linked in"
+          class="p-button-primary mb-2"
+        ></button>
+        <button
+          icon="pi pi-google"
+          pButton
+          pRipple
+          type="button"
+          label="Google"
+          class="p-button-danger"
+        ></button>
+      </div>
+
+      <div class="button">
+        <button
+          type="submit"
+          mat-raised-button
+          color="primary"
+          [disabled]="loginForm.invalid"
+        >
+          Login
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

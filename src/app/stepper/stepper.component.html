@@ -1,98 +1,99 @@
-  <mat-stepper #stepper labelPosition="bottom"  [orientation]="(stepperOrientation | async)!"  animationDuration="1300">
-    <mat-step [stepControl]="firstFormGroup" class="step"  state="chat">
-      <!-- <form [formGroup]="firstFormGroup">
-        <ng-template matStepLabel>Fill out your name</ng-template>
-        <mat-form-field appearance="fill">
-          <mat-label>Name</mat-label>
-          <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form> -->
-      <!-- <div class="content1">
-          <h1>step one</h1>
+    <mat-stepper #stepper labelPosition="bottom"  [orientation]="(stepperOrientation | async)!"  animationDuration="1300">
+      <mat-step [stepControl]="firstFormGroup" class="step"  state="chat">
+        <!-- <form [formGroup]="firstFormGroup">
+          <ng-template matStepLabel>Fill out your name</ng-template>
+          <mat-form-field appearance="fill">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+          </mat-form-field>
           <div>
             <button mat-button matStepperNext>Next</button>
           </div>
-      </div> -->
-      <ng-template matStepLabel>Fill out your name</ng-template>
-        <div class="login d-flex justify-content-center align-items-center m-auto mt-2 ">
-    
-            <div class="row w-100">
-                <div class="col-2"></div>
-                <div class="col-md-8">
-                <div class="h-100 d-flex align-items-center justify-content-center w-100">
-                    <div class="box w-100">
-                        <h2>Login </h2>
-                    
-                
-                        <form>
-                            <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>Email</mat-label>
-                                <input matInput   placeholder="email">
-                                <mat-error>required</mat-error>
-                            </mat-form-field>
-                            <mat-form-field appearance="outline" class="w-100">
-                                <mat-label>Password</mat-label>
-                                <input matInput   placeholder="password">
-                                <mat-error>required</mat-error>
-                
-                            </mat-form-field>
-                        </form>
-                        <div class="d-flex justify-content-center">
-                            <button   mat-raised-button color="warn">Login</button>
-                        </div>
-                    </div>
-                </div>
-                </div>
-                <div class="col-2"></div>
+        </form> -->
+        <!-- <div class="content1">
+            <h1>step one</h1>
+            <div>
+              <button mat-button matStepperNext>Next</button>
             </div>
-     
-        </div>
-        <div>
-            <button mat-button matStepperNext>Next</button>
-        </div>
-    </mat-step>
-    <mat-step [stepControl]="secondFormGroup" [optional]="true" state="phone">
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Fill out your address</ng-template>
-        <mat-form-field appearance="fill">
-          <mat-label>Address</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                 required>
-        </mat-form-field>
-        <div>
-          <button mat-button matStepperPrevious>Back</button>
-          <button mat-button matStepperNext>Next</button>
-        </div>
-      </form>
-    </mat-step>
-    <mat-step [stepControl]="thirdFormGroup" label="Fill out your phone number">
-        <form [formGroup]="thirdFormGroup">
+        </div> -->
+        <ng-template matStepLabel>Fill out your name</ng-template>
+          <div class="login d-flex justify-content-center align-items-center m-auto mt-2 ">
+      
+              <div class="row w-100">
+                  <div class="col-2"></div>
+                  <div class="col-md-8">
+                  <div class="h-100 d-flex align-items-center justify-content-center w-100">
+                      <div class="box w-100">
+                          <h2>Login </h2>
+                      
+                  
+                          <form>
+                              <mat-form-field appearance="outline" class="w-100">
+                                  <mat-label>Email</mat-label>
+                                  <input matInput   placeholder="email">
+                                  <mat-error>required</mat-error>
+                              </mat-form-field>
+                              <mat-form-field appearance="outline" class="w-100">
+                                  <mat-label>Password</mat-label>
+                                  <input matInput   placeholder="password">
+                                  <mat-error>required</mat-error>
+                  
+                              </mat-form-field>
+                          </form>
+                          <div class="d-flex justify-content-center">
+                              <button   mat-raised-button color="warn">Login</button>
+                          </div>
+                      </div>
+                  </div>
+                  </div>
+                  <div class="col-2"></div>
+              </div>
+       
+          </div>
+          <div>
+              <button mat-button matStepperNext>Next</button>
+          </div>
+      </mat-step>
+      <mat-step [stepControl]="secondFormGroup" [optional]="true" state="phone">
+        <form [formGroup]="secondFormGroup">
+          <ng-template matStepLabel>Fill out your address</ng-template>
           <mat-form-field appearance="fill">
-            <mat-label>Phone number</mat-label>
-            <input matInput formControlName="thirdCtrl" placeholder="Ex. 12345678" required>
+            <mat-label>Address</mat-label>
+            <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
+                   required>
           </mat-form-field>
           <div>
-            <button mat-button matStepperPrevious id="third">Back</button>
+            <button mat-button matStepperPrevious>Back</button>
             <button mat-button matStepperNext>Next</button>
           </div>
         </form>
       </mat-step>
-    <mat-step>
-      <ng-template matStepLabel>Done</ng-template>
-      <p>You are now done.</p>
-      <div>
-        <button mat-button matStepperPrevious>Back</button>
-        <button mat-button (click)="stepper.reset()">Reset</button>
-      </div>
-    </mat-step>
-      <!-- Icon overrides. -->
-  <ng-template matStepperIcon="phone">
-    <mat-icon>call_end</mat-icon>
-  </ng-template>
-  <ng-template matStepperIcon="chat">
-    <mat-icon>forum</mat-icon>
-  </ng-template>
-</mat-stepper>
+      <mat-step [stepControl]="thirdFormGroup" label="Fill out your phone number">
+          <form [formGroup]="thirdFormGroup">
+            <mat-form-field appearance="fill">
+              <mat-label>Phone number</mat-label>
+              <input matInput formControlName="thirdCtrl" placeholder="Ex. 12345678" required>
+            </mat-form-field>
+            <div>
+              <button mat-button matStepperPrevious id="third">Back</button>
+              <button mat-button matStepperNext>Next</button>
+            </div>
+          </form>
+        </mat-step>
+      <mat-step>
+        <ng-template matStepLabel>Done</ng-template>
+        <p>You are now done.</p>
+        <div>
+          <button mat-button matStepperPrevious>Back</button>
+          <button mat-button (click)="stepper.reset()">Reset</button>
+        </div>
+      </mat-step>
+        <!-- Icon overrides. -->
+    <ng-template matStepperIcon="phone">
+      <mat-icon>call_end</mat-icon>
+    </ng-template>
+    <ng-template matStepperIcon="chat">
+      <mat-icon>forum</mat-icon>
+    </ng-template>
+  </mat-stepper>
+ 
