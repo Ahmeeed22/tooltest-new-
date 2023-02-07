@@ -91,7 +91,7 @@
         <input class="ml-3" [value]="0" [(ngModel)]="sh" name="sh" type="radio" [checked]="!isChecked" /> Use Case
       </label>
       <div class="text-center purple" *ngIf="sh == 1">
-        <p-card class="flex justify-content-center">
+        <div class="flex justify-content-center">
           <form [formGroup]="userForm1" (ngSubmit)="addUserForm1()" novalidate>
             <div class="row">
               <div class="col-3 field">
@@ -117,10 +117,10 @@
             </div>
             <button class="mt-3 " pButton type="submit" label="Submit" [disabled]="userForm1.invalid"></button>
           </form>
-        </p-card>
+        </div>
       </div>
       <div class="text-center red" *ngIf="sh == 0">
-        <p-card class="d-flex justify-content-center">
+        <div class="d-flex justify-content-center">
           <form [formGroup]="userForm2" (ngSubmit)="addUserForm2()" novalidate>
             <div class="row">
               <div class="col-12">
@@ -174,7 +174,7 @@
             </div>
             <button class="mt-3 " pButton type="submit" label="Submit" [disabled]="userForm1.invalid"></button>
           </form>
-        </p-card>
+        </div>
     
       </div>
     </div>
