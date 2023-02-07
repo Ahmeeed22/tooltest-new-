@@ -2,7 +2,7 @@
     {{!isEditable ? 'Enable edit mode' : 'Disable edit mode'}}
   </button>
    -->
-  <mat-stepper linear #stepper class="mt-3"    labelPosition="bottom"  [orientation]="(stepperOrientation | async)!"  animationDuration="1300">
+  <mat-stepper linear #stepper class="mt-5"    labelPosition="bottom"  [orientation]="(stepperOrientation | async)!"  animationDuration="1300">
     <mat-step [stepControl]="firstFormGroup" [editable]="isEditable" class="">
       <div class="m-auto">
         <form [formGroup]="firstFormGroup" class="box">
