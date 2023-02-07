@@ -57,7 +57,25 @@ export class Stepper2Component implements OnInit ,AfterViewInit {
   stepperOrientation: Observable<StepperOrientation>;
 
   mat_step_header:HTMLCollectionOf<Element>=document.getElementsByTagName('mat-step-header')
+// nada
 
+isChecked: boolean = true;
+userForm1 = this._formBuilder.group({
+  asA: ['', Validators.required],
+  want: ['',Validators.required],
+  soThat: ['',Validators.required],
+  userFlow: ['', Validators.required],
+});
+userForm2 = this._formBuilder.group({
+  title: ['', Validators.required],
+  desceiption: ['',Validators.required],
+  actor: ['',Validators.required],
+  precondtion: ['',Validators.required],
+  flow:['',Validators.required]
+
+});
+sh: any
+//nada
   
   constructor(private _formBuilder: FormBuilder, breakpointObserver: BreakpointObserver ,private elementRef:ElementRef) {
     this.stepperOrientation = breakpointObserver
@@ -107,5 +125,13 @@ export class Stepper2Component implements OnInit ,AfterViewInit {
   resetWizard(){
     window.location.reload();
   }
-  
+
+  // nada
+
+  addUserForm1() {
+    console.log(this.userForm1.value);
+  }
+  addUserForm2() {
+    console.log(this.userForm2.value);
+  }
 }

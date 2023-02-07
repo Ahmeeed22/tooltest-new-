@@ -2,7 +2,7 @@
     {{!isEditable ? 'Enable edit mode' : 'Disable edit mode'}}
   </button>
    -->
-  <mat-stepper linear #stepper class="mt-5"    labelPosition="bottom"  [orientation]="(stepperOrientation | async)!"  animationDuration="1300">
+  <mat-stepper linear #stepper class="mt-3"    labelPosition="bottom"  [orientation]="(stepperOrientation | async)!"  animationDuration="1300">
     <mat-step [stepControl]="firstFormGroup" [editable]="isEditable" class="">
       <div class="m-auto">
         <form [formGroup]="firstFormGroup" class="box">
@@ -24,14 +24,14 @@
                 <p-dropdown [options]="categories" formControlName="projectCategory"
                 [styleClass]="firstFormGroup.controls.projectCategory.errors && firstFormGroup.controls.projectCategory.touched?'is-iiinvalid':''"
                 [filter]="true" filterBy="name"
-                 optionLabel="name" [optionValue]="'id'" [showClear]="true" placeholder="Select a Category" class="w-100" ></p-dropdown>
+                 optionLabel="name" [optionValue]="'id'" [showClear]="true" placeholder="Select a Category *" class="w-100" ></p-dropdown>
                  <ng-container *ngIf="firstFormGroup.controls.projectCategory.errors && firstFormGroup.controls.projectCategory.touched">
                     <small class="p-error" *ngIf="firstFormGroup.controls.projectCategory.errors?.['required']">category is Required</small>
                 </ng-container>
              
             <mat-form-field appearance="outline" class="w-100 mt-4">
                 <mat-label>Project description & Actors</mat-label>
-                <textarea rows="10" matInput formControlName="desc" required></textarea>
+                <textarea rows="6" matInput formControlName="desc" required></textarea>
                 <mat-error>required</mat-error>
               </mat-form-field>
             <div class="d-flex justify-content-end">
@@ -43,14 +43,14 @@
     <mat-step [stepControl]="secondFormGroup"  [editable]="isEditable">
       <form [formGroup]="secondFormGroup">
         <ng-template matStepLabel>Test scenarios builder</ng-template>
-        <mat-form-field appearance="fill">
-          <mat-label>Address</mat-label>
-          <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY"
-                 >
-        </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Address</mat-label>
+              <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
+              <mat-error>required</mat-error>
+            </mat-form-field>
         <div class="d-flex justify-content-end">
-          <button mat-button matStepperNext class="btn btn-success m-3">Next</button>
           <button  mat-button matStepperPrevious class="btn btn-danger m-3">Back</button>
+          <button mat-button matStepperNext class="btn btn-success m-3">Next</button>
         </div>
       </form>
     </mat-step>
@@ -62,8 +62,8 @@
             <input matInput formControlName="thirdCtrl" placeholder="third form ">
           </mat-form-field>
           <div class="d-flex justify-content-end">
-            <button mat-button matStepperNext class="btn btn-success m-3">Next</button>
             <button  mat-button matStepperPrevious class="btn btn-danger m-3">Back</button>
+            <button mat-button matStepperNext class="btn btn-success m-3">Next</button>
           </div>
         </form>
       </mat-step>
@@ -72,7 +72,7 @@
       <p>You are now done.</p>
       <div class="d-flex justify-content-end">
         <button  mat-button matStepperPrevious class="btn btn-danger m-3">Back</button>
-        <button  type="button"class="btn btn-info  m-3 " (click)="resetWizard();" > Finish</button>
+        <button  type="button"class="btn btn-info  m-3 " (click)="resetWizard();" > Fly</button>
         <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
       </div>
     </mat-step>
@@ -81,3 +81,102 @@
     <button  [disabled]="stepper.selectedIndex === 0" mat-button (click)="goBack(stepper)" type="button">Back</button>
     <button   mat-button (click)="goForward(stepper)" type="button">Next</button>
  </div> -->
+<div class="container">
+  <div class="row">
+    <div class="col-12 mt-3">
+      <label>
+        <input [value]="1" [(ngModel)]="sh" name="sh" type="radio" [checked]="isChecked" /> User Story
+      </label>
+      <label>
+        <input class="ml-3" [value]="0" [(ngModel)]="sh" name="sh" type="radio" [checked]="!isChecked" /> Use Case
+      </label>
+      <div class="text-center purple" *ngIf="sh == 1">
+        <p-card class="flex justify-content-center">
+          <form [formGroup]="userForm1" (ngSubmit)="addUserForm1()" novalidate>
+            <div class="row">
+              <div class="col-3 field">
+                <input type="text" pInputText placeholder="As A" formControlName="asA" />
+                <small class="p-error block" *ngIf="
+                userForm1.get('asA')?.invalid &&userForm1.get('asA')?.dirty
+                  ">
+                  As a is required</small>
+              </div>
+              <div class="col-3 field">
+                <textarea rows="5" cols="30" placeholder="I Want..." required="true" id="want" formcontrolname="want" autoresize="autoResize" ng-reflect-name="want"
+                  maxlength="500"></textarea>
+              </div>
+              <div class="col-3 field">
+                <textarea rows="5" cols="30" placeholder="So that..." id="soThat" formcontrolname="soThat" autoresize="autoResize" ng-reflect-name="soThat"
+                  maxlength="500"></textarea>
+    
+              </div>
+              <div class="col-3 field">
+                <textarea rows="5" cols="30" placeholder="User flow..." id="userFlow" formcontrolname="userFlow" autoresize="autoResize" ng-reflect-name="userFlow"
+                  maxlength="500"></textarea>
+              </div>
+            </div>
+            <button class="mt-3 " pButton type="submit" label="Submit" [disabled]="userForm1.invalid"></button>
+          </form>
+        </p-card>
+      </div>
+      <div class="text-center red" *ngIf="sh == 0">
+        <p-card class="d-flex justify-content-center">
+          <form [formGroup]="userForm2" (ngSubmit)="addUserForm2()" novalidate>
+            <div class="row">
+              <div class="col-12">
+                <div class="field">
+                  <label for="Title" class="block">Title</label>
+                  <input type="text" pInputText placeholder="Title" formControlName="title" />
+                  <small class="p-error block" *ngIf="
+                  userForm2.get('title')?.invalid &&userForm2.get('title')?.dirty
+                    ">
+                    Title is required</small>
+                </div>
+                <div class="field">
+                  <label for="lastName" class="block">Description</label>
+                  <textarea rows="5" cols="30" placeholder="Desceiption..." id="description" formcontrolname="desceiption" autoresize="autoResize" ng-reflect-name="desceiption"
+                  maxlength="500"></textarea>
+                  <small class="p-error block" *ngIf="
+                  userForm2.get('desceiption')?.invalid &&userForm2.get('desceiption')?.dirty
+                    ">
+                    desceiption is required</small>
+                </div>
+              </div>
+              <div class="col-12">
+                <div class="field">
+                  <label for="actor" class="block">Actor</label>
+                  <input type="text" pInputText placeholder="Actor" formControlName="actor" />
+                  <small class="p-error block" *ngIf="
+                  userForm2.get('actor')?.invalid &&userForm2.get('actor')?.dirty
+                    ">
+                    Actor is required</small>
+                </div>
+                <div class="field">
+                  <label for="precondtion" class="block">Precondtion</label>
+                  <input type="text" pInputText placeholder="precondtion" formControlName="precondtion" />
+                  <small class="p-error block" *ngIf="
+                  userForm2.get('precondtion')?.invalid &&userForm2.get('precondtion')?.dirty
+                    ">
+                    precondtion is required</small>
+                </div>
+                <div class="field">
+                  <label for="flow" class="block">Flow</label>
+                  <input type="text" pInputText placeholder="flow" formControlName="flow" />
+                  <small class="p-error block" *ngIf="
+                  userForm2.get('flow')?.invalid &&userForm2.get('flow')?.dirty
+                    ">
+                    flow is required</small>
+                </div>
+    
+              </div>
+    
+    
+            </div>
+            <button class="mt-3 " pButton type="submit" label="Submit" [disabled]="userForm1.invalid"></button>
+          </form>
+        </p-card>
+    
+      </div>
+    </div>
+  </div>
+</div>

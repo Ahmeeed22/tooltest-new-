@@ -11,8 +11,8 @@
   
   .box {
     z-index: 5;
-    margin:30px auto;
-    width: 50%;
+    margin:20px auto;
+    width: 60%;
     padding: 50px 20px;
     border: 1px solid #ddd;
     border-radius: 15px;
@@ -23,4 +23,9 @@
 // 
   ::ng-deep .mat-horizontal-stepper-header{
     pointer-events: none !important;
+}
+@media screen  and (max-width: 900px) {
+  .box {
+    width: 80%;
+  }
 }
