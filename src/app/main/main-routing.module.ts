@@ -8,7 +8,7 @@ const routes: Routes = [
   {
     path: '', component: MainComponent,
     children: [
-      {path: 'main', component: Stepper2Component},
+      {path: '', component: Stepper2Component},
       {path: 'profile', component: ProfileComponent}
     ]
   }
