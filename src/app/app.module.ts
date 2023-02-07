@@ -21,7 +21,7 @@ import { Stepper2Component } from './stepper2/stepper2.component';
   declarations: [
     AppComponent,
     StepperComponent,
-    Stepper2Component
+    Stepper2Component,
   ],
   imports: [
     BrowserModule,
