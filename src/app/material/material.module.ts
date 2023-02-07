@@ -17,6 +17,7 @@ import {MatStepperModule} from '@angular/material/stepper';
 import {MatNativeDateModule, MatRippleModule, MAT_DATE_LOCALE} from '@angular/material/core';
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {ButtonModule} from 'primeng/button';
+import {MatTreeModule} from '@angular/material/tree';
 
 @NgModule({
   imports: [],
@@ -38,7 +39,8 @@ import {ButtonModule} from 'primeng/button';
     MatSortModule,
     MatTableModule,
     MatStepperModule,
-    ButtonModule
+    ButtonModule,
+    MatTreeModule
   ],
 })
 export class MaterialModule { }

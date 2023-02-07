@@ -14,14 +14,10 @@ import { CoreModule } from './core/core.module';
 import { NgxSpinnerModule } from 'ngx-spinner';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { StepperComponent } from './stepper/stepper.component';
-import { Stepper2Component } from './stepper2/stepper2.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    StepperComponent,
-    Stepper2Component,
   ],
   imports: [
     BrowserModule,
