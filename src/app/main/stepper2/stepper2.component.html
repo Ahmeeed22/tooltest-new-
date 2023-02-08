@@ -1,16 +1,13 @@
-<!-- <button mat-raised-button (click)="isEditable = !isEditable">
-    {{!isEditable ? 'Enable edit mode' : 'Disable edit mode'}}
-  </button>
-   -->
   <mat-stepper linear #stepper class="mt-5"    labelPosition="bottom"  [orientation]="(stepperOrientation | async)!"  animationDuration="1300">
     <mat-step [stepControl]="firstFormGroup" [editable]="isEditable" class="">
       <div class="m-auto">
         <form [formGroup]="firstFormGroup" class="box">
-            <ng-template matStepLabel>Project Data</ng-template>
+            <ng-template matStepLabel>Project Info</ng-template>
             <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Project Name</mat-label>
-              <input matInput formControlName="projectName" placeholder="Last name, First name" spellcheck="true" required>
-              <mat-error>required</mat-error>
+              <mat-label>Project Title</mat-label>
+              <input matInput formControlName="projectTitle" placeholder="Project Title e.g. Project Title: XYZ XYZ is E- commerce project that focuses on providing innovative solutions to everyday problems." spellcheck="true" required>
+              <mat-error *ngIf="firstFormGroup.get('projectTitle')?.touched && firstFormGroup.get('projectTitle')?.hasError('required')">required</mat-error>
+              <mat-error *ngIf="firstFormGroup.get('projectTitle')?.touched && firstFormGroup.get('projectTitle')?.hasError('maxlength')">max length 100 char</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="w-100">
                 <mat-label>Select Project type</mat-label>
@@ -21,52 +18,128 @@
                 </mat-select>
                 <mat-error>required</mat-error>
             </mat-form-field>
-                <p-dropdown [options]="categories" formControlName="projectCategory"
-                [styleClass]="firstFormGroup.controls.projectCategory.errors && firstFormGroup.controls.projectCategory.touched?'is-iiinvalid':''"
-                [filter]="true" filterBy="name"
-                 optionLabel="name" [optionValue]="'id'" [showClear]="true" placeholder="Select a Category *" class="w-100" ></p-dropdown>
-                 <ng-container *ngIf="firstFormGroup.controls.projectCategory.errors && firstFormGroup.controls.projectCategory.touched">
-                    <small class="p-error" *ngIf="firstFormGroup.controls.projectCategory.errors?.['required']">category is Required</small>
-                </ng-container>
-             
-            <mat-form-field appearance="outline" class="w-100 mt-4">
+            <mat-form-field appearance="outline" class="w-100 mt-1">
                 <mat-label>Project description & Actors</mat-label>
-                <textarea rows="6" matInput formControlName="desc" required></textarea>
-                <mat-error>required</mat-error>
+                <textarea rows="10" matInput formControlName="desc" placeholder="e.g.  This project is a web application that will allow users to create and share events. Users will be able to create events including details such as date, time, location, and description. They will also be able to invite other users to their events. Actors: 1. User: A registered user of the application who can create, view, and manage their own events. 2. Event Host: A registered user who can create and host events to which other users can be invited. 3. Invitee: A user who is invited to an event by an Event Host. 4. Admin: A privileged user who can manage and control the application." required></textarea>
+                <mat-error *ngIf="firstFormGroup.get('desc')?.touched && firstFormGroup.get('desc')?.hasError('required')">required</mat-error>
+                <mat-error *ngIf="firstFormGroup.get('desc')?.touched && firstFormGroup.get('desc')?.hasError('maxlength')">max length 2000 char</mat-error>
               </mat-form-field>
             <div class="d-flex justify-content-end">
-              <button  mat-button matStepperNext class="btn btn-success m-3" (click)="goForward(stepper)">Next</button>
+              <button  mat-button matStepperNext class="btn btn-success m-3" matStepperNext>Next</button>
             </div>
           </form>
       </div>
     </mat-step>
-    <mat-step [stepControl]="secondFormGroup"  [editable]="isEditable">
-      <form [formGroup]="secondFormGroup">
-        <ng-template matStepLabel>Test scenarios builder</ng-template>
-            <mat-form-field appearance="outline" class="w-100">
-              <mat-label>Address</mat-label>
-              <input matInput formControlName="secondCtrl" placeholder="Ex. 1 Main St, New York, NY" required>
-              <mat-error>required</mat-error>
-            </mat-form-field>
-        <div class="d-flex justify-content-end">
-          <button  mat-button matStepperPrevious class="btn btn-danger m-3">Back</button>
-          <button mat-button matStepperNext class="btn btn-success m-3">Next</button>
+    <mat-step [editable]="isEditable">
+        <div>
+          <button mat-button matStepperPrevious class="btn btn-danger m-3" >Back</button>
+          <button mat-button matStepperNext class="btn btn-success m-3" >Next</button>
         </div>
-      </form>
     </mat-step>
-    <mat-step [stepControl]="thirdFormGroup" [editable]="isEditable">
-        <form [formGroup]="thirdFormGroup">
-          <ng-template matStepLabel>Test cases generator</ng-template>
-          <mat-form-field appearance="fill">
-            <mat-label>Third</mat-label>
-            <input matInput formControlName="thirdCtrl" placeholder="third form ">
+    <mat-step [stepControl]="sh? userStoryForm1:useCaseForm2" [editable]="isEditable">
+      <div class="mx-auto box mt-3">
+        <form [formGroup]="thirdFormMain" class="">
+          <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Select Project type</mat-label>
+              <mat-select formControlName="testing_technique" placeholder="Project type" required>
+                <mat-option  value="bva">Boundary Value Analysis (BVA) </mat-option>
+                <mat-option value="dt">Decision Tables </mat-option>
+                <mat-option value="ep">Equivalence partitioning</mat-option>
+                <mat-option value="stt">State Transition Testing</mat-option>
+                <mat-option value="rf">Requirements format</mat-option>
+              </mat-select>
+              <mat-error>required</mat-error>
           </mat-form-field>
-          <div class="d-flex justify-content-end">
-            <button  mat-button matStepperPrevious class="btn btn-danger m-3">Back</button>
-            <button mat-button matStepperNext class="btn btn-success m-3">Next</button>
-          </div>
         </form>
-      </mat-step>
+        <label>
+          <input [value]="1" [(ngModel)]="sh" name="sh" type="radio" [checked]="isChecked" required/> User Story
+        </label>
+        <label>
+          <input class="ml-3" [value]="0" [(ngModel)]="sh" name="sh" type="radio" [checked]="!isChecked" /> Use Case
+        </label>
+        <form  *ngIf="sh == 1" [formGroup]="userStoryForm1" class="">
+            <ng-template matStepLabel>Testing Technique</ng-template>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>User Story Title</mat-label>
+              <input matInput formControlName="use_case_title" placeholder="e.g. Creating an Online Shopping Experience" spellcheck="true" required>
+              <mat-error *ngIf="userStoryForm1.get('use_case_title')?.touched && userStoryForm1.get('use_case_title')?.hasError('required')">required</mat-error>
+              <mat-error *ngIf="userStoryForm1.get('use_case_title')?.touched && userStoryForm1.get('use_case_title')?.hasError('maxlength')">max length 100 char</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>As a</mat-label>
+              <input matInput formControlName="asA" placeholder="As a 	e.g John Doe is a customer who needs to purchase a product from a store. 	" spellcheck="true" required>
+              <mat-error *ngIf="userStoryForm1.get('asA')?.touched && userStoryForm1.get('asA')?.hasError('required')">required</mat-error>
+              <mat-error *ngIf="userStoryForm1.get('asA')?.touched && userStoryForm1.get('asA')?.hasError('maxlength')">max length 100 char</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100 mt-1">
+                <mat-label>I Want</mat-label>
+                <textarea rows="10" matInput  spellcheck="true" formControlName="want" placeholder="e.g. Users will be able to browse items posted by other users, or create their own listings to sell their own items. They will have the option to search for specific items, and filter results by category, price, location, and other criteria. Payment for items will be handled securely through the platform, and users will be able to rate and review each other after a transaction is completed. The platform will also provide support for users who experience issues with their purchases" required></textarea>
+                <mat-error *ngIf="userStoryForm1.get('want')?.touched && userStoryForm1.get('want')?.hasError('required')">required</mat-error>
+                <mat-error *ngIf="userStoryForm1.get('want')?.touched && userStoryForm1.get('want')?.hasError('maxlength')">max length 3000 char</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="w-100 mt-1">
+                <mat-label>So That</mat-label>
+                <textarea rows="10" matInput spellcheck="true"  formControlName="soThat" placeholder="e.g. The user has an account with the system and has logged in. The user is logged in to the system" required></textarea>
+                <mat-error *ngIf="userStoryForm1.get('soThat')?.touched && userStoryForm1.get('soThat')?.hasError('required')">required</mat-error>
+                <mat-error *ngIf="userStoryForm1.get('soThat')?.touched && userStoryForm1.get('soThat')?.hasError('maxlength')">max length 2200 char</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="w-100 mt-1">
+                <mat-label>User Flow</mat-label>
+                <textarea rows="10" matInput spellcheck="true"  formControlName="userFlow" placeholder="e.g. 1. User opens application
+                2. User selects desired feature 
+                3. System presents user with options for feature
+                4. User makes selections
+                5. System processes selections
+                6. System presents user with results
+                7. User exits application
+                " required></textarea>
+                <mat-error *ngIf="userStoryForm1.get('userFlow')?.touched && userStoryForm1.get('userFlow')?.hasError('required')">required</mat-error>
+                <mat-error *ngIf="userStoryForm1.get('userFlow')?.touched && userStoryForm1.get('userFlow')?.hasError('maxlength')">max length 2500 char</mat-error>
+              </mat-form-field>
+
+          </form>
+          <form  *ngIf="sh == 0 " [formGroup]="useCaseForm2" class="">
+            <ng-template matStepLabel>Project Data</ng-template>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Use Case Title</mat-label>
+              <input matInput formControlName="use_case_title" placeholder="use_case_title" spellcheck="true" required>
+              <mat-error *ngIf="useCaseForm2.get('use_case_title')?.touched && useCaseForm2.get('use_case_title')?.hasError('required')">required</mat-error>
+              <mat-error *ngIf="useCaseForm2.get('use_case_title')?.touched && useCaseForm2.get('use_case_title')?.hasError('maxlength')">max length 100 char</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100">
+              <mat-label>Actor</mat-label>
+              <input matInput formControlName="actor" placeholder="e.g John Doe is a customer who needs to purchase a product from a store. " spellcheck="true" required>
+              <mat-error *ngIf="useCaseForm2.get('actor')?.touched && useCaseForm2.get('actor')?.hasError('required')">required</mat-error>
+              <mat-error *ngIf="useCaseForm2.get('actor')?.touched && useCaseForm2.get('actor')?.hasError('maxlength')">max length 100 char</mat-error>
+            </mat-form-field>
+            <mat-form-field appearance="outline" class="w-100 mt-1">
+                <mat-label>Use Case Description</mat-label>
+                <textarea rows="10" spellcheck="true"  matInput  formControlName="use_case_description" placeholder="e.g. Users will be able to browse items posted by other users, or create their own listings to sell their own items. They will have the option to search for specific items, and filter results by category, price, location, and other criteria. Payment for items will be handled securely through the platform, and users will be able to rate and review each other after a transaction is completed. The platform will also provide support for users who experience issues with their purchases" required></textarea>
+                <mat-error *ngIf="useCaseForm2.get('use_case_description')?.touched && useCaseForm2.get('use_case_description')?.hasError('required')">required</mat-error>
+                <mat-error *ngIf="useCaseForm2.get('use_case_description')?.touched && useCaseForm2.get('use_case_description')?.hasError('maxlength')">max length 3500 char</mat-error>
+              </mat-form-field>
+              <mat-form-field appearance="outline" class="w-100 mt-1">
+                <mat-label>Pre Conditions</mat-label>
+                <textarea rows="10" spellcheck="true"  matInput formControlName="precondtion" required placeholder="e.g. The user has an account with the system and has logged in. The user is logged in to the system"></textarea>
+                <mat-error *ngIf="useCaseForm2.get('precondtion')?.touched && useCaseForm2.get('precondtion')?.hasError('required')">required</mat-error>
+                <mat-error *ngIf="useCaseForm2.get('precondtion')?.touched && useCaseForm2.get('precondtion')?.hasError('maxlength')">max length 1700 char</mat-error>
+              </mat-form-field>
+              <mat-form-field spellcheck="true"  appearance="outline" class="w-100 mt-1">
+                <mat-label>Flow</mat-label>
+                <textarea rows="10" matInput formControlName="flow" required placeholder="e.g. 1. User opens application
+                2. User selects desired feature 
+                3. System presents user with options for feature
+                "></textarea>
+                <mat-error *ngIf="useCaseForm2.get('flow')?.touched && useCaseForm2.get('flow')?.hasError('required')">required</mat-error>
+                <mat-error *ngIf="useCaseForm2.get('flow')?.touched && useCaseForm2.get('flow')?.hasError('maxlength')">max length 2500 char</mat-error>
+              </mat-form-field>
+            </form>
+            <div class="d-flex justify-content-end">
+              <button  [disabled]="stepper.selectedIndex === 0" mat-button (click)="goBack(stepper)" type="button">Back</button>
+              <button  mat-button matStepperNext class="btn btn-success m-3" (click)="goForwardToComplet(stepper)">Next</button>
+            </div>
+      </div>
+    </mat-step>
     <mat-step>
       <ng-template matStepLabel>Complete</ng-template>
       <p>You are now done.</p>
@@ -77,106 +150,3 @@
       </div>
     </mat-step>
   </mat-stepper>
-  <!-- <div>
-    <button  [disabled]="stepper.selectedIndex === 0" mat-button (click)="goBack(stepper)" type="button">Back</button>
-    <button   mat-button (click)="goForward(stepper)" type="button">Next</button>
- </div> -->
-<div class="container">
-  <div class="row">
-    <div class="col-12 mt-3">
-      <label>
-        <input [value]="1" [(ngModel)]="sh" name="sh" type="radio" [checked]="isChecked" /> User Story
-      </label>
-      <label>
-        <input class="ml-3" [value]="0" [(ngModel)]="sh" name="sh" type="radio" [checked]="!isChecked" /> Use Case
-      </label>
-      <div class="text-center purple" *ngIf="sh == 1">
-        <div class="flex justify-content-center">
-          <form [formGroup]="userForm1" (ngSubmit)="addUserForm1()" novalidate>
-            <div class="row">
-              <div class="col-3 field">
-                <input type="text" pInputText placeholder="As A" formControlName="asA" />
-                <small class="p-error block" *ngIf="
-                userForm1.get('asA')?.invalid &&userForm1.get('asA')?.dirty
-                  ">
-                  As a is required</small>
-              </div>
-              <div class="col-3 field">
-                <textarea rows="5" cols="30" placeholder="I Want..." required="true" id="want" formcontrolname="want" autoresize="autoResize" ng-reflect-name="want"
-                  maxlength="500"></textarea>
-              </div>
-              <div class="col-3 field">
-                <textarea rows="5" cols="30" placeholder="So that..." id="soThat" formcontrolname="soThat" autoresize="autoResize" ng-reflect-name="soThat"
-                  maxlength="500"></textarea>
-    
-              </div>
-              <div class="col-3 field">
-                <textarea rows="5" cols="30" placeholder="User flow..." id="userFlow" formcontrolname="userFlow" autoresize="autoResize" ng-reflect-name="userFlow"
-                  maxlength="500"></textarea>
-              </div>
-            </div>
-            <button class="mt-3 " pButton type="submit" label="Submit" [disabled]="userForm1.invalid"></button>
-          </form>
-        </div>
-      </div>
-      <div class="text-center red" *ngIf="sh == 0">
-        <div class="d-flex justify-content-center">
-          <form [formGroup]="userForm2" (ngSubmit)="addUserForm2()" novalidate>
-            <div class="row">
-              <div class="col-12">
-                <div class="field">
-                  <label for="Title" class="block">Title</label>
-                  <input type="text" pInputText placeholder="Title" formControlName="title" />
-                  <small class="p-error block" *ngIf="
-                  userForm2.get('title')?.invalid &&userForm2.get('title')?.dirty
-                    ">
-                    Title is required</small>
-                </div>
-                <div class="field">
-                  <label for="lastName" class="block">Description</label>
-                  <textarea rows="5" cols="30" placeholder="Desceiption..." id="description" formcontrolname="desceiption" autoresize="autoResize" ng-reflect-name="desceiption"
-                  maxlength="500"></textarea>
-                  <small class="p-error block" *ngIf="
-                  userForm2.get('desceiption')?.invalid &&userForm2.get('desceiption')?.dirty
-                    ">
-                    desceiption is required</small>
-                </div>
-              </div>
-              <div class="col-12">
-                <div class="field">
-                  <label for="actor" class="block">Actor</label>
-                  <input type="text" pInputText placeholder="Actor" formControlName="actor" />
-                  <small class="p-error block" *ngIf="
-                  userForm2.get('actor')?.invalid &&userForm2.get('actor')?.dirty
-                    ">
-                    Actor is required</small>
-                </div>
-                <div class="field">
-                  <label for="precondtion" class="block">Precondtion</label>
-                  <input type="text" pInputText placeholder="precondtion" formControlName="precondtion" />
-                  <small class="p-error block" *ngIf="
-                  userForm2.get('precondtion')?.invalid &&userForm2.get('precondtion')?.dirty
-                    ">
-                    precondtion is required</small>
-                </div>
-                <div class="field">
-                  <label for="flow" class="block">Flow</label>
-                  <input type="text" pInputText placeholder="flow" formControlName="flow" />
-                  <small class="p-error block" *ngIf="
-                  userForm2.get('flow')?.invalid &&userForm2.get('flow')?.dirty
-                    ">
-                    flow is required</small>
-                </div>
-    
-              </div>
-    
-    
-            </div>
-            <button class="mt-3 " pButton type="submit" label="Submit" [disabled]="userForm1.invalid"></button>
-          </form>
-        </div>
-    
-      </div>
-    </div>
-  </div>
-</div>

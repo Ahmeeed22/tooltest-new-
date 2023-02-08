@@ -41,10 +41,10 @@ export class Stepper2Component implements OnInit ,AfterViewInit {
     }
   ]
   firstFormGroup = this._formBuilder.group({
-    projectName: ['', Validators.required],
-    projectType: ['', Validators.required],
-    projectCategory: [, Validators.required],
-    desc : ['' , Validators.required]
+    projectTitle: ['',[ Validators.required , Validators.maxLength(100)]],
+    projectType: ['', Validators.required ],
+    // projectCategory: [, Validators.required],
+    desc : ['' , [Validators.required , Validators.maxLength(2000)]]
   });
   secondFormGroup = this._formBuilder.group({
     secondCtrl: ['',Validators.required],
@@ -52,6 +52,10 @@ export class Stepper2Component implements OnInit ,AfterViewInit {
   thirdFormGroup = this._formBuilder.group({
     thirdCtrl: [],
   });
+
+  thirdFormMain = this._formBuilder.group({
+    testing_technique :[null,Validators.required] 
+  })
   isEditable = true;
 
   stepperOrientation: Observable<StepperOrientation>;
@@ -60,18 +64,21 @@ export class Stepper2Component implements OnInit ,AfterViewInit {
 // nada
 
 isChecked: boolean = true;
-userForm1 = this._formBuilder.group({
-  asA: ['', Validators.required],
-  want: ['',Validators.required],
-  soThat: ['',Validators.required],
-  userFlow: ['', Validators.required],
+userStoryForm1 = this._formBuilder.group({
+  format:['user_story'],
+  use_case_title: ['', [Validators.required,Validators.maxLength(100)]],
+  asA: ['', [Validators.required,Validators.maxLength(100)]],
+  want: ['',[Validators.required,Validators.maxLength(3000)]],
+  soThat: ['',[Validators.required,Validators.maxLength(2200)]],
+  userFlow: ['', [Validators.required,Validators.maxLength(2500)]],
 });
-userForm2 = this._formBuilder.group({
-  title: ['', Validators.required],
-  desceiption: ['',Validators.required],
-  actor: ['',Validators.required],
-  precondtion: ['',Validators.required],
-  flow:['',Validators.required]
+useCaseForm2 = this._formBuilder.group({
+  format:['use_case'],
+  use_case_title: ['', [Validators.required,Validators.maxLength(100)]],
+  use_case_description: ['',[Validators.required,Validators.maxLength(3500)]],
+  actor: ['',[Validators.required,Validators.maxLength(100)]],
+  precondtion: ['',[Validators.required,Validators.maxLength(1700)]],
+  flow:['',[Validators.required,Validators.maxLength(2500)]]
 
 });
 sh: any
@@ -105,33 +112,32 @@ sh: any
   }
 
   goBack(stepper: MatStepper){
-    console.log(stepper.selectedIndex);
-    console.log(stepper.selectionChange);
-    
-    
     stepper.previous();
   }
 
   goForward(stepper: MatStepper){
-    this.firstFormGroup.controls.projectCategory.markAsTouched()
+      console.log(stepper);
       stepper.next();
   }
 
-
-  getResult(){
-    console.log(this.firstFormGroup.controls.projectCategory.value);
+  goForwardToComplet(stepper: MatStepper){
+    if(this.sh ===1){
+      this.userStoryForm1.markAllAsTouched()
+      if (this.userStoryForm1.valid && this.thirdFormMain.valid ) {
+        stepper.next()
+      }
+    }
+    if (this.sh ===0) {
+      this.useCaseForm2.markAllAsTouched()
+      if (this.useCaseForm2.valid && this.thirdFormMain.valid ) {
+        stepper.next()
+      }
+    }
     
   }
+
   resetWizard(){
     window.location.reload();
   }
 
-  // nada
-
-  addUserForm1() {
-    console.log(this.userForm1.value);
-  }
-  addUserForm2() {
-    console.log(this.userForm2.value);
-  }
 }
