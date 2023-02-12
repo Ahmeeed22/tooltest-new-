@@ -8,11 +8,13 @@ import {DragDropModule} from 'primeng/dragdrop';
 import { TableModule } from "primeng/table";
 import { ToastModule } from "primeng/toast";
 import { CardModule } from "primeng/card";
+import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 
 
 @NgModule({
   declarations: [
-    NavbarComponent
+    NavbarComponent,
+    PageNotFoundComponent
   ],
   imports: [
     CommonModule,
