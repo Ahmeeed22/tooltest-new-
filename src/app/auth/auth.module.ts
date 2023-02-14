@@ -9,6 +9,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { SharedModule } from '../shared/shared.module';
 import { RouterModule } from '@angular/router';
 import { HttpClientModule } from '@angular/common/http';
+import { CoreModule } from '../core/core.module';
 
 
 @NgModule({
@@ -22,7 +23,8 @@ import { HttpClientModule } from '@angular/common/http';
         AuthRoutingModule,
         ReactiveFormsModule,
         MaterialModule,
-        HttpClientModule
+        HttpClientModule,
+        CoreModule
     ]
 })
 export class AuthModule { }

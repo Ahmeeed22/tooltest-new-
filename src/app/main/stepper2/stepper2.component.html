@@ -30,12 +30,12 @@
           </form>
       </div>
     </mat-step>
-    <mat-step [editable]="isEditable">
+    <!-- <mat-step [editable]="isEditable">
         <div>
           <button mat-button matStepperPrevious class="btn btn-danger m-3" >Back</button>
           <button mat-button matStepperNext class="btn btn-success m-3" >Next</button>
         </div>
-    </mat-step>
+    </mat-step> -->
     <mat-step [stepControl]="sh? userStoryForm1:useCaseForm2" [editable]="isEditable">
       <div class="mx-auto box mt-3">
         <form [formGroup]="thirdFormMain" class="">
@@ -135,7 +135,7 @@
               </mat-form-field>
             </form>
             <div class="d-flex justify-content-end">
-              <button  [disabled]="stepper.selectedIndex === 0" mat-button (click)="goBack(stepper)" type="button">Back</button>
+              <button class="btn btn-danger m-3"  [disabled]="stepper.selectedIndex === 0" mat-button (click)="goBack(stepper)" type="button">Back</button>
               <button  mat-button matStepperNext class="btn btn-success m-3" (click)="goForwardToComplet(stepper)">Next</button>
             </div>
       </div>

@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 import { AuthService } from '../services/auth.service';
 
 @Component({
@@ -13,13 +14,14 @@ export class LoginComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required])
   })
-  constructor(private _authService: AuthService) { }
+  constructor(private _authService: AuthService , private router:Router) { }
 
   ngOnInit(): void {
   }
 
   onSubmit() {
     if(this.loginForm.invalid) {
+      console.log("invalid");
       return
     }
 
@@ -29,7 +31,9 @@ export class LoginComponent implements OnInit {
       role: "admin"
     }
 
-    this._authService.login(Login).subscribe(()=> {})
+    this._authService.login(Login).subscribe(()=> {
+      this.router.navigate(['/main/profile'])
+    })
   
   }
 

@@ -5,6 +5,8 @@ import {MatStepper, StepperOrientation} from '@angular/material/stepper';
 import {Observable} from 'rxjs';
 import {map} from 'rxjs/operators';
 import {BreakpointObserver} from '@angular/cdk/layout';
+import { Router } from '@angular/router';
+import { NgxSpinnerService } from 'ngx-spinner';
 export interface User {
   name: string;
   id?:Number
@@ -43,12 +45,9 @@ export class Stepper2Component implements OnInit ,AfterViewInit {
   firstFormGroup = this._formBuilder.group({
     projectTitle: ['',[ Validators.required , Validators.maxLength(100)]],
     projectType: ['', Validators.required ],
-    // projectCategory: [, Validators.required],
     desc : ['' , [Validators.required , Validators.maxLength(2000)]]
   });
-  secondFormGroup = this._formBuilder.group({
-    secondCtrl: ['',Validators.required],
-  });
+
   thirdFormGroup = this._formBuilder.group({
     thirdCtrl: [],
   });
@@ -61,7 +60,6 @@ export class Stepper2Component implements OnInit ,AfterViewInit {
   stepperOrientation: Observable<StepperOrientation>;
 
   mat_step_header:HTMLCollectionOf<Element>=document.getElementsByTagName('mat-step-header')
-// nada
 
 isChecked: boolean = true;
 userStoryForm1 = this._formBuilder.group({
@@ -82,9 +80,14 @@ useCaseForm2 = this._formBuilder.group({
 
 });
 sh: any
-//nada
   
-  constructor(private _formBuilder: FormBuilder, breakpointObserver: BreakpointObserver ,private elementRef:ElementRef) {
+  constructor(
+    private _formBuilder: FormBuilder,
+     breakpointObserver: BreakpointObserver ,
+     private elementRef:ElementRef,
+     private router:Router,
+     private spinnerService: NgxSpinnerService
+     ) {
     this.stepperOrientation = breakpointObserver
   .observe('(min-width: 1000px)')
   .pipe(map(({matches}) => (matches ? 'horizontal' : 'vertical')));
@@ -137,7 +140,13 @@ sh: any
   }
 
   resetWizard(){
-    window.location.reload();
+    this.spinnerService.show()
+    setTimeout(() => {
+      this.spinnerService.hide()
+      
+    }, 1000);
+  //  this.router.navigate(['/main/profile'])
+
   }
 
 }
