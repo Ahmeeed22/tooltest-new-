@@ -24,24 +24,6 @@ export interface User {
 })
 
 export class Stepper2Component implements OnInit ,AfterViewInit {
-  categories: {}[]= [
-    {
-      name: 'category 1',
-      id: 1
-    },
-    {
-      name: 'category 2',
-      id: 2
-    },
-    {
-      name: 'category 3',
-      id: 3
-    },
-    {
-      name: 'category 4',
-      id: 4
-    }
-  ]
   firstFormGroup = this._formBuilder.group({
     projectTitle: ['',[ Validators.required , Validators.maxLength(100)]],
     projectType: ['', Validators.required ],

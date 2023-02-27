@@ -18,7 +18,7 @@ import {MatNativeDateModule, MatRippleModule, MAT_DATE_LOCALE} from '@angular/ma
 import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {ButtonModule} from 'primeng/button';
 import {MatTreeModule} from '@angular/material/tree';
-
+import {MatListModule} from '@angular/material/list';
 @NgModule({
   imports: [],
   exports: [
@@ -40,7 +40,8 @@ import {MatTreeModule} from '@angular/material/tree';
     MatTableModule,
     MatStepperModule,
     ButtonModule,
-    MatTreeModule
+    MatTreeModule,
+    MatListModule
   ],
 })
 export class MaterialModule { }

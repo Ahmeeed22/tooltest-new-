@@ -32,14 +32,14 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
     NgxSpinnerModule,
     ProgressSpinnerModule,
     CoreModule,
-    TranslateModule.forRoot({
-      defaultLanguage:'en',
-      loader: {
-          provide: TranslateLoader,
-          useFactory: HttpLoaderFactory,
-          deps: [HttpClient]
-      }
-  }),
+  //   TranslateModule.forRoot({
+  //     defaultLanguage:'en',
+  //     loader: {
+  //         provide: TranslateLoader,
+  //         useFactory: HttpLoaderFactory,
+  //         deps: [HttpClient]
+  //     }
+  // }),
  
     
   ],
@@ -48,6 +48,6 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 })
 export class AppModule { }
 // required for AOT compilation
-export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
-  return new TranslateHttpLoader(http);
-}
+// export function HttpLoaderFactory(http: HttpClient): TranslateHttpLoader {
+//   return new TranslateHttpLoader(http);
+// }

@@ -2,66 +2,43 @@
   <div class="main-body">
     <div class="row">
       <div class="col-lg-6">
-        <div class="add">
-          <mat-form-field appearance="fill">
-            <mat-label>New item...</mat-label>
-            <input matInput #projectNameValue placeholder="Ex. Lettuce">
+        <div class="d-flex">
+          <mat-form-field appearance="outline" class="w-25 rounded" style="border-radius: 20px !important">
+            <mat-label>new test plane</mat-label>
+            <input matInput currencyMask type="text" #testplan placeholder="Test Plane">
           </mat-form-field>
-          <button class="btn btn-secondary" (click)="addProjectMain(projectNameValue.value)">add project </button>
+          <button mat-flat-button class="btn btn-success  mx-2 px-3 py-1"
+            (click)="addTestPlane(testplan.value)">Create</button>
         </div>
 
-        <mat-tree [dataSource]="dataSource" [treeControl]="treeControl">
-          <mat-tree-node style="margin-top: -40px;" *matTreeNodeDef="let node" matTreeNodeToggle matTreeNodePadding>
-            <button  mat-icon-button disabled></button>
-            <!-- <mat-checkbox class="checklist-leaf-node"
-                          [checked]="checklistSelection.isSelected(node)"
-                          (change)="todoLeafItemSelectionToggle(node)"> -->
-                          <div *ngIf="node.item !='flag'" class=" mt-5 w-100 bg-light" (click)="testClick(node)">
-                            <!-- <div    class=" m-3 w-100 bg-light" (click)="testClick(node)">  -->
-                                <p class="p-1">{{node.item}}</p>
-                              <!-- </div> -->
-                          </div>
-                          <!-- <p class="pt-3">{{node.item}}</p> -->
-                        <!-- </mat-checkbox> -->
-          </mat-tree-node>
-        
-          <mat-tree-node *matTreeNodeDef="let node; when: hasNoContent" matTreeNodePadding>
-            <button mat-icon-button disabled></button>
-            <mat-form-field appearance="fill">
-              <mat-label>New item...</mat-label>
-              <input matInput #itemValue placeholder="Ex. Lettuce">
-            </mat-form-field>
-            <button mat-button (click)="saveNode(node, itemValue.value)">Save</button>
-          </mat-tree-node>
-        
-          <mat-tree-node *matTreeNodeDef="let node; when: hasChild" matTreeNodePadding>
-            <button mat-icon-button matTreeNodeToggle
-                    [attr.aria-label]="'Toggle ' + node.item">
-              <mat-icon class="mat-icon-rtl-mirror">
-                {{treeControl.isExpanded(node) ? 'expand_more' : 'chevron_right'}}
-              </mat-icon>
-            </button>
-            <!-- <mat-checkbox  [checked]="descendantsAllSelected(node)"
-                          [indeterminate]="descendantsPartiallySelected(node)"
-                          (change)="todoItemSelectionToggle(node)"> -->
-                          <!-- <button  mat-button matStepperNext class="btn btn-success m-3" (click)="testClick(node)">   <p class="pt-3">{{node.item}}</p></button> -->
-                          <p class="pt-3">{{node.item}}</p>
-                        <!-- </mat-checkbox> -->
-            <button mat-icon-button (click)="addNewItem(node)"><mat-icon>add</mat-icon></button>
-          </mat-tree-node>
-        </mat-tree>
-        
+        <ul>
+          <li *ngFor="let folder of tree  ;let index=index">
+            <button mat-icon-button (click)="expandList($event, index)" [id]="index+'btn'"><i
+                class="fa-solid fa-arrow-right-long"></i></button>
+            {{folder.name}}
+            <button mat-icon-button (click)="addTestCase(index)"><mat-icon>add</mat-icon></button>
+            <ul *ngIf="folder.testCases.length>0" class="pl-5 d-none" [id]="index+'testCases'">
+              <li *ngFor="let testCases of folder.testCases  ;let i=index">
+                {{testCases.name}}
+              </li>
+
+            </ul>
+            <div class="addneww d-none" [id]="index+'test'">
+              <mat-form-field appearance="fill">
+                <mat-label>New item...</mat-label>
+                <input matInput #itemValue placeholder="Ex. Lettuce">
+              </mat-form-field>
+              <button mat-button (click)="saveNode(itemValue.value ,index)">Save</button>
+            </div>
+          </li>
+        </ul>
       </div>
       <div class="col-lg-6">
         <div class="card">
           <div class="card-body">
             <div class="d-flex flex-column align-items-center text-center">
-              <img
-                src="https://bootdey.com/img/Content/avatar/avatar6.png"
-                alt="Admin"
-                class="rounded-circle p-1 bg-primary"
-                width="110"
-              />
+              <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin"
+                class="rounded-circle p-1 bg-primary" width="110" />
               <div class="mt-3">
                 <h4>John Doe</h4>
                 <p class="text-secondary mb-1">Full Stack Developer</p>
@@ -73,9 +50,9 @@
               </div>
             </div>
             <hr class="my-4" />
-           
+
           </div>
         </div>
       </div>
+    </div>
   </div>
-</div>

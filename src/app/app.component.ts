@@ -44,24 +44,24 @@ export class AppComponent implements OnInit{
   ];
   dataSource = ELEMENT_DATA;
 
+  // private translate: TranslateService,
   constructor(
-    private translate: TranslateService,
     private spinnerService: NgxSpinnerService,
     private _authService: AuthService
   ) {
     this.typeSelected = 'ball-fussion';
-    if ('lang' in localStorage) {
-      this.lang = localStorage.getItem('lang');
-      translate.use(this.lang);
-    } else {
-      translate.use('en');
-    }
+    // if ('lang' in localStorage) {
+    //   this.lang = localStorage.getItem('lang');
+    //   translate.use(this.lang);
+    // } else {
+    //   translate.use('en');
+    // }
 
     this.spinnerService.show();
 
     setTimeout(() => {
       this.spinnerService.hide();
-      console.log(this.translate.currentLang);
+      // console.log(this.translate.currentLang);
     }, 3000);
   }
 
