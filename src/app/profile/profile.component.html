@@ -11,14 +11,14 @@
             (click)="addTestPlane(testplan.value)">Create</button>
         </div>
 
-        <ul>
+        <ul *ngIf="tree.length>0">
           <li *ngFor="let folder of tree  ;let index=index">
             <button mat-icon-button (click)="expandList($event, index)" [id]="index+'btn'"><i
                 class="fa-solid fa-arrow-right-long"></i></button>
             {{folder.name}}
             <button mat-icon-button (click)="addTestCase(index)"><mat-icon>add</mat-icon></button>
-            <ul *ngIf="folder.testCases.length>0" class="pl-5 d-none" [id]="index+'testCases'">
-              <li *ngFor="let testCases of folder.testCases  ;let i=index">
+            <ul *ngIf="folder.testcases.length>0" class="pl-5 d-none" [id]="index+'testCases'">
+              <li *ngFor="let testCases of folder.testcases;let i=index">
                 {{testCases.name}}
               </li>
 
@@ -28,7 +28,7 @@
                 <mat-label>New item...</mat-label>
                 <input matInput #itemValue placeholder="Ex. Lettuce">
               </mat-form-field>
-              <button mat-button (click)="saveNode(itemValue.value ,index)">Save</button>
+              <button mat-button (click)="saveNode(itemValue.value ,index)">Save test case</button>
             </div>
           </li>
         </ul>

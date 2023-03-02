@@ -12,14 +12,15 @@ export class AuthGuard implements CanLoad {
     route: Route,
     segments: UrlSegment[]): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
     
-      return this._authService.signedin$.pipe(
-        skipWhile((val)=> val === null),
-        take(1),
-        tap((authenticated)=> {
-          if(!authenticated) {
-            this._router.navigate(['/'])
-          }
-        })
-      )
+      return true ;
+      //  this._authService.signedin$.pipe(
+      //   skipWhile((val)=> val === null),
+      //   take(1),
+      //   tap((authenticated)=> {
+      //     if(!authenticated) {
+      //       this._router.navigate(['/'])
+      //     }
+      //   })
+      // )
   }
 }

@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
-import { BehaviorSubject, tap } from 'rxjs';
+import { BehaviorSubject, Observable, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -21,6 +21,10 @@ export class AuthService {
       })
     )
   }
+  getTreeData(data?:any):Observable<any>{
+    return this.http.post('http://test.toollogic.casesfly.ai/api/login',{ email:"fortec.summy@gmail.com",
+    password:"123456"})
+  }
 
   checkAuth() {
     let token= localStorage.getItem('token');
@@ -32,6 +36,13 @@ export class AuthService {
     }
   }
 
+  addwizard(data:any):Observable<any>{ 
+    return this.http.post('http://test.toollogic.casesfly.ai/api/TestCaseTool/add-wizard',data)
+  }
+
+  dealingAi(data:any):Observable<any>{
+    return this.http.post('http://test.toollogic.casesfly.ai/api/TestCaseTool/dealing-with-ai',data)
+  }
   logout() {
     localStorage.removeItem('token');
     this.signedin$.next(false)

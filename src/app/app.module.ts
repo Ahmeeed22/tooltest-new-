@@ -15,10 +15,14 @@ import { NgxSpinnerModule } from 'ngx-spinner';
 import {ProgressSpinnerModule} from 'primeng/progressspinner';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
+import { ProfileComponent } from './profile/profile.component';
+import { Stepper2Component } from './stepper2/stepper2.component';
 
 @NgModule({
   declarations: [
     AppComponent,
+     ProfileComponent,
+     Stepper2Component
   ],
   imports: [
     BrowserModule,
@@ -32,6 +36,9 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
     NgxSpinnerModule,
     ProgressSpinnerModule,
     CoreModule,
+    ReactiveFormsModule,
+    FormsModule,
+    
   //   TranslateModule.forRoot({
   //     defaultLanguage:'en',
   //     loader: {
