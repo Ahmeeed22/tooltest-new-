@@ -154,7 +154,7 @@
 
   <div class="listBox" *ngIf="!flagTable">
     <div class="table-responsive"  id="print-section" >
-          <table class="table table-hover " >
+          <table class="table table-hover " #table >
             <thead>
               <tr class=" text-white text-light" >
                 <th >Result</th>
@@ -168,7 +168,7 @@
           </table>
     </div>
     <div class="btns mr-0">
-      <button class="btn btn-success m-2 p-1">Export to Excel</button>
+      <button class="btn btn-success m-2 p-1" (click)="fireEvent()">Export to Excel</button>
       <button class="btn btn-info m-2 p-1" routerLink="./profile">Go to Profile</button>
     </div>
   </div>
