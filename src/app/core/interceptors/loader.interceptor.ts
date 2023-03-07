@@ -19,9 +19,12 @@ export class LoaderInterceptor implements HttpInterceptor {
   }
 
   intercept(request: HttpRequest<unknown>, next: HttpHandler): Observable<HttpEvent<unknown>> {
+    console.log("show");
     this.spinnerService.show()
     return next.handle(request).pipe(finalize(() =>{
        this.spinnerService.hide()
+       console.log("hide");
+       
       }))
   }
 }

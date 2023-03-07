@@ -1,11 +1,11 @@
-  <mat-stepper linear #stepper class="mt-5"    labelPosition="bottom"  [orientation]="(stepperOrientation | async)!"  animationDuration="1300">
+  <mat-stepper *ngIf="flagTable" linear #stepper class="mt-5"    labelPosition="bottom"  [orientation]="(stepperOrientation | async)!"  animationDuration="1300">
     <mat-step [stepControl]="firstFormGroup" [editable]="isEditable" class="">
       <div class="m-auto">
         <form [formGroup]="firstFormGroup" class="box">
             <ng-template matStepLabel>Project Info</ng-template>
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Project Title</mat-label>
-              <input matInput formControlName="project_title" placeholder="Project Title e.g. Project Title: XYZ XYZ is E- commerce project that focuses on providing innovative solutions to everyday problems." spellcheck="true" required>
+              <input matInput formControlName="project_title" placeholder="Project Title e.g. Project Title: XYZ XYZ is E- commerce project that focuses on providing innovative solutions to everyday problems." spellcheck="true" required [readonly]="flag">
               <mat-error *ngIf="firstFormGroup.get('project_title')?.touched && firstFormGroup.get('project_title')?.hasError('required')">required</mat-error>
               <mat-error *ngIf="firstFormGroup.get('project_title')?.touched && firstFormGroup.get('project_title')?.hasError('maxlength')">max length 100 char</mat-error>
             </mat-form-field>
@@ -20,7 +20,7 @@
             </mat-form-field>
             <mat-form-field appearance="outline" class="w-100 mt-1">
                 <mat-label>Project description & Actors</mat-label>
-                <textarea rows="10" matInput formControlName="desc" placeholder="e.g.  This project is a web application that will allow users to create and share events. Users will be able to create events including details such as date, time, location, and description. They will also be able to invite other users to their events. Actors: 1. User: A registered user of the application who can create, view, and manage their own events. 2. Event Host: A registered user who can create and host events to which other users can be invited. 3. Invitee: A user who is invited to an event by an Event Host. 4. Admin: A privileged user who can manage and control the application." required></textarea>
+                <textarea rows="10" matInput formControlName="desc" placeholder="e.g.  This project is a web application that will allow users to create and share events. Users will be able to create events including details such as date, time, location, and description. They will also be able to invite other users to their events. Actors: 1. User: A registered user of the application who can create, view, and manage their own events. 2. Event Host: A registered user who can create and host events to which other users can be invited. 3. Invitee: A user who is invited to an event by an Event Host. 4. Admin: A privileged user who can manage and control the application." required  [readonly]="flag"></textarea>
                 <mat-error *ngIf="firstFormGroup.get('desc')?.touched && firstFormGroup.get('desc')?.hasError('required')">required</mat-error>
                 <mat-error *ngIf="firstFormGroup.get('desc')?.touched && firstFormGroup.get('desc')?.hasError('maxlength')">max length 2000 char</mat-error>
               </mat-form-field>
@@ -151,3 +151,24 @@
       </div>
     </mat-step>
   </mat-stepper>
+
+  <div class="listBox" *ngIf="!flagTable">
+    <div class="table-responsive"  id="print-section" >
+          <table class="table table-hover " >
+            <thead>
+              <tr class=" text-white text-light" >
+                <th >Result</th>
+              </tr>
+            </thead>
+            <tbody >
+              <tr class=" border" *ngFor="let data of result  ;let index=index" style="text-align: left;">
+                <td  class="disable-text-selection">{{data}}</td>
+              </tr>
+            </tbody>
+          </table>
+    </div>
+    <div class="btns mr-0">
+      <button class="btn btn-success m-2 p-1">Export to Excel</button>
+      <button class="btn btn-info m-2 p-1" routerLink="./profile">Go to Profile</button>
+    </div>
+  </div>

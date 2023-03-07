@@ -28,7 +28,8 @@ export class Stepper2Component implements OnInit ,AfterViewInit {
   wizarFinalData:any={}
   finalData :any ;
   firstFormGroup :any ;
-
+  flag:boolean=false;
+  flagTable:boolean=true
   thirdFormGroup = this._formBuilder.group({
     thirdCtrl: [],
   });
@@ -78,26 +79,27 @@ example:any;
   const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as {example: string};
     this.example = state;
+    if(this.example?.example[this.example.indexP]?.project_title){
+      localStorage.setItem('project_title',this.example?.example[this.example.indexP]?.project_title)
+      localStorage.setItem('project_description',this.example?.example[this.example.indexP]?.project_description)
+      this.flag=true
+    }
+    if(localStorage.getItem('project_title'))this.flag=true
     // this.example.example[this.example.indexP].project_title||
     // this.example.example[this.example.indexP].project_description||
     this.firstFormGroup= this._formBuilder.group({
-      project_title: [this.example.example[this.example.indexP].project_title||'',[ Validators.required , Validators.maxLength(100)]],
+      project_title:  [localStorage.getItem('project_title')||'',[ Validators.required , Validators.maxLength(100)]],
       projectType: ['', ],
-      desc : [this.example.example[this.example.indexP].project_description||'' , [Validators.required , Validators.maxLength(2000)]]
+      desc : [localStorage.getItem('project_description')||'' , [Validators.required , Validators.maxLength(2000)]]
     });
     console.log(this.example );
     
 }
-
-// auto complete
-// projectCategory = new FormControl<string | User>('');
   options: User[] = [{name: 'Mary',id:1}, {name: 'Shelley',id:2}, {name: 'Igor',id:3}];
   filteredOptions?: Observable<User[]>;
   x:any ;
   ngOnInit() {
   //   this.x=this._ActivatedRoute.snapshot.paramMap.getAll('name')
-  //  console.log(this.x);
-  // console.log(this.router.getCurrentNavigation()?.extras.state); // should log out 'bar'
 }
 
 
@@ -144,32 +146,12 @@ example:any;
       this.spinnerService.hide()
       
     }, 1000);
-  //  this.router.navigate(['/main/profile'])
 
   }
-//   {
-//     "user_id": 9,
-//     "test_plan_name": "folder1",
-//     "test_plan_description": "sdsdsd",
-//     "project_title": "project_t",
-//     "project_description": "descibe it",
-//     "test_cases": [
-//         {
-//             "name": "sdsd",
-//             "description": "wwdwd"
-//         },
-//         {
-//             "name": "wwwww",
-//             "description": "qwqwqwq"
-//         }
-//     ]
-// }
+  result:any;
   getheringData(){
     const {project_title ,desc:project_description}=this.firstFormGroup.value ;
   this.wizarFinalData ={project_title,project_description ,...this.example.example[this.example.indexP] , user_id:this.example.user_id}
-  // const obj = { oldKey: 'value' };
-  // obj['newKey'] = obj['oldKey'];
-  // delete obj['oldKey'];
    console.log(this.wizarFinalData);
    this.wizarFinalData['plan_id']= this.wizarFinalData['id'] ;
    delete this.wizarFinalData['id'];
@@ -180,23 +162,6 @@ example:any;
    if(!this.wizarFinalData['plan_id']) delete this.wizarFinalData['plan_id'];
   //  this.wizarFinalData['test_cases'][this.wizarFinalData['test_cases'].length].description="test"
    delete this.wizarFinalData['indexP'];
-  //  console.log(this.wizarFinalData); testcases
-
-    this._AuthService.addwizard(this.wizarFinalData).subscribe({
-      next: (res)=>{
-        console.log(res);
-        
-      },
-      error : (err)=>{
-        console.log(err);
-        
-      }
-    })
-  //  console.log(this.userStoryForm1.value); 
-
-  //  console.log(this.useCaseForm2.value);
-
-  //  console.log(this.thirdFormMain.value);
     var selectedTech= this.sh ? this.userStoryForm1.value : this.useCaseForm2.value
     this.finalData ={format : this.sh?'user_story':'use_case'  ,...this.thirdFormMain.value,project_title,project_description,...selectedTech}
     this.finalData['project_name']= this.finalData['project_title'] ;
@@ -205,12 +170,25 @@ example:any;
     this._AuthService.dealingAi(this.finalData).subscribe({
       next :(res)=>{
         console.log(res);
-        
+        console.log(res.data.toString());
+        console.log(res.data);
+        this.result=res.data
+        this.flagTable=!this.flagTable
+        this._AuthService.addwizard(this.wizarFinalData).subscribe({
+          next: (res)=>{
+          },
+          error : (err)=>{
+            console.log(err);
+            
+          }
+        })
       },
       error : (err)=>{
         console.log(err);
         
       }
     })
+    localStorage.removeItem("project_title");
+    localStorage.removeItem("project_description")
   }
 }

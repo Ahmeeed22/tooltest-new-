@@ -22,9 +22,9 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     ButtonModule,
     DropdownModule,
     DragDropModule,
-TableModule,
-ToastModule,
-CardModule
+    TableModule,
+    ToastModule,
+    CardModule
  
   ],
   exports:[
