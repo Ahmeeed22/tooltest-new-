@@ -144,9 +144,9 @@ example:any;
 
   resetWizard(){
     this.getheringData()
-    this.spinnerService.show()
+    // this.spinnerService.show()
     setTimeout(() => {
-      this.spinnerService.hide()
+      // this.spinnerService.hide()
       
     }, 1000);
 

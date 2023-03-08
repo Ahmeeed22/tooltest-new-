@@ -57,12 +57,12 @@ export class AppComponent implements OnInit{
     //   translate.use('en');
     // }
 
-    this.spinnerService.show();
+    // this.spinnerService.show();
 
-    setTimeout(() => {
-      this.spinnerService.hide();
-      // console.log(this.translate.currentLang);
-    }, 3000);
+    // setTimeout(() => {
+    //   this.spinnerService.hide();
+    //   // console.log(this.translate.currentLang);
+    // }, 3000);
   }
 
   ngOnInit() {
