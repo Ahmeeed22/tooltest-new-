@@ -1,5 +1,6 @@
 import {Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
 
@@ -19,10 +20,14 @@ export class ProfileComponent  {
   @ViewChildren('itemValue') itemValue!: QueryList<ElementRef>;
   tree :any[] =[]
   user_id:any;
-  constructor( private router:Router , private _AuthService:AuthService) {
+  userDate:any ;
+  constructor( private router:Router , private _AuthService:AuthService ,private toaster:ToastrService) {
     this._AuthService.getTreeData().subscribe({
       next: (res)=>{
         console.log(res);
+        this.userDate=res.data
+        console.log( this.userDate);
+        
         this.user_id=res.data.id ;
         console.log(this.user_id);
         this.tree=res.data.test_plans
@@ -35,8 +40,12 @@ export class ProfileComponent  {
       }
     })
   }
-  addTestPlane(nameOfTestPlane:any){
-    this.tree.push({name:nameOfTestPlane ,testcases:[]})
+  addTestPlane(nameOfTestPlane:string){
+    if (nameOfTestPlane.trim().length>0) {
+      this.tree.push({name:nameOfTestPlane ,testcases:[]})
+    } else{
+      this.toaster.warning("faild add test plan with name empty")
+    }
   }
 
   addTestCase(index:number){
@@ -46,13 +55,16 @@ export class ProfileComponent  {
 
 
   saveNode(x:any,index:number){
-    this.tree[index].testcases.push({name:x})
-    let ele=document.getElementById(`${index}test`)
-    ele?.classList.toggle('d-none')
-    this.itemValue.toArray().forEach(val => val.nativeElement.value = null);
-    // this.router.navigate(['action-selection'], { state: { example: 'bar' } });
-    this.router.navigate(['/ai'], { state: { example: this.tree , indexP:index ,user_id:this.user_id} });
-    
+    if (x.trim().length>0) {
+      this.tree[index].testcases.push({name:x})
+      let ele=document.getElementById(`${index}test`)
+      ele?.classList.toggle('d-none')
+      this.itemValue.toArray().forEach(val => val.nativeElement.value = null);
+      // this.router.navigate(['action-selection'], { state: { example: 'bar' } });
+      this.router.navigate(['/ai'], { state: { example: this.tree , indexP:index ,user_id:this.user_id} });
+     }else{
+      this.toaster.warning("faild add test case with name empty")
+     }
   }
 
   expandList(e:any,i:number){

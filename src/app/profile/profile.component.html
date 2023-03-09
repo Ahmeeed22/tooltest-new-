@@ -2,55 +2,59 @@
   <div class="main-body">
     <div class="row">
       <div class="col-lg-6">
-        <div class="d-flex">
-          <mat-form-field appearance="outline" class="w-25 rounded" style="border-radius: 20px !important">
-            <mat-label>new test plane</mat-label>
-            <input matInput currencyMask type="text" #testplan placeholder="Test Plane">
-          </mat-form-field>
-          <button mat-flat-button class="btn btn-success  mx-2 px-3 py-1"
-            (click)="addTestPlane(testplan.value)">Create</button>
-        </div>
+        <div class="shadow p-2 rounded mb-3" >
+            <div class="right">
+              <h3 style="font-size: 22px;" class= "mt-0 text-info font-weight">Add New Test Plan</h3>
+            </div>
+            <div class="parennt d-flex  justify-content-center  my-4">
+              <mat-form-field appearance="outline" class="w-50 rounded" style="border-radius: 20px !important">
+                <mat-label>new test plan</mat-label>
+                <input matInput currencyMask type="text" #testplan placeholder="Test Plan">
+              </mat-form-field>
+              <button class="btn ml-4 addbtn" (click)="addTestPlane(testplan.value)" >Add Test Plan</button>
+            </div>
+         </div>
 
-        <ul *ngIf="tree.length>0">
+        <ul *ngIf="tree.length!= 0 " >
           <li *ngFor="let folder of tree  ;let index=index">
-            <button mat-icon-button (click)="expandList($event, index)" [id]="index+'btn'"><i
-                class="fa-solid fa-arrow-right-long"></i></button>
-            {{folder.name}}
-            <button mat-icon-button (click)="addTestCase(index)"><mat-icon>add</mat-icon></button>
-            <ul *ngIf="folder.testcases.length>0" class="pl-5 d-none" [id]="index+'testCases'">
-              <li *ngFor="let testCases of folder.testcases;let i=index">
+            <div class="d-flex">
+              <button mat-icon-button (click)="expandList($event, index)" [id]="index+'btn'" class="bg-light border border-info  mx-2 d-flex justify-content-center align-items-center"><i
+                  class="fa-solid fa-arrow-right-long"></i></button>
+              <p class="p-2 font-weight-bold">{{folder.name}}</p> 
+              <button mat-icon-button (click)="addTestCase(index)"><mat-icon>add</mat-icon></button>
+            </div>
+
+            <ul *ngIf="folder.testcases.length!=0" class="pl-5 d-none" [id]="index+'testCases'">
+              <li *ngFor="let testCases of folder.testcases;let i=index" class="my-2 p-2 shadow text-info w-75">
                 {{testCases.name}}
               </li>
 
             </ul>
             <div class="addneww d-none" [id]="index+'test'">
-              <mat-form-field appearance="fill">
-                <mat-label>New item...</mat-label>
-                <input matInput #itemValue placeholder="Ex. Lettuce">
+              <mat-form-field appearance="outline">
+                <mat-label>New Test Case</mat-label>
+                <input matInput #itemValue placeholder="Ex. login" class="w-75" currencyMask required />
               </mat-form-field>
-              <button mat-button (click)="saveNode(itemValue.value ,index)">Save test case</button>
+              <button class="btn btn-info" mat-button (click)="saveNode(itemValue.value ,index)">Save test case</button>
             </div>
           </li>
         </ul>
       </div>
       <div class="col-lg-6">
         <div class="card">
-          <div class="card-body">
+          <div *ngIf="userDate" class="card-body">
             <div class="d-flex flex-column align-items-center text-center">
               <img src="https://bootdey.com/img/Content/avatar/avatar6.png" alt="Admin"
                 class="rounded-circle p-1 bg-primary" width="110" />
               <div class="mt-3">
-                <h4>John Doe</h4>
-                <p class="text-secondary mb-1">Full Stack Developer</p>
-                <p class="text-muted font-size-sm">
-                  Bay Area, San Francisco, CA
-                </p>
-                <button class="btn btn-primary">Follow</button>
-                <button class="btn btn-outline-primary">Message</button>
+                <h4>{{userDate?.name}}</h4>
+                <p class="text-secondary my-1">{{userDate?.email}}</p>
+               
+                <!-- <button class="btn btn-primary m-2">Follow</button>
+                <button class="btn btn-outline-primary m-2">Message</button> -->
               </div>
             </div>
             <hr class="my-4" />
-
           </div>
         </div>
       </div>

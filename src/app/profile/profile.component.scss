@@ -1,3 +1,22 @@
 .mat-form-field {
     margin-right: 4px;
   }
+  .addbtn {
+    color: #FFF;
+    margin: 0 5px;
+    background-color: #63e38a!important;
+    // rgb(28, 146, 28)!important;
+    color: #fff;
+    padding: 2px 23px;
+    font-size: 20px;
+    height: 42px;
+    margin-top: 7px;
+}
+
+button{
+  transition: all .4s;
+  border-radius: 13px;
+}
+button:hover{
+  border-radius: 30px;
+}

@@ -1,8 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 html, body { height: 100%; }
-body { margin: 0;padding: 0; font-family: Roboto, "Helvetica Neue", sans-serif; box-sizing: border-box;}
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+body { margin: 0; font-family: 'Montserrat', sans-serif; box-sizing: border-box; }
 .p-dropdown {
     display: block;
     width: 100% !important;
@@ -11,11 +9,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .is-iiinvalid{
     border-color: #f44336;
     border-width:2.5px ;
-}
-
-.mat-stepper-label-position-bottom .mat-horizontal-stepper-header {
-  // background-color: aquamarine !important;
-
 }
 
 .mat-step-icon {
