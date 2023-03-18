@@ -38,7 +38,7 @@ export class Stepper2Component implements OnInit ,AfterViewInit {
   });
 
   thirdFormMain = this._formBuilder.group({
-    testing_technique :[null,Validators.required] 
+    testing_technique :['rf',Validators.required] 
   })
   isEditable = true;
 

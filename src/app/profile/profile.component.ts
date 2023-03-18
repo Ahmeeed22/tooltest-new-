@@ -1,4 +1,5 @@
 import {Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/auth/services/auth.service';
@@ -21,7 +22,7 @@ export class ProfileComponent  {
   tree :any[] =[]
   user_id:any;
   userDate:any ;
-  constructor( private router:Router , private _AuthService:AuthService ,private toaster:ToastrService) {
+  constructor( private router:Router , private _AuthService:AuthService ,private toaster:ToastrService,  private _formBuilder: FormBuilder,) {
     this._AuthService.getTreeData().subscribe({
       next: (res)=>{
         console.log(res);
@@ -40,11 +41,21 @@ export class ProfileComponent  {
       }
     })
   }
+
+  testPlanForm = this._formBuilder.group({
+    name: ['', [Validators.required]],
+  });
+  testCaseForm = this._formBuilder.group({
+    name: ['', [Validators.required]],
+  });
+
   addTestPlane(nameOfTestPlane:string){
     if (nameOfTestPlane.trim().length>0) {
       this.tree.push({name:nameOfTestPlane ,testcases:[]})
+      this.testPlanForm.controls['name'].patchValue(' ')
     } else{
-      this.toaster.warning("faild add test plan with name empty")
+      this.testPlanForm.controls['name'].patchValue(null)
+      this.toaster.error("faild add test plan with name empty")
     }
   }
 
@@ -62,8 +73,10 @@ export class ProfileComponent  {
       this.itemValue.toArray().forEach(val => val.nativeElement.value = null);
       // this.router.navigate(['action-selection'], { state: { example: 'bar' } });
       this.router.navigate(['/ai'], { state: { example: this.tree , indexP:index ,user_id:this.user_id} });
+      this.testCaseForm.controls['name'].patchValue(' ')
      }else{
-      this.toaster.warning("faild add test case with name empty")
+      this.toaster.error("faild add test case with name empty");
+      this.testCaseForm.controls['name'].patchValue(null)
      }
   }
 
