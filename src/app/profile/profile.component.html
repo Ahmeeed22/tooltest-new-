@@ -32,7 +32,7 @@
             <div class="addneww d-none pl-5 " [id]="index+'test'">
               <form [formGroup]="testCaseForm" class=" w-100" >
                 <mat-form-field appearance="outline" class="w-100 rounded " style="border-radius: 20px !important">
-                  <mat-label>new test plan</mat-label>
+                  <mat-label>new test case</mat-label>
                   <input matInput  formControlName="name" currencyMask type="text" (keydown.space)="preventSpaceAtBegging($event)"  #itemValue placeholder="Ex. login" required>
                 </mat-form-field>
                 <div class="d-flex justify-content-end">
