@@ -50,22 +50,9 @@ export class AppComponent implements OnInit{
     private _authService: AuthService
   ) {
     this.typeSelected = 'ball-fussion';
-    // if ('lang' in localStorage) {
-    //   this.lang = localStorage.getItem('lang');
-    //   translate.use(this.lang);
-    // } else {
-    //   translate.use('en');
-    // }
-
-    // this.spinnerService.show();
-
-    // setTimeout(() => {
-    //   this.spinnerService.hide();
-    //   // console.log(this.translate.currentLang);
-    // }, 3000);
+  
   }
 
   ngOnInit() {
-    this._authService.checkAuth()
   }
 }
