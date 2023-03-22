@@ -23,6 +23,7 @@ export class ProfileComponent  {
   user_id:any;
   name:any;
   userDate:any ;
+  subscripted:boolean=false;
   constructor( private router:Router , private _AuthService:AuthService ,private toaster:ToastrService,  private _formBuilder: FormBuilder,) {
     this._AuthService.getTreeData().subscribe({
       next: (res)=>{
@@ -31,6 +32,7 @@ export class ProfileComponent  {
         this.user_id=res.data.id ;
         this.name=res.data.name
         this.tree=res.data.test_plans
+        this.subscripted=res.data.sub_subscription_plans.length>0?true:false
       }
     })
   }
@@ -60,6 +62,15 @@ export class ProfileComponent  {
 
   saveNode(x:any,index:number){
     if (x.trim().length>0) {
+      this.userDate.test_plans[index]
+      for (let indexx = 0; indexx < this.userDate.test_plans[index].testcases.length; indexx++) {
+        // console.log(x,this.userDate.test_plans[index].testcases[indexx].name);
+        if (x ==  this.userDate.test_plans[index].testcases[indexx].name) {
+          this.toaster.error('this name exit please trying with another name')
+          return ;
+        } 
+      }
+      console.log('no error');
         if ((this.userDate.sub_subscription_plans.length==0 && this.userDate.limit_test_case==0)||this.userDate.limit_test_case==0) {
           window.open("https://casesfly.ai/pricing-new", "_blank");
         } else {
@@ -69,7 +80,7 @@ export class ProfileComponent  {
           ele?.classList.toggle('d-none')
           this.itemValue.toArray().forEach(val => val.nativeElement.value = null);
           // this.router.navigate(['action-selection'], { state: { example: 'bar' } });
-          this.router.navigate(['/ai'], { state: { example: this.tree , indexP:index ,user_id:this.user_id,name:this.name} });
+          this.router.navigate(['/ai'], { state: { example: this.tree , indexP:index ,user_id:this.user_id,name:this.name,subscripted:this.subscripted} });
           this.testCaseForm.controls['name'].patchValue(' ')
         }
      }else{
@@ -89,7 +100,7 @@ export class ProfileComponent  {
           ele?.classList.toggle('d-none')
           e.stopPropagation()
   }
-  // `(keydown.space)="preventSpaceAtBegging($event);`
+  // prevent space at first on input
   preventSpaceAtBegging(event:any){
     if (event.target.value.length>=1) {
       console.log(true);

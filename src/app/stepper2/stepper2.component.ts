@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../auth/services/auth.service';
 import * as XLSX from "xlsx";
+import { ToastrService } from 'ngx-toastr';
 export interface User {
   name: string;
   id?: Number
@@ -73,6 +74,7 @@ export class Stepper2Component implements OnInit, AfterViewInit {
     private spinnerService: NgxSpinnerService,
     private _ActivatedRoute: ActivatedRoute,
     private _AuthService: AuthService
+    ,private toaster:ToastrService
   ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 1000px)')
@@ -93,6 +95,7 @@ export class Stepper2Component implements OnInit, AfterViewInit {
       desc: [localStorage.getItem('project_description') || '', [Validators.required, Validators.maxLength(2000)]]
     });
     console.log(this.example);
+    console.log(this.example.subscripted);
   }
   options: User[] = [{ name: 'Mary', id: 1 }, { name: 'Shelley', id: 2 }, { name: 'Igor', id: 3 }];
   filteredOptions?: Observable<User[]>;
@@ -183,16 +186,32 @@ export class Stepper2Component implements OnInit, AfterViewInit {
   }
 
   fireEvent() {
-    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(
-      this.table.nativeElement
-    );
-    /* new format */
-    var fmt = "0.00";
-    const wb: XLSX.WorkBook = XLSX.utils.book_new();
-    XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-    var fmt = "@";
-    wb.Sheets["Sheet1"]["F"] = fmt;
-    /* save to file */
-    XLSX.writeFile(wb, `_export_ ${this.wizarFinalData.test_cases[this.wizarFinalData.test_cases.length - 1].name}.xlsx`);
+    if (this.example?.subscripted) {
+      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(
+        this.table.nativeElement
+      );
+      /* new format */
+      var fmt = "0.00";
+      const wb: XLSX.WorkBook = XLSX.utils.book_new();
+      XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
+      var fmt = "@";
+      wb.Sheets["Sheet1"]["F"] = fmt;
+      /* save to file */
+      XLSX.writeFile(wb, `_export_ ${this.wizarFinalData.test_cases[this.wizarFinalData.test_cases.length - 1].name}.xlsx`);
+    } else {
+      this.toaster.info('You are not subscribed now, you will be taken to our pricing page')
+      setTimeout(() => {
+        window.open("https://casesfly.ai/pricing-new", "_blank");
+      }, 1500);
+    }
   }
+    // prevent space at first on input
+    preventSpaceAtBegging(event:any){
+      if (event.target.value.length>=1) {
+        console.log(true);
+      } else {
+        console.log(event.target.value.length);
+        event.preventDefault();
+      }
+    }
 }

@@ -5,7 +5,7 @@
             <ng-template matStepLabel>Project Info</ng-template>
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Project Title</mat-label>
-              <input matInput formControlName="project_title" placeholder="Project Title e.g. Project Title: XYZ XYZ is E- commerce project that focuses on providing innovative solutions to everyday problems." spellcheck="true" required [readonly]="flag">
+              <input (keydown.space)="preventSpaceAtBegging($event)" matInput formControlName="project_title" placeholder="Project Title e.g. Project Title: XYZ XYZ is E- commerce project that focuses on providing innovative solutions to everyday problems." spellcheck="true" required [readonly]="flag">
               <mat-error *ngIf="firstFormGroup.get('project_title')?.touched && firstFormGroup.get('project_title')?.hasError('required')">required</mat-error>
               <mat-error *ngIf="firstFormGroup.get('project_title')?.touched && firstFormGroup.get('project_title')?.hasError('maxlength')">max length 100 char</mat-error>
             </mat-form-field>
@@ -62,31 +62,31 @@
             <ng-template matStepLabel>Testing Technique</ng-template>
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>User Story Title</mat-label>
-              <input matInput formControlName="use_case_title" placeholder="e.g. Creating an Online Shopping Experience" spellcheck="true" required>
+              <input (keydown.space)="preventSpaceAtBegging($event)" matInput formControlName="use_case_title" placeholder="e.g. Creating an Online Shopping Experience" spellcheck="true" required>
               <mat-error *ngIf="userStoryForm1.get('use_case_title')?.touched && userStoryForm1.get('use_case_title')?.hasError('required')">required</mat-error>
               <mat-error *ngIf="userStoryForm1.get('use_case_title')?.touched && userStoryForm1.get('use_case_title')?.hasError('maxlength')">max length 100 char</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>As a</mat-label>
-              <input matInput formControlName="as_a" placeholder="As a 	e.g John Doe is a customer who needs to purchase a product from a store. 	" spellcheck="true" required>
+              <input (keydown.space)="preventSpaceAtBegging($event)" matInput formControlName="as_a" placeholder="As a 	e.g John Doe is a customer who needs to purchase a product from a store. 	" spellcheck="true" required>
               <mat-error *ngIf="userStoryForm1.get('as_a')?.touched && userStoryForm1.get('as_a')?.hasError('required')">required</mat-error>
               <mat-error *ngIf="userStoryForm1.get('as_a')?.touched && userStoryForm1.get('as_a')?.hasError('maxlength')">max length 100 char</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="w-100 mt-1">
                 <mat-label>I want</mat-label>
-                <textarea rows="10" matInput  spellcheck="true" formControlName="i_want" placeholder="e.g. Users will be able to browse items posted by other users, or create their own listings to sell their own items. They will have the option to search for specific items, and filter results by category, price, location, and other criteria. Payment for items will be handled securely through the platform, and users will be able to rate and review each other after a transaction is completed. The platform will also provide support for users who experience issues with their purchases" required></textarea>
+                <textarea (keydown.space)="preventSpaceAtBegging($event)" rows="10" matInput  spellcheck="true" formControlName="i_want" placeholder="e.g. Users will be able to browse items posted by other users, or create their own listings to sell their own items. They will have the option to search for specific items, and filter results by category, price, location, and other criteria. Payment for items will be handled securely through the platform, and users will be able to rate and review each other after a transaction is completed. The platform will also provide support for users who experience issues with their purchases" required></textarea>
                 <mat-error *ngIf="userStoryForm1.get('i_want')?.touched && userStoryForm1.get('i_want')?.hasError('required')">required</mat-error>
                 <mat-error *ngIf="userStoryForm1.get('i_want')?.touched && userStoryForm1.get('i_want')?.hasError('maxlength')">max length 3000 char</mat-error>
               </mat-form-field>
               <mat-form-field appearance="outline" class="w-100 mt-1">
                 <mat-label>So That</mat-label>
-                <textarea rows="10" matInput spellcheck="true"  formControlName="so_that" placeholder="e.g. The user has an account with the system and has logged in. The user is logged in to the system" required></textarea>
+                <textarea (keydown.space)="preventSpaceAtBegging($event)" rows="10" matInput spellcheck="true"  formControlName="so_that" placeholder="e.g. The user has an account with the system and has logged in. The user is logged in to the system" required></textarea>
                 <mat-error *ngIf="userStoryForm1.get('so_that')?.touched && userStoryForm1.get('so_that')?.hasError('required')">required</mat-error>
                 <mat-error *ngIf="userStoryForm1.get('so_that')?.touched && userStoryForm1.get('so_that')?.hasError('maxlength')">max length 2200 char</mat-error>
               </mat-form-field>
               <mat-form-field appearance="outline" class="w-100 mt-1">
                 <mat-label>User Flow</mat-label>
-                <textarea rows="10" matInput spellcheck="true"  formControlName="user_flow" placeholder="e.g. 1. User opens application
+                <textarea (keydown.space)="preventSpaceAtBegging($event)" rows="10" matInput spellcheck="true"  formControlName="user_flow" placeholder="e.g. 1. User opens application
                 2. User selects desired feature 
                 3. System presents user with options for feature
                 4. User makes selections
@@ -103,31 +103,31 @@
             <ng-template matStepLabel>Project Data</ng-template>
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Use Case Title</mat-label>
-              <input matInput formControlName="use_case_title" placeholder="use_case_title" spellcheck="true" required>
+              <input (keydown.space)="preventSpaceAtBegging($event)" matInput formControlName="use_case_title" placeholder="use_case_title" spellcheck="true" required>
               <mat-error *ngIf="useCaseForm2.get('use_case_title')?.touched && useCaseForm2.get('use_case_title')?.hasError('required')">required</mat-error>
               <mat-error *ngIf="useCaseForm2.get('use_case_title')?.touched && useCaseForm2.get('use_case_title')?.hasError('maxlength')">max length 100 char</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="w-100">
               <mat-label>Actor</mat-label>
-              <input matInput formControlName="actor" placeholder="e.g John Doe is a customer who needs to purchase a product from a store. " spellcheck="true" required>
+              <input (keydown.space)="preventSpaceAtBegging($event)" matInput formControlName="actor" placeholder="e.g John Doe is a customer who needs to purchase a product from a store. " spellcheck="true" required>
               <mat-error *ngIf="useCaseForm2.get('actor')?.touched && useCaseForm2.get('actor')?.hasError('required')">required</mat-error>
               <mat-error *ngIf="useCaseForm2.get('actor')?.touched && useCaseForm2.get('actor')?.hasError('maxlength')">max length 100 char</mat-error>
             </mat-form-field>
             <mat-form-field appearance="outline" class="w-100 mt-1">
                 <mat-label>Use Case Description</mat-label>
-                <textarea rows="10" spellcheck="true"  matInput  formControlName="use_case_description" placeholder="e.g. Users will be able to browse items posted by other users, or create their own listings to sell their own items. They will have the option to search for specific items, and filter results by category, price, location, and other criteria. Payment for items will be handled securely through the platform, and users will be able to rate and review each other after a transaction is completed. The platform will also provide support for users who experience issues with their purchases" required></textarea>
+                <textarea (keydown.space)="preventSpaceAtBegging($event)" rows="10" spellcheck="true"  matInput  formControlName="use_case_description" placeholder="e.g. Users will be able to browse items posted by other users, or create their own listings to sell their own items. They will have the option to search for specific items, and filter results by category, price, location, and other criteria. Payment for items will be handled securely through the platform, and users will be able to rate and review each other after a transaction is completed. The platform will also provide support for users who experience issues with their purchases" required></textarea>
                 <mat-error *ngIf="useCaseForm2.get('use_case_description')?.touched && useCaseForm2.get('use_case_description')?.hasError('required')">required</mat-error>
                 <mat-error *ngIf="useCaseForm2.get('use_case_description')?.touched && useCaseForm2.get('use_case_description')?.hasError('maxlength')">max length 3500 char</mat-error>
               </mat-form-field>
               <mat-form-field appearance="outline" class="w-100 mt-1">
                 <mat-label>Pre Conditions</mat-label>
-                <textarea rows="10" spellcheck="true"  matInput formControlName="preconditions" required placeholder="e.g. The user has an account with the system and has logged in. The user is logged in to the system"></textarea>
+                <textarea (keydown.space)="preventSpaceAtBegging($event)" rows="10" spellcheck="true"  matInput formControlName="preconditions" required placeholder="e.g. The user has an account with the system and has logged in. The user is logged in to the system"></textarea>
                 <mat-error *ngIf="useCaseForm2.get('preconditions')?.touched && useCaseForm2.get('preconditions')?.hasError('required')">required</mat-error>
                 <mat-error *ngIf="useCaseForm2.get('preconditions')?.touched && useCaseForm2.get('preconditions')?.hasError('maxlength')">max length 1700 char</mat-error>
               </mat-form-field>
               <mat-form-field spellcheck="true"  appearance="outline" class="w-100 mt-1">
                 <mat-label>Flow</mat-label>
-                <textarea rows="10" matInput formControlName="flow" required placeholder="e.g. 1. User opens application
+                <textarea (keydown.space)="preventSpaceAtBegging($event)" rows="10" matInput formControlName="flow" required placeholder="e.g. 1. User opens application
                 2. User selects desired feature 
                 3. System presents user with options for feature
                 "></textarea>

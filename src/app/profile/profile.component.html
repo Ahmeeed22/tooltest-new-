@@ -33,7 +33,7 @@
               <form [formGroup]="testCaseForm" class=" w-100" >
                 <mat-form-field appearance="outline" class="w-100 rounded " style="border-radius: 20px !important">
                   <mat-label>new test plan</mat-label>
-                  <input matInput  formControlName="name" currencyMask type="text"  #itemValue placeholder="Ex. login" required>
+                  <input matInput  formControlName="name" currencyMask type="text" (keydown.space)="preventSpaceAtBegging($event)"  #itemValue placeholder="Ex. login" required>
                 </mat-form-field>
                 <div class="d-flex justify-content-end">
                   <button class="btn btn-info p-1 " mat-button (click)="saveNode(itemValue.value ,index)">Save test case</button>
