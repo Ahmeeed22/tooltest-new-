@@ -27,3 +27,35 @@ button:hover{
   transform: scaleY(1.2);
   background-color: #eee;
 }
+@media screen and (max-width: 992px){
+  .subs{
+    order: -1;
+    margin-bottom: 20px;
+  }
+}
+.service-item {
+  padding-left: 60px;
+  margin: 8px 0px;
+  border-radius: 20px;
+  box-sizing: border-box;
+  transition: all .5s;
+  border: 1px solid transparent;
+  height: 200px;
+  border: 1px solid #17a2b8!important;;
+  color: #17a2b8!important;
+}
+
+
+.service-item h4 {
+  color: #17a2b8!important;;
+}
+
+.service-item p {
+  /* color: #666;
+  margin: 0 0 20px;
+  font-size: 17px;
+  line-height: 1.75rem; */
+  line-height: 34px;
+  color: #2e2c2c;
+
+}

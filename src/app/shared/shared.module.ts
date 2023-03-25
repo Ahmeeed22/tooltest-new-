@@ -9,6 +9,7 @@ import { TableModule } from "primeng/table";
 import { ToastModule } from "primeng/toast";
 import { CardModule } from "primeng/card";
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
+import { MaterialModule } from '../material/material.module';
 
 
 @NgModule({
@@ -24,7 +25,8 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
     DragDropModule,
     TableModule,
     ToastModule,
-    CardModule
+    CardModule,
+    MaterialModule
  
   ],
   exports:[

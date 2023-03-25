@@ -24,6 +24,18 @@ export class ProfileComponent  {
   name:any;
   userDate:any ;
   subscripted:boolean=false;
+  sub_subscription_plans:any=[
+                                    {
+                                        id: 4,
+                                        click_count: "10",
+                                        user_id: "8",
+                                        pay_date: "2023-03-25 09:04:06",
+                                        pay_price: "10",
+                                        pay_status: "success",
+                                        created_at: "2023-03-24T20:49:14.000000Z",
+                                        updated_at: "2023-03-24T20:49:14.000000Z"
+                                      }
+                                ]
   constructor( private router:Router , private _AuthService:AuthService ,private toaster:ToastrService,  private _formBuilder: FormBuilder,) {
     this._AuthService.getTreeData().subscribe({
       next: (res)=>{

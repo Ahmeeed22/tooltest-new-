@@ -19,6 +19,8 @@ import {MatAutocompleteModule} from '@angular/material/autocomplete';
 import {ButtonModule} from 'primeng/button';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatListModule} from '@angular/material/list';
+import {MatMenuModule} from '@angular/material/menu';
+
 @NgModule({
   imports: [],
   exports: [
@@ -41,7 +43,8 @@ import {MatListModule} from '@angular/material/list';
     MatStepperModule,
     ButtonModule,
     MatTreeModule,
-    MatListModule
+    MatListModule,
+    MatMenuModule
   ],
 })
 export class MaterialModule { }
