@@ -20,11 +20,11 @@ import { ToastrModule } from 'ngx-toastr';
     //   useClass :AuthInterceptor,
     //   multi :true
     // },
-    {
-      provide :HTTP_INTERCEPTORS,
-      useClass :LoaderInterceptor,
-      multi :true
-    },
+    // {
+    //   provide :HTTP_INTERCEPTORS,
+    //   useClass :LoaderInterceptor,
+    //   multi :true
+    // },
     {
       provide :HTTP_INTERCEPTORS,
       useClass :ErrorInterceptor,

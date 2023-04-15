@@ -1,6 +1,7 @@
 import {Component, ElementRef, OnInit, QueryList, ViewChild, ViewChildren } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
+import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/auth/services/auth.service';
 
@@ -24,6 +25,7 @@ export class ProfileComponent  {
   name:any;
   userDate:any ;
   subscripted:boolean=false;
+  cookie:any ;
   sub_subscription_plans:any=[
                                     {
                                         id: 4,
@@ -34,17 +36,23 @@ export class ProfileComponent  {
                                         pay_status: "success",
                                         created_at: "2023-03-24T20:49:14.000000Z",
                                         updated_at: "2023-03-24T20:49:14.000000Z"
-                                      }
-                                ]
-  constructor( private router:Router , private _AuthService:AuthService ,private toaster:ToastrService,  private _formBuilder: FormBuilder,) {
-    this._AuthService.getTreeData().subscribe({
+                                }                       ]
+  constructor( private router:Router , private _AuthService:AuthService ,private toaster:ToastrService,  private _formBuilder: FormBuilder,private cookieService: CookieService) {
+    // this.cookieService.set('Test', 'Hello World');
+    // this.cookieService.set('secretToken', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiZHVsbGFhbGlAdHJlbmR2aXNpdC5jb20iLCJpZCI6NSwibmFtZSI6Ik1yIEFiZHVsbGEiLCJyb2xlIjoyLCJjb21wYW55X2lkIjoxLCJpYXQiOjE2ODA2NzkxMTIsImV4cCI6MTY4MDY5MzUxMn0.5bVq2uEWvKrWNvIFevKMWWSxn9d-OnQhusT2qAkz978');
+    
+    this.getAllCookies()
+    // console.log("this.cookie.encrypted_data",this.cookie['decrypt-user']);
+
+    this._AuthService.getTreeData({encrypted_data:this.cookie['decrypt-user']}).subscribe({
       next: (res)=>{
         this.userDate=res.data
         console.log( this.userDate);
-        this.user_id=res.data.id ;
-        this.name=res.data.name
-        this.tree=res.data.test_plans
-        this.subscripted=res.data.sub_subscription_plans.length>0?true:false
+        this._AuthService.userName.next(this.userDate?.name)
+        this.user_id=res?.data.id ;
+        this.name=res?.data?.name
+        this.tree=res?.data?.test_plans
+        this.subscripted=res.data?.sub_subscription_plans?.length>0?true:false
       }
     })
   }
@@ -74,17 +82,18 @@ export class ProfileComponent  {
 
   saveNode(x:any,index:number){
     if (x.trim().length>0) {
-      this.userDate.test_plans[index]
-      for (let indexx = 0; indexx < this.userDate.test_plans[index].testcases.length; indexx++) {
-        // console.log(x,this.userDate.test_plans[index].testcases[indexx].name);
-        if (x ==  this.userDate.test_plans[index].testcases[indexx].name) {
+      this.userDate?.test_plans[index]
+      for (let indexx = 0; indexx < this.userDate?.test_plans[index].testcases.length; indexx++) {
+        // console.log(x,this.userDate?.test_plans[index].testcases[indexx].name);
+        if (x ==  this.userDate?.test_plans[index].testcases[indexx].name) {
           this.toaster.error('this name exit please trying with another name')
           return ;
         } 
       }
       console.log('no error');
-        if ((this.userDate.sub_subscription_plans.length==0 && this.userDate.limit_test_case==0)||this.userDate.limit_test_case==0) {
-          window.open("https://casesfly.ai/pricing-new", "_blank");
+        if ((this.userDate?.sub_subscription_plans.length==0 && this.userDate?.limit_test_case==0)||this.userDate?.limit_test_case==0) {
+          
+          window.open(`https://casesfly.ai/pricing-plan/?case=${this.user_id}`, "_blank");
         } else {
           // window.open("https://casesfly.ai/pricing-new", "_blank");
           this.tree[index].testcases.push({name:x})
@@ -115,11 +124,25 @@ export class ProfileComponent  {
   // prevent space at first on input
   preventSpaceAtBegging(event:any){
     if (event.target.value.length>=1) {
-      console.log(true);
+      // console.log(true);
     } else {
       console.log(event.target.value.length);
       event.preventDefault();
     }
   }
 
+  getAllCookies() {
+    const cookies = document.cookie.split(';');
+    const cookieObj :any= {};
+  
+    cookies.forEach(cookie => {
+      console.log(cookie);
+      
+      const [key, value] = cookie.split('=');
+      cookieObj[key.trim()] = decodeURIComponent(value);
+    });
+    // console.log("testtstst",cookieObj);
+    this.cookie={...cookieObj} ;
+    return cookieObj;
+  }
 }

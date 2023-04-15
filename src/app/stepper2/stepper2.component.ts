@@ -10,6 +10,7 @@ import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../auth/services/auth.service';
 import * as XLSX from "xlsx";
 import { ToastrService } from 'ngx-toastr';
+import { Location } from '@angular/common';
 export interface User {
   name: string;
   id?: Number
@@ -74,7 +75,8 @@ export class Stepper2Component implements OnInit, AfterViewInit {
     private spinnerService: NgxSpinnerService,
     private _ActivatedRoute: ActivatedRoute,
     private _AuthService: AuthService
-    ,private toaster:ToastrService
+    ,private toaster:ToastrService,
+    private location: Location
   ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 1000px)')
@@ -94,8 +96,6 @@ export class Stepper2Component implements OnInit, AfterViewInit {
       projectType: ['',],
       desc: [localStorage.getItem('project_description') || '', [Validators.required, Validators.maxLength(2000)]]
     });
-    console.log(this.example);
-    console.log(this.example.subscripted);
   }
   options: User[] = [{ name: 'Mary', id: 1 }, { name: 'Shelley', id: 2 }, { name: 'Igor', id: 3 }];
   filteredOptions?: Observable<User[]>;
@@ -138,6 +138,7 @@ export class Stepper2Component implements OnInit, AfterViewInit {
   }
   result: any;
   getheringData() {
+    this.spinnerService.show()
     const { project_title, desc: project_description } = this.firstFormGroup.value;
     this.wizarFinalData = { project_title, project_description, ...this.example.example[this.example.indexP], user_id: this.example.user_id }
     console.log(this.wizarFinalData);
@@ -165,14 +166,17 @@ export class Stepper2Component implements OnInit, AfterViewInit {
             console.log('this.wizarFinalData', this.wizarFinalData,res);
           },
           error: (err) => {
+            this.spinnerService.hide()
             console.log(err);
           }
         })
         this._AuthService.updateUser(userDataUpdate).subscribe({
           next:(res)=>{
             console.log(res);
+            this.spinnerService.hide()
           },
           error:(err)=>{
+            this.spinnerService.hide()
             console.log(err);
           }
         })
@@ -201,7 +205,7 @@ export class Stepper2Component implements OnInit, AfterViewInit {
     } else {
       this.toaster.info('You are not subscribed now, you will be taken to our pricing page')
       setTimeout(() => {
-        window.open("https://casesfly.ai/pricing-new", "_blank");
+        window.open(`https://casesfly.ai/pricing-plan/?case=${this.example.user_id}`, "_blank");
       }, 1500);
     }
   }
@@ -213,5 +217,8 @@ export class Stepper2Component implements OnInit, AfterViewInit {
         console.log(event.target.value.length);
         event.preventDefault();
       }
+    }
+    back(): void {
+      this.location.back()
     }
 }
