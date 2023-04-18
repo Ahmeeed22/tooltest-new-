@@ -59,10 +59,10 @@ export class Stepper2Component implements OnInit, AfterViewInit {
   useCaseForm2 = this._formBuilder.group({
     format: ['use_case'],
     use_case_title: ['', [Validators.required, Validators.maxLength(100)]],
-    use_case_description: ['', [Validators.required, Validators.maxLength(3500)]],
+    use_case_description: ['', [Validators.required, Validators.maxLength(2000)]],
     actor: ['', [Validators.required, Validators.maxLength(100)]],
-    preconditions: ['', [Validators.required, Validators.maxLength(1700)]],
-    flow: ['', [Validators.required, Validators.maxLength(2500)]]
+    preconditions: ['', [Validators.required, Validators.maxLength(1000)]],
+    flow: ['', [Validators.required, Validators.maxLength(4700)]]
 
   });
   sh: any
@@ -141,7 +141,6 @@ export class Stepper2Component implements OnInit, AfterViewInit {
     this.spinnerService.show()
     const { project_title, desc: project_description } = this.firstFormGroup.value;
     this.wizarFinalData = { project_title, project_description, ...this.example.example[this.example.indexP], user_id: this.example.user_id }
-    console.log(this.wizarFinalData);
     this.wizarFinalData['plan_id'] = this.wizarFinalData['id'];
     delete this.wizarFinalData['id'];
     this.wizarFinalData['test_plan_name'] = this.wizarFinalData['name'];
@@ -149,7 +148,7 @@ export class Stepper2Component implements OnInit, AfterViewInit {
     this.wizarFinalData['test_cases'] = this.wizarFinalData['testcases'];
     delete this.wizarFinalData['testcases'];
     if (!this.wizarFinalData['plan_id']) delete this.wizarFinalData['plan_id'];
-    //  this.wizarFinalData['test_cases'][this.wizarFinalData['test_cases'].length].description="test"
+    
     delete this.wizarFinalData['indexP'];
     var selectedTech = this.sh ? this.userStoryForm1.value : this.useCaseForm2.value
     this.finalData = { format: this.sh ? 'user_story' : 'use_case', ...this.thirdFormMain.value, project_title, project_description, ...selectedTech }
@@ -163,26 +162,21 @@ export class Stepper2Component implements OnInit, AfterViewInit {
         this.flagTable = !this.flagTable
         this._AuthService.addwizard(this.wizarFinalData).subscribe({
           next: (res) => {
-            console.log('this.wizarFinalData', this.wizarFinalData,res);
           },
           error: (err) => {
             this.spinnerService.hide()
-            console.log(err);
           }
         })
         this._AuthService.updateUser(userDataUpdate).subscribe({
           next:(res)=>{
-            console.log(res);
             this.spinnerService.hide()
           },
           error:(err)=>{
             this.spinnerService.hide()
-            console.log(err);
           }
         })
       },
       error: (err) => {
-        console.log(err);
       }
     })
     localStorage.removeItem("project_title");
@@ -214,7 +208,6 @@ export class Stepper2Component implements OnInit, AfterViewInit {
       if (event.target.value.length>=1) {
         console.log(true);
       } else {
-        console.log(event.target.value.length);
         event.preventDefault();
       }
     }

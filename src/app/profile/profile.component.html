@@ -1,4 +1,4 @@
-<div class="container mt-5">
+<div class="container mt-5" *ngIf="cookie['decrypt-user']">
   <div class="main-body">
     <div class="row d-flex ">
       <div class="col-lg-6">
@@ -52,10 +52,14 @@
       </div>
       <div class="col-lg-6 subs" >
         <div *ngIf="userDate" class="row">
-          <h5 style="font-size: 16px; padding-top: 12px;" class= "pl-3 mt-0 text-info font-weight">* {{userDate?.name}} Subscription Plans</h5>
-          <h5 style="font-size: 16px; padding-top: 12px;" class= "pl-3 mt-0 text-info font-weight">* Number Of Test Cases = {{userDate?.limit_test_case }}</h5>
-          <div class="my-2 " style="text-transform: capitalize !important;">
-            <button class="btn btn-info">  <a  [href]="'https://casesfly.ai/pricing-plan/?cases='+user_id" target="_blank" style="text-decoration: none;color: #fff;">Subscribe now</a></button>
+          <div class="itteem  col-lg-12  col-md-12 col-12">
+            <div class="service-item shadow position-relative w-75" style="height: 160px; border-radius: 8px;">
+              <h5 style="font-size: 16px; padding-top: 12px;" class= " mt-0 text-info font-weight">* {{userDate?.name}} Subscription Plans</h5>
+              <h5 style="font-size: 16px; padding-top: 12px;" class= " mt-0 text-info font-weight">* Number Of Test Cases = {{userDate?.limit_test_case }}</h5>
+              <div class="my-2 " style="text-transform: capitalize !important; text-align: end;">
+                <button class="btn btn-info mr-3 mt-3">  <a  [href]="'https://casesfly.ai/pricing-plan/?cases='+user_id" target="_blank" style="text-decoration: none;color: #fff;">Subscribe now</a></button>
+              </div>
+            </div>
           </div>
           <div class="itteem  col-lg-12  col-md-12 col-12" *ngFor="let item of userDate?.sub_subscription_plans ; let index=index">
             <div class="service-item shadow position-relative w-75" >

@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { CookieService } from 'ngx-cookie-service';
 import { ToastrService } from 'ngx-toastr';
 import { AuthService } from 'src/app/auth/services/auth.service';
+import { Location } from '@angular/common';
 
 
 /**
@@ -37,24 +38,23 @@ export class ProfileComponent  {
                                         created_at: "2023-03-24T20:49:14.000000Z",
                                         updated_at: "2023-03-24T20:49:14.000000Z"
                                 }                       ]
-  constructor( private router:Router , private _AuthService:AuthService ,private toaster:ToastrService,  private _formBuilder: FormBuilder,private cookieService: CookieService) {
-    // this.cookieService.set('Test', 'Hello World');
-    // this.cookieService.set('secretToken', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6ImFiZHVsbGFhbGlAdHJlbmR2aXNpdC5jb20iLCJpZCI6NSwibmFtZSI6Ik1yIEFiZHVsbGEiLCJyb2xlIjoyLCJjb21wYW55X2lkIjoxLCJpYXQiOjE2ODA2NzkxMTIsImV4cCI6MTY4MDY5MzUxMn0.5bVq2uEWvKrWNvIFevKMWWSxn9d-OnQhusT2qAkz978');
-    
+  constructor( private router:Router , private _AuthService:AuthService ,private toaster:ToastrService,  private _formBuilder: FormBuilder,private cookieService: CookieService , private location: Location) {
+   
     this.getAllCookies()
-    // console.log("this.cookie.encrypted_data",this.cookie['decrypt-user']);
+    if (this.cookie['decrypt-user']) {
+      this._AuthService.getTreeData({encrypted_data:this.cookie['decrypt-user']}).subscribe({
+        next: (res)=>{
+          this.userDate=res.data
+          console.log( this.userDate);
+          this._AuthService.userName.next(this.userDate?.name)
+          this.user_id=res?.data.id ;
+          this.name=res?.data?.name
+          this.tree=res?.data?.test_plans
+          this.subscripted=res.data?.sub_subscription_plans?.length>0?true:false
+        }
+      })
+    }
 
-    this._AuthService.getTreeData({encrypted_data:this.cookie['decrypt-user']}).subscribe({
-      next: (res)=>{
-        this.userDate=res.data
-        console.log( this.userDate);
-        this._AuthService.userName.next(this.userDate?.name)
-        this.user_id=res?.data.id ;
-        this.name=res?.data?.name
-        this.tree=res?.data?.test_plans
-        this.subscripted=res.data?.sub_subscription_plans?.length>0?true:false
-      }
-    })
   }
 
   testPlanForm = this._formBuilder.group({
@@ -84,7 +84,6 @@ export class ProfileComponent  {
     if (x.trim().length>0) {
       this.userDate?.test_plans[index]
       for (let indexx = 0; indexx < this.userDate?.test_plans[index].testcases.length; indexx++) {
-        // console.log(x,this.userDate?.test_plans[index].testcases[indexx].name);
         if (x ==  this.userDate?.test_plans[index].testcases[indexx].name) {
           this.toaster.error('this name exit please trying with another name')
           return ;
@@ -95,12 +94,10 @@ export class ProfileComponent  {
           
           window.open(`https://casesfly.ai/pricing-plan/?case=${this.user_id}`, "_blank");
         } else {
-          // window.open("https://casesfly.ai/pricing-new", "_blank");
           this.tree[index].testcases.push({name:x})
           let ele=document.getElementById(`${index}test`)
           ele?.classList.toggle('d-none')
           this.itemValue.toArray().forEach(val => val.nativeElement.value = null);
-          // this.router.navigate(['action-selection'], { state: { example: 'bar' } });
           this.router.navigate(['/ai'], { state: { example: this.tree , indexP:index ,user_id:this.user_id,name:this.name,subscripted:this.subscripted} });
           this.testCaseForm.controls['name'].patchValue(' ')
         }
@@ -143,6 +140,13 @@ export class ProfileComponent  {
     });
     // console.log("testtstst",cookieObj);
     this.cookie={...cookieObj} ;
+    if (this.cookie['decrypt-user']) {
+      console.log("true");
+    }else{
+      console.log("no cooooooooooookie");
+      this.toaster.error("faild login please login again")
+      window.open("https://casesfly.ai/",'_self');
+    }
     return cookieObj;
   }
 }
