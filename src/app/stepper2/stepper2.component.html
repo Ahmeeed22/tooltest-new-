@@ -95,7 +95,7 @@
                 7. User exits application
                 " required></textarea>
                 <mat-error *ngIf="userStoryForm1.get('user_flow')?.touched && userStoryForm1.get('user_flow')?.hasError('required')">required</mat-error>
-                <mat-error *ngIf="userStoryForm1.get('user_flow')?.touched && userStoryForm1.get('user_flow')?.hasError('maxlength')">max length 4700 char</mat-error>
+                <mat-error *ngIf="userStoryForm1.get('user_flow')?.touched && userStoryForm1.get('user_flow')?.hasError('maxlength')">max length 2500 char</mat-error>
               </mat-form-field>
 
           </form>
@@ -132,7 +132,7 @@
                 3. System presents user with options for feature
                 "></textarea>
                 <mat-error *ngIf="useCaseForm2.get('flow')?.touched && useCaseForm2.get('flow')?.hasError('required')">required</mat-error>
-                <mat-error *ngIf="useCaseForm2.get('flow')?.touched && useCaseForm2.get('flow')?.hasError('maxlength')">max length 2500 char</mat-error>
+                <mat-error *ngIf="useCaseForm2.get('flow')?.touched && useCaseForm2.get('flow')?.hasError('maxlength')">max length 4700 char</mat-error>
               </mat-form-field>
             </form>
             <div class="d-flex justify-content-end">
