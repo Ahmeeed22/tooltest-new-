@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
-import { FormBuilder, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatStepper, StepperOrientation } from '@angular/material/stepper';
 import { Observable } from 'rxjs';
@@ -213,5 +213,15 @@ export class Stepper2Component implements OnInit, AfterViewInit {
     }
     back(): void {
       this.location.back()
+    }
+
+    testt(e:any,controlName:string,formGroupName:FormGroup){
+      console.log(formGroupName);
+      if (!e.target.value) {
+       formGroupName.controls[controlName].patchValue(null) ;
+       this.toaster.warning("Note please English Only check your english grammar for best results")
+      }
+      
+      
     }
 }

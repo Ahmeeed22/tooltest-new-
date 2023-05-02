@@ -17,12 +17,14 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { ProfileComponent } from './profile/profile.component';
 import { Stepper2Component } from './stepper2/stepper2.component';
+import { InputTypeLangDirective } from './input-type-lang.directive';
 
 @NgModule({
   declarations: [
     AppComponent,
      ProfileComponent,
-     Stepper2Component
+     Stepper2Component,
+     InputTypeLangDirective
   ],
   imports: [
     BrowserModule,
