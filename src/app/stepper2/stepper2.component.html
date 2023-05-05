@@ -147,11 +147,17 @@
     </mat-step>
     <mat-step>
       <ng-template matStepLabel>Complete</ng-template>
-      <p>You are now done.</p>
-      <div class="d-flex justify-content-end">
-        <button  mat-button matStepperPrevious class="btn btn-danger m-3">Back</button>
-        <button  type="button"class="btn btn-info  m-3 " (click)="resetWizard();" > Fly</button>
-        <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
+      <div class="d-flex align-items-center justify-content-center flex-column mb-3">
+        <h4 style="color: #17a2b8; padding: 10px 10px; font-size: 17px;">You are now done.</h4>
+        <div class="d-flex justify-content-end">
+          <button  mat-button matStepperPrevious class="btn btn-danger m-3">Back</button>
+          <button  type="button"class="btn btn-info  m-3 " (click)="resetWizard();" style=" width: 93px;
+          text-align: center;
+          font-size: 19px;
+          font-weight: 500;
+          letter-spacing: 2px;"> Fly</button>
+          <!-- <button mat-button (click)="stepper.reset()">Reset</button> -->
+        </div>
       </div>
     </mat-step>
   </mat-stepper>
