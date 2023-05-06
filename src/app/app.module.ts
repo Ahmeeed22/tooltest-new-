@@ -18,13 +18,15 @@ import { AuthInterceptor } from './core/interceptors/auth.interceptor';
 import { ProfileComponent } from './profile/profile.component';
 import { Stepper2Component } from './stepper2/stepper2.component';
 import { InputTypeLangDirective } from './input-type-lang.directive';
+import { TotarialComponent } from './totarial/totarial.component';
 
 @NgModule({
   declarations: [
     AppComponent,
      ProfileComponent,
      Stepper2Component,
-     InputTypeLangDirective
+     InputTypeLangDirective,
+     TotarialComponent
   ],
   imports: [
     BrowserModule,
