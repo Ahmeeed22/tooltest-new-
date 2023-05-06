@@ -39,3 +39,35 @@ h4{
     width: 80%;
   }
 }
+
+.icon-container {
+  display: flex;
+  align-items: center;
+  background-color: #ffc107;
+  color: white;
+  padding: 8px;
+  border-radius: 5px;
+  margin-bottom: 16px;
+}
+
+.icon-container i {
+  font-size: 20px;
+  margin-right: 8px;
+}
+
+.icon-text {
+  font-weight: bold;
+  font-size: 18px;
+}
+
+
+
+
+.instructions {
+  background-color: #f8f8f8;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+
+  align-items: center;
+  padding: 16px;
+}

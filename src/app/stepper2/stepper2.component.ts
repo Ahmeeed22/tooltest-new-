@@ -85,6 +85,9 @@ export class Stepper2Component implements OnInit, AfterViewInit {
     const navigation = this.router.getCurrentNavigation();
     const state = navigation?.extras.state as { example: string };
     this.example = state;
+
+    console.log("this.example ",this.example );
+    
     if (this.example?.example[this.example.indexP]?.project_title) {
       localStorage.setItem('project_title', this.example?.example[this.example.indexP]?.project_title)
       localStorage.setItem('project_description', this.example?.example[this.example.indexP]?.project_description)
@@ -155,28 +158,43 @@ export class Stepper2Component implements OnInit, AfterViewInit {
     this.finalData['project_name'] = this.finalData['project_title'];
     delete this.finalData['project_title'];
     let userDataUpdate={source:"front",name:this.example.name, user_id: this.example.user_id}
+    console.log("dealingAi " ,this.finalData);
+    console.log("addwizard ",this.wizarFinalData);
+    console.log("userDataUpdate ",userDataUpdate);
+    
+    
     this._AuthService.dealingAi(this.finalData).subscribe({
       next: (res) => {
-        console.log(res.data);
+        console.log("dealingAi res ",res);
         this.result = res.data
         this.flagTable = !this.flagTable
         this._AuthService.addwizard(this.wizarFinalData).subscribe({
           next: (res) => {
+            console.log("addwizard res",res);
+            
           },
           error: (err) => {
+            console.log("addwizard err ", err);
+            
             this.spinnerService.hide()
           }
         })
         this._AuthService.updateUser(userDataUpdate).subscribe({
           next:(res)=>{
+            console.log("updateUser res ",res);
+            
             this.spinnerService.hide()
           },
           error:(err)=>{
+            console.log("updateUser err ", err);
+            
             this.spinnerService.hide()
           }
         })
       },
       error: (err) => {
+        console.log(err);
+        
       }
     })
     localStorage.removeItem("project_title");

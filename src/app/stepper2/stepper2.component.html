@@ -1,7 +1,12 @@
-  <div class="notes text-center">
-    <h4><span style="color: red;">* </span>Note please check your english grammar for best results</h4>
-    <h4><span style="color: red;">* </span>Your data is your data  :    you have full control over your data and the assurance that it will not be shared with any third party.</h4>
+  <div class="notes mx-5 my-2">
+    <span class="icon-container">
+      <i class="fas fa-exclamation-circle"></i>
+      <span class="icon-text">Before you begin</span>
+    </span>
+    <h4><span class="font-weight-bolder" style="color: red;">* </span>Note please check your english grammar for best results</h4>
+    <h4><span class="font-weight-bolder" style="color: red;">* </span>Your data is your data  :    you have full control over your data and the assurance that it will not be shared with any third party.</h4>
   </div>
+  
   <mat-stepper *ngIf="flagTable" linear #stepper class="mt-5"    labelPosition="bottom"  [orientation]="(stepperOrientation | async)!"  animationDuration="1300">
     <mat-step [stepControl]="firstFormGroup" [editable]="isEditable" class="">
       <div class="m-auto">
