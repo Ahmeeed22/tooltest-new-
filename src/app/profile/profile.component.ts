@@ -46,7 +46,7 @@ export class ProfileComponent  {
     },600)
     this.getAllCookies()
     if (this.cookie['decrypt-user']) {
-      this._AuthService.getTreeData({encrypted_data:'WUNfd8JpYQj2vKYyAnWUC61cTBjULCK+ozCsuhsDHPJgw3DaHPFBAmHy2+c4AWg9hGGgtf00/G73No1m'}).subscribe({
+      this._AuthService.getTreeData({encrypted_data:this.cookie['decrypt-user']}).subscribe({
         next: (res)=>{
           this.userDate=res.data
           console.log("test userDate ", this.userDate);

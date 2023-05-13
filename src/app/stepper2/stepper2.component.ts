@@ -234,12 +234,16 @@ export class Stepper2Component implements OnInit, AfterViewInit {
     }
 
     testt(e:any,controlName:string,formGroupName:FormGroup){
-      console.log(formGroupName);
-      if (!e.target.value) {
-       formGroupName.controls[controlName].patchValue(null) ;
-       this.toaster.warning("Note please English Only check your english grammar for best results")
-      }
+      // console.log(formGroupName);
+      // if (!e.target.value) {
+      //  formGroupName.controls[controlName].patchValue(null) ;
+      //  this.toaster.warning("Note please English Only check your english grammar for best results")
+      // }
       
       
+    }
+
+    onOptionClick(e:any){
+      this.toaster.info('You are not subscribed now')
     }
 }
