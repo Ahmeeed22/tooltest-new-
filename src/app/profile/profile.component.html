@@ -4,7 +4,7 @@
   </button>
   
 </div>
-<div class="container mt-2" *ngIf="cookie['decrypt-user']">
+<div class="container mt-2" >
   <!-- *ngIf="cookie['decrypt-user']" -->
   <div class="main-body">
     <div class="row d-flex ">
@@ -62,16 +62,16 @@
           <div class="itteem  col-lg-12  col-md-12 col-12">
             <div class="service-item shadow position-relative w-75" style="height: 160px; border-radius: 8px;">
               <h5 style="font-size: 16px; padding-top: 12px;" class= " mt-0 text-info font-weight">* {{userDate?.name}} Subscription Plans</h5>
-              <h5 style="font-size: 16px; padding-top: 12px;" class= " mt-0 text-info font-weight">* Number Of Test Cases = {{userDate?.limit_test_case }}</h5>
+              <h5 style="font-size: 16px; padding-top: 12px;" class= " mt-0 text-info font-weight">* Number Of Fly (Test Cases)  = {{userDate?.limit_test_case }}</h5>
               <div class="my-2 " style="text-transform: capitalize !important; text-align: end;">
-                <button class="btn btn-info mr-3 mt-3">  <a  [href]="'https://casesfly.ai/pricing-plan/?cases='+user_id" target="_blank" style="text-decoration: none;color: #fff;">Subscribe now</a></button>
+                <button class="btn btn-info mr-3 mt-3">  <a  [href]="'https://casesfly.ai/casefly-pricing-plan/?cases='+user_id" target="_blank" style="text-decoration: none;color: #fff;">Fly With Me Now </a></button>
               </div>
             </div>
           </div>
           <div class="itteem   col-lg-12  col-md-12 col-12" *ngFor="let item of userDate?.sub_subscription_plans ; let index=index"  style="overflow: hidden;">
             <div class="service-item shadow position-relative w-75" >
               <h4 class="my-3">
-               Click Count : {{item?.click_count}}
+               Fly Count : {{item?.click_count}}
               </h4>
               <p class="mt-3 " style="text-transform: capitalize !important;">
                 Pay Date : {{item?.pay_date | date}}
@@ -90,10 +90,10 @@
                 You are now on free plan 
                </h2>
               <h4 class="my-3">
-                Remainder Test Case  : {{userDate?.limit_test_case}}
+                Remainder Fly (Test Case) : {{userDate?.limit_test_case}}
               </h4>
               <div class="mt-3 " style="text-transform: capitalize !important;">
-                <button class="btn btn-info">  <a  [href]="'https://casesfly.ai/pricing-plan/?cases='+user_id" target="_blank" style="text-decoration: none;color: #fff;">Subscribe now</a></button>
+                <button class="btn btn-info">  <a  [href]="'https://casesfly.ai/casefly-pricing-plan/?cases='+user_id" target="_blank" style="text-decoration: none;color: #fff;">Fly With Me Now</a></button>
               </div>
             </div>
           </div>

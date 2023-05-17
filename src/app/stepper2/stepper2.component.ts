@@ -217,7 +217,7 @@ export class Stepper2Component implements OnInit, AfterViewInit {
     } else {
       this.toaster.info('You are not subscribed now, you will be taken to our pricing page')
       setTimeout(() => {
-        window.open(`https://casesfly.ai/pricing-plan/?case=${this.example.user_id}`, "_blank");
+        window.open(`https://casesfly.ai/casefly-pricing-plan/?case=${this.example.user_id}`, "_blank");
       }, 1500);
     }
   }

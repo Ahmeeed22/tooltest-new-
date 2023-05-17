@@ -28,39 +28,39 @@ export class ProfileComponent  {
   userDate:any ;
   subscripted:boolean=false;
   cookie:any ;
-  // sub_subscription_plans:any=[
-  //                                   {
-  //                                       id: 4,
-  //                                       click_count: "10",
-  //                                       user_id: "8",
-  //                                       pay_date: "2023-03-25 09:04:06",
-  //                                       pay_price: "10",
-  //                                       pay_status: "success",
-  //                                       created_at: "2023-03-24T20:49:14.000000Z",
-  //                                       updated_at: "2023-03-24T20:49:14.000000Z"
-  //                               }                       ]
     
   constructor( private router:Router , private _AuthService:AuthService ,private toaster:ToastrService,  private _formBuilder: FormBuilder, private location: Location,public dialog: MatDialog   ) {
-    setTimeout(()=>{
-      this.showTutorial()
-    },600)
-    this.getAllCookies()
-    if (this.cookie['decrypt-user']) {
-      this._AuthService.getTreeData({encrypted_data:this.cookie['decrypt-user']}).subscribe({
+   
+    // this.getAllCookies()
+    // 'WUNfd8JpYQj2vKYyAnWUC61cTBjULCK+ozCsuhsDHPJgw3DaHPFBAmHy2+c4AWg9hGGgtf00/G73No1m'
+    // if (this.cookie['decrypt-user']) {
+      this._AuthService.getTreeData({encrypted_data:'WUNfd8JpYQj2vKYyAnWUC61cTBjULCK+ozCsuhsDHPJgw3DaHPFBAmHy2+c4AWg9hGGgtf00/G73No1m'}).subscribe({
         next: (res)=>{
-          this.userDate=res.data
-          console.log("test userDate ", this.userDate);
-          this._AuthService.userName.next(this.userDate?.name)
-          this.user_id=res?.data.id ;
-          this.name=res?.data?.name
-          this.tree=res?.data?.test_plans
-          this.subscripted=res.data?.sub_subscription_plans?.length>0?true:false
+          console.log(res.message==='un authenticated');
+          if (res.message==='un authenticated') {
+            this.toaster.error("faild login please login again")
+            window.open("https://casesfly.ai/",'_self');
+          }else{
+            this.userDate=res.data
+            console.log(this.userDate);
+            
+            if (this.userDate?.timesLogin==1) {
+              setTimeout(()=>{
+                this.showTutorial()
+              },600)
+            }
+            this._AuthService.userName.next(this.userDate?.name)
+            this.user_id=res?.data.id ;
+            this.name=res?.data?.name
+            this.tree=res?.data?.test_plans
+            this.subscripted=res.data?.sub_subscription_plans?.length>0?true:false
+          }
         },
         error:(err)=>{
           console.log(err);
         }
       })
-    }
+    // }
 
   }
 
@@ -98,8 +98,8 @@ export class ProfileComponent  {
       }
       console.log('no error');
         if ((this.userDate?.sub_subscription_plans.length==0 && this.userDate?.limit_test_case==0)||this.userDate?.limit_test_case==0) {
-          
-          window.open(`https://casesfly.ai/pricing-plan/?case=${this.user_id}`, "_blank");
+          // https://casesfly.ai/casefly-pricing-plan/
+          window.open(`https://casesfly.ai/casefly-pricing-plan/?case=${this.user_id}`, "_blank");
         } else {
           this.tree[index].testcases.push({name:x})
           let ele=document.getElementById(`${index}test`)
