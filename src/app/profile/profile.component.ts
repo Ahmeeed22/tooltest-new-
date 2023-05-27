@@ -31,10 +31,10 @@ export class ProfileComponent  {
     
   constructor( private router:Router , private _AuthService:AuthService ,private toaster:ToastrService,  private _formBuilder: FormBuilder, private location: Location,public dialog: MatDialog   ) {
    
-    // this.getAllCookies()
+    this.getAllCookies()
     // 'WUNfd8JpYQj2vKYyAnWUC61cTBjULCK+ozCsuhsDHPJgw3DaHPFBAmHy2+c4AWg9hGGgtf00/G73No1m'
-    // if (this.cookie['decrypt-user']) {
-      this._AuthService.getTreeData({encrypted_data:'WUNfd8JpYQj2vKYyAnWUC61cTBjULCK+ozCsuhsDHPJgw3DaHPFBAmHy2+c4AWg9hGGgtf00/G73No1m'}).subscribe({
+    if (this.cookie['decrypt-user']) {
+      this._AuthService.getTreeData({encrypted_data:this.cookie['decrypt-user']}).subscribe({
         next: (res)=>{
           console.log(res.message==='un authenticated');
           if (res.message==='un authenticated') {
@@ -60,7 +60,7 @@ export class ProfileComponent  {
           console.log(err);
         }
       })
-    // }
+    }
 
   }
 
