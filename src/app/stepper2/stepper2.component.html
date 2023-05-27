@@ -27,11 +27,20 @@
                 </mat-select>
                 <mat-error>required</mat-error>
             </mat-form-field>
-            <mat-form-field appearance="outline" class="w-100 mt-1">
+            <mat-form-field appearance="outline" class="w-100 mt-1 position-relative">
                 <mat-label>Project description & Actors</mat-label>
                 <textarea rows="10" (keydown.space)="preventSpaceAtBegging($event)"  (keyup)="testt($event,'desc',firstFormGroup)" matInput formControlName="desc" placeholder="e.g.  This project is a web application that will allow users to create and share events. Users will be able to create events including details such as date, time, location, and description. They will also be able to invite other users to their events. Actors: 1. User: A registered user of the application who can create, view, and manage their own events. 2. Event Host: A registered user who can create and host events to which other users can be invited. 3. Invitee: A user who is invited to an event by an Event Host. 4. Admin: A privileged user who can manage and control the application." required  [readonly]="flag"></textarea>
                 <mat-error *ngIf="firstFormGroup.get('desc')?.touched && firstFormGroup.get('desc')?.hasError('required')">required</mat-error>
                 <mat-error *ngIf="firstFormGroup.get('desc')?.touched && firstFormGroup.get('desc')?.hasError('maxlength')">max length 2000 char</mat-error>
+                <div class=" position-absolute right-0 " style="bottom: 10px;">
+                  <button mat-icon-button class="translate-button" (click)="translateCorrectSer($event,firstFormGroup.get('desc')?.value,'TranslateFromArabicToEnglish')">
+                    <mat-icon>translate</mat-icon>
+                  </button>
+                  
+                  <button mat-icon-button class="correct-button" (click)="translateCorrectSer($event,firstFormGroup.get('desc')?.value,'CorrectSpellingInText')">
+                    <mat-icon>spellcheck</mat-icon>
+                  </button>
+                </div>
               </mat-form-field>
             <div class="d-flex justify-content-end">
               <button  mat-button matStepperNext class="btn btn-success m-3" matStepperNext>Next</button>
@@ -135,19 +144,37 @@
               <mat-error *ngIf="useCaseForm2.get('actor')?.touched && useCaseForm2.get('actor')?.hasError('required')">required</mat-error>
               <mat-error *ngIf="useCaseForm2.get('actor')?.touched && useCaseForm2.get('actor')?.hasError('maxlength')">max length 100 char</mat-error>
             </mat-form-field>
-            <mat-form-field appearance="outline" class="w-100 mt-1">
+            <mat-form-field appearance="outline" class="w-100 mt-1 position-relative">
                 <mat-label>Use Case Description</mat-label>
                 <textarea (keydown.space)="preventSpaceAtBegging($event)"  (keyup)="testt($event,'use_case_description',useCaseForm2)" rows="10" spellcheck="true"  matInput  formControlName="use_case_description" placeholder="e.g. Users will be able to browse items posted by other users, or create their own listings to sell their own items. They will have the option to search for specific items, and filter results by category, price, location, and other criteria. Payment for items will be handled securely through the platform, and users will be able to rate and review each other after a transaction is completed. The platform will also provide support for users who experience issues with their purchases" required></textarea>
                 <mat-error *ngIf="useCaseForm2.get('use_case_description')?.touched && useCaseForm2.get('use_case_description')?.hasError('required')">required</mat-error>
                 <mat-error *ngIf="useCaseForm2.get('use_case_description')?.touched && useCaseForm2.get('use_case_description')?.hasError('maxlength')">max length 2000 char</mat-error>
+                <div class=" position-absolute right-0 " style="bottom: 10px;">
+                  <button mat-icon-button class="translate-button" (click)="translateCorrectSer($event,useCaseForm2.get('use_case_description')?.value,'TranslateFromArabicToEnglish')">
+                    <mat-icon>translate</mat-icon>
+                  </button>
+                  
+                  <button mat-icon-button class="correct-button" (click)="translateCorrectSer($event,useCaseForm2.get('use_case_description')?.value,'CorrectSpellingInText')">
+                    <mat-icon>spellcheck</mat-icon>
+                  </button>
+                </div>
               </mat-form-field>
-              <mat-form-field appearance="outline" class="w-100 mt-1">
+              <mat-form-field appearance="outline" class="w-100 mt-1 position-relative">
                 <mat-label>Pre Conditions</mat-label>
                 <textarea (keydown.space)="preventSpaceAtBegging($event)" rows="10" spellcheck="true"  (keyup)="testt($event,'preconditions',useCaseForm2)"  matInput formControlName="preconditions" required placeholder="e.g. The user has an account with the system and has logged in. The user is logged in to the system"></textarea>
                 <mat-error *ngIf="useCaseForm2.get('preconditions')?.touched && useCaseForm2.get('preconditions')?.hasError('required')">required</mat-error>
                 <mat-error *ngIf="useCaseForm2.get('preconditions')?.touched && useCaseForm2.get('preconditions')?.hasError('maxlength')">max length 1000 char</mat-error>
+                <div class=" position-absolute right-0 " style="bottom: 10px;">
+                  <button mat-icon-button class="translate-button" (click)="translateCorrectSer($event,useCaseForm2.get('preconditions')?.value,'TranslateFromArabicToEnglish')">
+                    <mat-icon>translate</mat-icon>
+                  </button>
+                  
+                  <button mat-icon-button class="correct-button" (click)="translateCorrectSer($event,useCaseForm2.get('preconditions')?.value,'CorrectSpellingInText')">
+                    <mat-icon>spellcheck</mat-icon>
+                  </button>
+                </div>
               </mat-form-field>
-              <mat-form-field spellcheck="true"  appearance="outline" class="w-100 mt-1">
+              <mat-form-field spellcheck="true"  appearance="outline" class="w-100 mt-1 position-relative">
                 <mat-label>Flow</mat-label>
                 <textarea (keydown.space)="preventSpaceAtBegging($event)" rows="10" matInput  (keyup)="testt($event,'flow',useCaseForm2)" formControlName="flow" required placeholder="e.g. 1. User opens application
                 2. User selects desired feature 
@@ -155,6 +182,15 @@
                 "></textarea>
                 <mat-error *ngIf="useCaseForm2.get('flow')?.touched && useCaseForm2.get('flow')?.hasError('required')">required</mat-error>
                 <mat-error *ngIf="useCaseForm2.get('flow')?.touched && useCaseForm2.get('flow')?.hasError('maxlength')">max length 4700 char</mat-error>
+                <div class=" position-absolute right-0 " style="bottom: 10px;">
+                  <button mat-icon-button class="translate-button" (click)="translateCorrectSer($event,useCaseForm2.get('flow')?.value,'TranslateFromArabicToEnglish')">
+                    <mat-icon>translate</mat-icon>
+                  </button>
+                  
+                  <button mat-icon-button class="correct-button" (click)="translateCorrectSer($event,useCaseForm2.get('flow')?.value,'CorrectSpellingInText')">
+                    <mat-icon>spellcheck</mat-icon>
+                  </button>
+                </div>
               </mat-form-field>
             </form>
             <div class="d-flex justify-content-end">

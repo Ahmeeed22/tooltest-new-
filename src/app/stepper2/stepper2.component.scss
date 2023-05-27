@@ -71,3 +71,57 @@ h4{
   align-items: center;
   padding: 16px;
 }
+
+
+/* Customize the alert container */
+.custom-alert {
+  background-color: #f2f2f2;
+  color: #333;
+  border-radius: 4px;
+  padding: 12px 24px;
+  font-size: 25px;
+}
+
+/* Customize the close button */
+.custom-alert .mat-snack-bar-action {
+  color: #666;
+  font-weight: bold;
+}
+
+/* Customize the text color */
+.custom-alert .mat-simple-snackbar-action {
+  color: #ff5722;
+}
+.custom-button {
+  background-color: #eaeaea;
+  color: #333;
+  margin-right: 10px;
+}
+
+
+.translate-button {
+  background-color: #4285f4;
+  color: #fff;
+  margin-right: 10px;
+  border-radius: 50%;
+  padding: 2px;
+  transition: background-color 0.3s ease;
+}
+
+.translate-button:hover {
+  background-color: #3367d6;
+}
+
+.correct-button {
+  background-color: #f44336;
+  color: #fff;
+  margin-right: 10px;
+  border-radius: 50%;
+  padding: 2px;
+  transition: background-color 0.3s ease;
+}
+
+.correct-button:hover {
+  background-color: #d32f2f;
+}
+

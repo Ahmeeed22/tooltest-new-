@@ -20,6 +20,7 @@ import {ButtonModule} from 'primeng/button';
 import {MatTreeModule} from '@angular/material/tree';
 import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 @NgModule({
   imports: [],
@@ -44,7 +45,8 @@ import {MatMenuModule} from '@angular/material/menu';
     ButtonModule,
     MatTreeModule,
     MatListModule,
-    MatMenuModule
+    MatMenuModule ,
+    MatSnackBarModule
   ],
 })
 export class MaterialModule { }

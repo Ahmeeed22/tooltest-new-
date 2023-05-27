@@ -27,6 +27,11 @@ export class AuthService {
     return this.http.post('https://test.toollogic.casesfly.ai/api/TestCaseTool/update-user',data)
   }
 
+  translteCorrectSer(data:any):Observable<any>{
+    return this.http.post('https://test.toollogic.casesfly.ai/api/request-service-chatgpt',data)
+  }
+
+
 
   // recieveCookie():Observable<any>{
   //   return this.http.get('https://test.toollogic.casesfly.ai/send_cookie_to_front',{

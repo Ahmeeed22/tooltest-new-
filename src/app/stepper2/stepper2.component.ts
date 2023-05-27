@@ -11,6 +11,11 @@ import { AuthService } from '../auth/services/auth.service';
 import * as XLSX from "xlsx";
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { PopupCompComponent } from '../popup-comp/popup-comp.component';
+import { MatDialog } from '@angular/material/dialog';
+
+
 export interface User {
   name: string;
   id?: Number
@@ -76,7 +81,9 @@ export class Stepper2Component implements OnInit, AfterViewInit {
     private _ActivatedRoute: ActivatedRoute,
     private _AuthService: AuthService
     ,private toaster:ToastrService,
-    private location: Location
+    private location: Location ,
+    private snackBar: MatSnackBar,
+    public dialog: MatDialog
   ) {
     this.stepperOrientation = breakpointObserver
       .observe('(min-width: 1000px)')
@@ -103,9 +110,12 @@ export class Stepper2Component implements OnInit, AfterViewInit {
   options: User[] = [{ name: 'Mary', id: 1 }, { name: 'Shelley', id: 2 }, { name: 'Igor', id: 3 }];
   filteredOptions?: Observable<User[]>;
   x: any;
-  ngOnInit() {}
+  ngOnInit() {
+  }
 
   ngAfterViewInit() {
+
+
     this.elementRef.nativeElement.querySelector('mat-step-header')
       .addEventListener('click', this.onClick.bind(this));
   }
@@ -246,4 +256,60 @@ export class Stepper2Component implements OnInit, AfterViewInit {
     onOptionClick(e:any){
       this.toaster.info('You are not subscribed now')
     }
+    // translateCorrectSer("message",'translateCorrectSer')
+    // translateCorrectSer("messsage",'CorrectSpellingInText')
+    translateCorrectSer(e:any,value:any , type:string){
+      e.preventDefault()
+      if (value.length>0) {
+        this.spinnerService.show()
+        this._AuthService.translteCorrectSer({
+          "request_type":type,
+          "message": value
+        }).subscribe({
+          next :(res)=>{
+            console.log(res);
+            this.spinnerService.hide()
+            this.openAlert(res.data);
+          },
+          error :(err)=>{
+            this.spinnerService.hide()
+            console.log(err);
+            
+          }
+        }) 
+      } else {
+        this.toaster.warning("text is empty")
+      }
+       
+    }
+
+    openAlert(message: string) {
+      // const snackBarRef = this.snackBar.open(message, 'Close', {
+      //   duration: 0, // Set duration to 0 for a manual close
+      //   horizontalPosition: 'center',
+      //   verticalPosition: 'top',
+      //   panelClass: ['custom-alert'] // Apply custom CSS class
+      // });
+    
+      // // Add a click listener to close the snackbar manually
+      // snackBarRef.onAction().subscribe(() => {
+      //   snackBarRef.dismiss();
+      // });
+      // *******************************
+      if (message.length>0) {
+        const dialogRef = this.dialog.open(PopupCompComponent, {
+          width:"60%",
+          disableClose:true,
+          data:message,
+        });
+      } else {
+        this.toaster.warning("text is empty")
+      }
+      
+  
+      // dialogRef.afterClosed().subscribe(result => {
+      //   this.getAllServices()
+      // });
+    }
+    
 }

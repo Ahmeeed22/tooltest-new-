@@ -19,6 +19,9 @@ import { ProfileComponent } from './profile/profile.component';
 import { Stepper2Component } from './stepper2/stepper2.component';
 import { InputTypeLangDirective } from './input-type-lang.directive';
 import { TotarialComponent } from './totarial/totarial.component';
+import { PopupCompComponent } from './popup-comp/popup-comp.component';
+import { ClipboardModule } from '@angular/cdk/clipboard';
+
 
 @NgModule({
   declarations: [
@@ -26,7 +29,8 @@ import { TotarialComponent } from './totarial/totarial.component';
      ProfileComponent,
      Stepper2Component,
      InputTypeLangDirective,
-     TotarialComponent
+     TotarialComponent,
+     PopupCompComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +46,7 @@ import { TotarialComponent } from './totarial/totarial.component';
     CoreModule,
     ReactiveFormsModule,
     FormsModule,
+    ClipboardModule
     
   //   TranslateModule.forRoot({
   //     defaultLanguage:'en',
