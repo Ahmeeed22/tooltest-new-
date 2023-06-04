@@ -21,6 +21,7 @@ import {MatTreeModule} from '@angular/material/tree';
 import {MatListModule} from '@angular/material/list';
 import {MatMenuModule} from '@angular/material/menu';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
+import {MatTooltipModule} from '@angular/material/tooltip';
 
 @NgModule({
   imports: [],
@@ -46,7 +47,8 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
     MatTreeModule,
     MatListModule,
     MatMenuModule ,
-    MatSnackBarModule
+    MatSnackBarModule,
+    MatTooltipModule
   ],
 })
 export class MaterialModule { }

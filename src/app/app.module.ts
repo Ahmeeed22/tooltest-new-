@@ -22,7 +22,6 @@ import { TotarialComponent } from './totarial/totarial.component';
 import { PopupCompComponent } from './popup-comp/popup-comp.component';
 import { ClipboardModule } from '@angular/cdk/clipboard';
 
-
 @NgModule({
   declarations: [
     AppComponent,

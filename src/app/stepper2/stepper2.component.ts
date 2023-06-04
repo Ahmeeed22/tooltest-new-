@@ -14,6 +14,7 @@ import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { PopupCompComponent } from '../popup-comp/popup-comp.component';
 import { MatDialog } from '@angular/material/dialog';
+import { MatOption } from '@angular/material/core';
 
 
 export interface User {
@@ -253,8 +254,10 @@ export class Stepper2Component implements OnInit, AfterViewInit {
       
     }
 
-    onOptionClick(e:any){
-      this.toaster.info('You are not subscribed now')
+    onOptionClick(e:MouseEvent){
+      console.log("tetstst");
+      
+      !this.example?.subscripted? this.toaster.info('You are not subscribed now'): '';
     }
     // translateCorrectSer("message",'translateCorrectSer')
     // translateCorrectSer("messsage",'CorrectSpellingInText')

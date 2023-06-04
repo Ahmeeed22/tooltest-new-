@@ -10,7 +10,7 @@ import { ToastModule } from "primeng/toast";
 import { CardModule } from "primeng/card";
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { MaterialModule } from '../material/material.module';
-
+import {TooltipModule} from 'primeng/tooltip';
 
 @NgModule({
   declarations: [
@@ -23,6 +23,7 @@ import { MaterialModule } from '../material/material.module';
     ButtonModule,
     DropdownModule,
     DragDropModule,
+    TooltipModule,
     TableModule,
     ToastModule,
     CardModule,
@@ -34,6 +35,7 @@ import { MaterialModule } from '../material/material.module';
     DropdownModule,
     NavbarComponent,
     DragDropModule,
+    TooltipModule,
     TableModule,
     ToastModule,
     CardModule
