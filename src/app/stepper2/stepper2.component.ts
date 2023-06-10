@@ -1,4 +1,10 @@
-import { Component, OnInit, ElementRef, AfterViewInit, ViewChild } from '@angular/core';
+import {
+  Component,
+  OnInit,
+  ElementRef,
+  AfterViewInit,
+  ViewChild,
+} from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatStepper, StepperOrientation } from '@angular/material/stepper';
@@ -8,7 +14,7 @@ import { BreakpointObserver } from '@angular/cdk/layout';
 import { ActivatedRoute, Router } from '@angular/router';
 import { NgxSpinnerService } from 'ngx-spinner';
 import { AuthService } from '../auth/services/auth.service';
-import * as XLSX from "xlsx";
+import * as XLSX from 'xlsx';
 import { ToastrService } from 'ngx-toastr';
 import { Location } from '@angular/common';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -16,10 +22,9 @@ import { PopupCompComponent } from '../popup-comp/popup-comp.component';
 import { MatDialog } from '@angular/material/dialog';
 import { MatOption } from '@angular/material/core';
 
-
 export interface User {
   name: string;
-  id?: Number
+  id?: Number;
 }
 @Component({
   selector: 'app-stepper2',
@@ -32,26 +37,26 @@ export interface User {
     },
   ],
 })
-
 export class Stepper2Component implements OnInit, AfterViewInit {
-  @ViewChild("table") table!: ElementRef;
-  wizarFinalData: any = {}
+  @ViewChild('table') table!: ElementRef;
+  wizarFinalData: any = {};
   finalData: any;
   firstFormGroup: any;
   flag: boolean = false;
-  flagTable: boolean = true
+  flagTable: boolean = true;
   thirdFormGroup = this._formBuilder.group({
     thirdCtrl: [],
   });
 
   thirdFormMain = this._formBuilder.group({
-    testing_technique: ['rf', Validators.required]
-  })
+    testing_technique: ['rf', Validators.required],
+  });
   isEditable = true;
 
   stepperOrientation: Observable<StepperOrientation>;
 
-  mat_step_header: HTMLCollectionOf<Element> = document.getElementsByTagName('mat-step-header')
+  mat_step_header: HTMLCollectionOf<Element> =
+    document.getElementsByTagName('mat-step-header');
 
   isChecked: boolean = true;
   userStoryForm1 = this._formBuilder.group({
@@ -65,13 +70,15 @@ export class Stepper2Component implements OnInit, AfterViewInit {
   useCaseForm2 = this._formBuilder.group({
     format: ['use_case'],
     use_case_title: ['', [Validators.required, Validators.maxLength(100)]],
-    use_case_description: ['', [Validators.required, Validators.maxLength(2000)]],
+    use_case_description: [
+      '',
+      [Validators.required, Validators.maxLength(2000)],
+    ],
     actor: ['', [Validators.required, Validators.maxLength(100)]],
     preconditions: ['', [Validators.required, Validators.maxLength(1000)]],
-    flow: ['', [Validators.required, Validators.maxLength(4700)]]
-
+    flow: ['', [Validators.required, Validators.maxLength(4700)]],
   });
-  sh: any
+  sh: any;
   example: any;
   constructor(
     private _formBuilder: FormBuilder,
@@ -80,9 +87,9 @@ export class Stepper2Component implements OnInit, AfterViewInit {
     private router: Router,
     private spinnerService: NgxSpinnerService,
     private _ActivatedRoute: ActivatedRoute,
-    private _AuthService: AuthService
-    ,private toaster:ToastrService,
-    private location: Location ,
+    private _AuthService: AuthService,
+    private toaster: ToastrService,
+    private location: Location,
     private snackBar: MatSnackBar,
     public dialog: MatDialog
   ) {
@@ -94,35 +101,49 @@ export class Stepper2Component implements OnInit, AfterViewInit {
     const state = navigation?.extras.state as { example: string };
     this.example = state;
 
-    console.log("this.example ",this.example );
-    
+    console.log('this.example ', this.example);
+
     if (this.example?.example[this.example.indexP]?.project_title) {
-      localStorage.setItem('project_title', this.example?.example[this.example.indexP]?.project_title)
-      localStorage.setItem('project_description', this.example?.example[this.example.indexP]?.project_description)
-      this.flag = true
+      localStorage.setItem(
+        'project_title',
+        this.example?.example[this.example.indexP]?.project_title
+      );
+      localStorage.setItem(
+        'project_description',
+        this.example?.example[this.example.indexP]?.project_description
+      );
+      this.flag = true;
     }
-    if (localStorage.getItem('project_title')) this.flag = true
+    if (localStorage.getItem('project_title')) this.flag = true;
     this.firstFormGroup = this._formBuilder.group({
-      project_title: [localStorage.getItem('project_title') || '', [Validators.required, Validators.maxLength(100)]],
-      projectType: ['',],
-      desc: [localStorage.getItem('project_description') || '', [Validators.required, Validators.maxLength(2000)]]
+      project_title: [
+        localStorage.getItem('project_title') || '',
+        [Validators.required, Validators.maxLength(100)],
+      ],
+      projectType: [''],
+      desc: [
+        localStorage.getItem('project_description') || '',
+        [Validators.required, Validators.maxLength(2000)],
+      ],
     });
   }
-  options: User[] = [{ name: 'Mary', id: 1 }, { name: 'Shelley', id: 2 }, { name: 'Igor', id: 3 }];
+  options: User[] = [
+    { name: 'Mary', id: 1 },
+    { name: 'Shelley', id: 2 },
+    { name: 'Igor', id: 3 },
+  ];
   filteredOptions?: Observable<User[]>;
   x: any;
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   ngAfterViewInit() {
-
-
-    this.elementRef.nativeElement.querySelector('mat-step-header')
+    this.elementRef.nativeElement
+      .querySelector('mat-step-header')
       .addEventListener('click', this.onClick.bind(this));
   }
 
   onClick(event: any) {
-    event.preventDefault()
+    event.preventDefault();
   }
 
   goBack(stepper: MatStepper) {
@@ -135,26 +156,32 @@ export class Stepper2Component implements OnInit, AfterViewInit {
 
   goForwardToComplet(stepper: MatStepper) {
     if (this.sh === 1) {
-      this.userStoryForm1.markAllAsTouched()
+      this.userStoryForm1.markAllAsTouched();
       if (this.userStoryForm1.valid && this.thirdFormMain.valid) {
-        stepper.next()
+        stepper.next();
       }
     }
     if (this.sh === 0) {
-      this.useCaseForm2.markAllAsTouched()
+      this.useCaseForm2.markAllAsTouched();
       if (this.useCaseForm2.valid && this.thirdFormMain.valid) {
-        stepper.next()
+        stepper.next();
       }
     }
   }
   resetWizard() {
-    this.getheringData()
+    this.getheringData();
   }
   result: any;
   getheringData() {
-    this.spinnerService.show()
-    const { project_title, desc: project_description } = this.firstFormGroup.value;
-    this.wizarFinalData = { project_title, project_description, ...this.example.example[this.example.indexP], user_id: this.example.user_id }
+    // this.spinnerService.show();
+    const { project_title, desc: project_description } =
+      this.firstFormGroup.value;
+    this.wizarFinalData = {
+      project_title,
+      project_description,
+      ...this.example.example[this.example.indexP],
+      user_id: this.example.user_id,
+    };
     this.wizarFinalData['plan_id'] = this.wizarFinalData['id'];
     delete this.wizarFinalData['id'];
     this.wizarFinalData['test_plan_name'] = this.wizarFinalData['name'];
@@ -162,54 +189,64 @@ export class Stepper2Component implements OnInit, AfterViewInit {
     this.wizarFinalData['test_cases'] = this.wizarFinalData['testcases'];
     delete this.wizarFinalData['testcases'];
     if (!this.wizarFinalData['plan_id']) delete this.wizarFinalData['plan_id'];
-    
+
     delete this.wizarFinalData['indexP'];
-    var selectedTech = this.sh ? this.userStoryForm1.value : this.useCaseForm2.value
-    this.finalData = { format: this.sh ? 'user_story' : 'use_case', ...this.thirdFormMain.value, project_title, project_description, ...selectedTech }
+    var selectedTech = this.sh
+      ? this.userStoryForm1.value
+      : this.useCaseForm2.value;
+    this.finalData = {
+      format: this.sh ? 'user_story' : 'use_case',
+      ...this.thirdFormMain.value,
+      project_title,
+      project_description,
+      ...selectedTech,
+    };
     this.finalData['project_name'] = this.finalData['project_title'];
     delete this.finalData['project_title'];
-    let userDataUpdate={source:"front",name:this.example.name, user_id: this.example.user_id}
-    console.log("dealingAi " ,this.finalData);
-    console.log("addwizard ",this.wizarFinalData);
-    console.log("userDataUpdate ",userDataUpdate);
-    
+    let userDataUpdate = {
+      source: 'front',
+      name: this.example.name,
+      user_id: this.example.user_id,
+    };
+    // console.log('dealingAi ', this.finalData);
+    // console.log('addwizard ', this.wizarFinalData);
+    // console.log('userDataUpdate ', userDataUpdate);
+    console.log("this.finalData",this.wizarFinalData);
     
     this._AuthService.dealingAi(this.finalData).subscribe({
       next: (res) => {
-        console.log("dealingAi res ",res);
-        this.result = res.data
-        this.flagTable = !this.flagTable
+        console.log('dealingAi res ', res);
+        this.result = res.data;
+        this.flagTable = !this.flagTable;
         this._AuthService.addwizard(this.wizarFinalData).subscribe({
           next: (res) => {
-            console.log("addwizard res",res);
-            
+            console.log('addwizard res', res);
           },
           error: (err) => {
-            console.log("addwizard err ", err);
-            
-            this.spinnerService.hide()
-          }
-        })
-        this._AuthService.updateUser(userDataUpdate).subscribe({
-          next:(res)=>{
-            console.log("updateUser res ",res);
-            
-            this.spinnerService.hide()
+            console.log('addwizard err ', err);
+
+            this.spinnerService.hide();
           },
-          error:(err)=>{
-            console.log("updateUser err ", err);
-            
-            this.spinnerService.hide()
-          }
-        })
+        });
+        this._AuthService.updateUser(userDataUpdate).subscribe({
+          next: (res) => {
+            console.log('updateUser res ', res);
+
+            this.spinnerService.hide();
+          },
+          error: (err) => {
+            console.log('updateUser err ', err);
+
+            this.spinnerService.hide();
+          },
+        });
       },
       error: (err) => {
         console.log(err);
-        
-      }
-    })
-    localStorage.removeItem("project_title");
-    localStorage.removeItem("project_description")
+      },
+    });
+    localStorage.removeItem('project_title');
+    localStorage.removeItem('project_description');
   }
 
   fireEvent() {
@@ -218,101 +255,113 @@ export class Stepper2Component implements OnInit, AfterViewInit {
         this.table.nativeElement
       );
       /* new format */
-      var fmt = "0.00";
+      var fmt = '0.00';
       const wb: XLSX.WorkBook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, "Sheet1");
-      var fmt = "@";
-      wb.Sheets["Sheet1"]["F"] = fmt;
+      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+      var fmt = '@';
+      wb.Sheets['Sheet1']['F'] = fmt;
       /* save to file */
-      XLSX.writeFile(wb, `_export_ ${this.wizarFinalData.test_cases[this.wizarFinalData.test_cases.length - 1].name}.xlsx`);
+      XLSX.writeFile(
+        wb,
+        `_export_ ${
+          this.wizarFinalData.test_cases[
+            this.wizarFinalData.test_cases.length - 1
+          ].name
+        }.xlsx`
+      );
     } else {
-      this.toaster.info('You are not subscribed now, you will be taken to our pricing page')
+      this.toaster.info(
+        'To enable this feature Please subscribe'
+      );
       setTimeout(() => {
-        window.open(`https://casesfly.ai/casefly-pricing-plan/?case=${this.example.user_id}`, "_blank");
+        window.open(
+          `https://casesfly.ai/casefly-pricing-plan/?case=${this.example.user_id}`,
+          '_blank'
+        );
       }, 1500);
     }
   }
-    // prevent space at first on input
-    preventSpaceAtBegging(event:any){
-      if (event.target.value.length>=1) {
-        console.log(true);
-      } else {
-        event.preventDefault();
-      }
+  // prevent space at first on input
+  preventSpaceAtBegging(event: any) {
+    if (event.target.value.length >= 1) {
+      console.log(true);
+    } else {
+      event.preventDefault();
     }
-    back(): void {
-      this.location.back()
-    }
+  }
+  back(): void {
+    localStorage.removeItem('project_title');
+    localStorage.removeItem('project_description');
+    this.location.back();
+  }
 
-    testt(e:any,controlName:string,formGroupName:FormGroup){
-      // console.log(formGroupName);
-      // if (!e.target.value) {
-      //  formGroupName.controls[controlName].patchValue(null) ;
-      //  this.toaster.warning("Note please English Only check your english grammar for best results")
-      // }
-      
-      
-    }
+  testt(e: any, controlName: string, formGroupName: FormGroup) {
+    // console.log(formGroupName);
+    // if (!e.target.value) {
+    //  formGroupName.controls[controlName].patchValue(null) ;
+    //  this.toaster.warning("Note please English Only check your english grammar for best results")
+    // }
+  }
 
-    onOptionClick(e:MouseEvent){
-      console.log("tetstst");
-      
-      !this.example?.subscripted? this.toaster.info('You are not subscribed now'): '';
-    }
-    // translateCorrectSer("message",'translateCorrectSer')
-    // translateCorrectSer("messsage",'CorrectSpellingInText')
-    translateCorrectSer(e:any,value:any , type:string){
-      e.preventDefault()
-      if (value.length>0) {
-        this.spinnerService.show()
-        this._AuthService.translteCorrectSer({
-          "request_type":type,
-          "message": value
-        }).subscribe({
-          next :(res)=>{
+  onOptionClick(e: MouseEvent) {
+    console.log('tetstst');
+
+    !this.example?.subscripted
+      ? this.toaster.info('To enable this feature Please subscribe')
+      : '';
+  }
+  // translateCorrectSer("message",'translateCorrectSer')
+  // translateCorrectSer("messsage",'CorrectSpellingInText')
+  translateCorrectSer(e: any, value: any, type: string) {
+    e.preventDefault();
+    if (value.length > 0) {
+      this.spinnerService.show();
+      this._AuthService
+        .translteCorrectSer({
+          request_type: type,
+          message: value,
+        })
+        .subscribe({
+          next: (res) => {
             console.log(res);
-            this.spinnerService.hide()
+            this.spinnerService.hide();
             this.openAlert(res.data);
           },
-          error :(err)=>{
-            this.spinnerService.hide()
+          error: (err) => {
+            this.spinnerService.hide();
             console.log(err);
-            
-          }
-        }) 
-      } else {
-        this.toaster.warning("text is empty")
-      }
-       
+          },
+        });
+    } else {
+      this.toaster.warning('text is empty');
+    }
+  }
+
+  openAlert(message: string) {
+    // const snackBarRef = this.snackBar.open(message, 'Close', {
+    //   duration: 0, // Set duration to 0 for a manual close
+    //   horizontalPosition: 'center',
+    //   verticalPosition: 'top',
+    //   panelClass: ['custom-alert'] // Apply custom CSS class
+    // });
+
+    // // Add a click listener to close the snackbar manually
+    // snackBarRef.onAction().subscribe(() => {
+    //   snackBarRef.dismiss();
+    // });
+    // *******************************
+    if (message.length > 0) {
+      const dialogRef = this.dialog.open(PopupCompComponent, {
+        width: '60%',
+        disableClose: true,
+        data: message,
+      });
+    } else {
+      this.toaster.warning('text is empty');
     }
 
-    openAlert(message: string) {
-      // const snackBarRef = this.snackBar.open(message, 'Close', {
-      //   duration: 0, // Set duration to 0 for a manual close
-      //   horizontalPosition: 'center',
-      //   verticalPosition: 'top',
-      //   panelClass: ['custom-alert'] // Apply custom CSS class
-      // });
-    
-      // // Add a click listener to close the snackbar manually
-      // snackBarRef.onAction().subscribe(() => {
-      //   snackBarRef.dismiss();
-      // });
-      // *******************************
-      if (message.length>0) {
-        const dialogRef = this.dialog.open(PopupCompComponent, {
-          width:"60%",
-          disableClose:true,
-          data:message,
-        });
-      } else {
-        this.toaster.warning("text is empty")
-      }
-      
-  
-      // dialogRef.afterClosed().subscribe(result => {
-      //   this.getAllServices()
-      // });
-    }
-    
+    // dialogRef.afterClosed().subscribe(result => {
+    //   this.getAllServices()
+    // });
+  }
 }
