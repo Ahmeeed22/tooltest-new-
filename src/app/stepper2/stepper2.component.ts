@@ -173,7 +173,7 @@ export class Stepper2Component implements OnInit, AfterViewInit {
   }
   result: any;
   getheringData() {
-    // this.spinnerService.show();
+    this.spinnerService.show();
     const { project_title, desc: project_description } =
       this.firstFormGroup.value;
     this.wizarFinalData = {
@@ -363,5 +363,8 @@ export class Stepper2Component implements OnInit, AfterViewInit {
     // dialogRef.afterClosed().subscribe(result => {
     //   this.getAllServices()
     // });
+  }
+  feedback(){
+    window.open(`https://casesfly.ai/reviews/`, "_blank");
   }
 }
