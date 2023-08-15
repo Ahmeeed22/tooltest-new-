@@ -33,8 +33,9 @@ export class ProfileComponent  {
    
     this.getAllCookies()
     // 'WkpBd8p8dxP0nfRvUym4QqNSSFnXLiW+63nI2w1y'
+    // U0NYd8Z+Zgyq7aNCVS21BawTRhuXYmC772ntgkc1Eo9+ow==
     if (this.cookie['decrypt-user']) {
-      this._AuthService.getTreeData({encrypted_data:'WkpBd8p8dxP0nfRvUym4QqNSSFnXLiW+63nI2w1y'}).subscribe({
+      this._AuthService.getTreeData({encrypted_data:this.cookie['decrypt-user']}).subscribe({
         next: (res)=>{
           console.log(res.message==='un authenticated');
           if (res.message==='un authenticated') {
@@ -61,7 +62,8 @@ export class ProfileComponent  {
         }
       })
     }
-
+    localStorage.removeItem('project_title');
+    localStorage.removeItem('project_description');
   }
 
   testPlanForm = this._formBuilder.group({

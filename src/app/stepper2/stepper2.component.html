@@ -19,7 +19,7 @@
           <mat-label>Project Title</mat-label>
           <input (keydown.space)="preventSpaceAtBegging($event)" (keyup)="testt($event,'project_title',firstFormGroup)"
             matInput formControlName="project_title"
-            placeholder="Project Title e.g. Project Title: XYZ XYZ is E- commerce project that focuses on providing innovative solutions to everyday problems."
+            placeholder="e.g XYZ is E- commerce project for  buying and selling of goods."
             spellcheck="true" required [readonly]="flag">
           <mat-error
             *ngIf="firstFormGroup.get('project_title')?.touched && firstFormGroup.get('project_title')?.hasError('required')">required</mat-error>
@@ -99,7 +99,7 @@
     <div class="mx-auto box mt-3">
       <form [formGroup]="thirdFormMain" class="">
         <mat-form-field appearance="outline" class="w-100">
-          <mat-label>Select Test Case Technicecs</mat-label>
+          <mat-label>Select Test Case Techniques</mat-label>
           <mat-select formControlName="testing_technique" placeholder="Project type" required>
             <mat-option [disabled]="!example?.subscripted" (click)="onOptionClick($event)" value="bva"><i
                 *ngIf="!example?.subscripted" class="fas fa-solid fa-crown" style="    width: 39px;
