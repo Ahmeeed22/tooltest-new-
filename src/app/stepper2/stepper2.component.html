@@ -29,14 +29,14 @@
             <div class=" position-absolute right-0  d-flex" style="bottom: 5px; right: 0;">
 
               <div pTooltip="Translate" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="translate-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="translate-button" 
                   (click)="translateCorrectSer($event,firstFormGroup.get('project_title')?.value,'TranslateFromArabicToEnglish')">
                   <mat-icon>translate</mat-icon>
                 </button>
               </div>
   
               <div pTooltip="Grammer Correct" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="correct-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="correct-button" 
                   (click)="translateCorrectSer($event,firstFormGroup.get('project_title')?.value,'CorrectSpellingInText')">
                   <mat-icon>spellcheck</mat-icon>
                 </button>
@@ -67,14 +67,14 @@
           <div class=" position-absolute right-0 d-flex" style="bottom: 10px; right: 0;">
 
             <div pTooltip="Translate" tooltipPosition="top" (click)="onOptionClick($event)">
-              <button mat-icon-button class="translate-button" [disabled]="!example?.subscripted"
+              <button mat-icon-button class="translate-button" 
                 (click)="translateCorrectSer($event,firstFormGroup.get('desc')?.value,'TranslateFromArabicToEnglish')">
                 <mat-icon>translate</mat-icon>
               </button>
             </div>
 
             <div pTooltip="Grammer Correct" tooltipPosition="top" (click)="onOptionClick($event)">
-              <button mat-icon-button class="correct-button" [disabled]="!example?.subscripted"
+              <button mat-icon-button class="correct-button" 
                 (click)="translateCorrectSer($event,firstFormGroup.get('desc')?.value,'CorrectSpellingInText')">
                 <mat-icon>spellcheck</mat-icon>
               </button>
@@ -101,24 +101,29 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Select Test Case Techniques</mat-label>
           <mat-select formControlName="testing_technique" placeholder="Project type" required>
-            <mat-option [disabled]="!example?.subscripted" (click)="onOptionClick($event)" value="bva"><i
-                *ngIf="!example?.subscripted" class="fas fa-solid fa-crown" style="    width: 39px;
+            <mat-option  (click)="onOptionClick($event)" value="bva"><i
+                 class="fas fa-solid fa-crown" style="    width: 39px;
                   height: 36px;
                   color: #fca120;
                   font-size: 26px;"></i>
               Boundary Value Analysis (BVA) </mat-option>
-            <mat-option [disabled]="!example?.subscripted" (click)="onOptionClick($event)" value="dt"><i
-                *ngIf="!example?.subscripted" class="fas fa-solid fa-crown" style="    width: 39px;
+            <mat-option  (click)="onOptionClick($event)" value="dt"><i
+                 class="fas fa-solid fa-crown" style="    width: 39px;
                   height: 36px;
                   color: #fca120;
                   font-size: 26px;"></i>Decision Tables </mat-option>
-            <mat-option [disabled]="!example?.subscripted" (click)="onOptionClick($event)" value="ep"><i
-                *ngIf="!example?.subscripted" class="fas fa-solid fa-crown" style="    width: 39px;
+                  <!-- <mat-option [disabledh]="!example?.subscripted" (click)="onOptionClick($event)" value="dt"><i
+                    *ngIft="!example?.subscripted" class="fas fa-solid fa-crown" style="    width: 39px;
+                      height: 36px;
+                      color: #fca120;
+                      font-size: 26px;"></i>Decision Tables </mat-option> -->
+            <mat-option  (click)="onOptionClick($event)" value="ep"><i
+                 class="fas fa-solid fa-crown" style="    width: 39px;
                   height: 36px;
                   color: #fca120;
                   font-size: 26px;"></i>Equivalence partitioning</mat-option>
-            <mat-option [disabled]="!example?.subscripted" (click)="onOptionClick($event)" value="stt"><i
-                *ngIf="!example?.subscripted" class="fas fa-solid fa-crown" style="    width: 39px;
+            <mat-option  (click)="onOptionClick($event)" value="stt"><i
+                 class="fas fa-solid fa-crown" style="    width: 39px;
                   height: 36px;
                   color: #fca120;
                   font-size: 26px;"></i>State Transition Testing</mat-option>
@@ -149,14 +154,14 @@
             <div class=" position-absolute right-0 d-flex" style="bottom: 5px;  right: 0;">
 
               <div pTooltip="Translate" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="translate-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="translate-button" 
                   (click)="translateCorrectSer($event,userStoryForm1.get('use_case_title')?.value,'TranslateFromArabicToEnglish')">
                   <mat-icon>translate</mat-icon>
                 </button>
               </div>
   
               <div pTooltip="Grammer Correct" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="correct-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="correct-button" 
                   (click)="translateCorrectSer($event,userStoryForm1.get('use_case_title')?.value,'CorrectSpellingInText')">
                   <mat-icon>spellcheck</mat-icon>
                 </button>
@@ -178,14 +183,14 @@
             <div class=" position-absolute right-0 d-flex" style="bottom: 5px;  right: 0;">
 
               <div pTooltip="Translate" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="translate-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="translate-button" 
                   (click)="translateCorrectSer($event,userStoryForm1.get('as_a')?.value,'TranslateFromArabicToEnglish')">
                   <mat-icon>translate</mat-icon>
                 </button>
               </div>
   
               <div pTooltip="Grammer Correct" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="correct-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="correct-button" 
                   (click)="translateCorrectSer($event,userStoryForm1.get('as_a')?.value,'CorrectSpellingInText')">
                   <mat-icon>spellcheck</mat-icon>
                 </button>
@@ -208,14 +213,14 @@
             <div class=" position-absolute right-0 d-flex" style="bottom: 10px; right: 0;">
 
               <div pTooltip="Translate" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="translate-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="translate-button" 
                   (click)="translateCorrectSer($event,userStoryForm1.get('i_want')?.value,'TranslateFromArabicToEnglish')">
                   <mat-icon>translate</mat-icon>
                 </button>
               </div>
   
               <div pTooltip="Grammer Correct" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="correct-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="correct-button" 
                   (click)="translateCorrectSer($event,userStoryForm1.get('i_want')?.value,'CorrectSpellingInText')">
                   <mat-icon>spellcheck</mat-icon>
                 </button>
@@ -237,14 +242,14 @@
             <div class=" position-absolute right-0 d-flex" style="bottom: 10px; right: 0;">
 
               <div pTooltip="Translate" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="translate-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="translate-button" 
                   (click)="translateCorrectSer($event,userStoryForm1.get('so_that')?.value,'TranslateFromArabicToEnglish')">
                   <mat-icon>translate</mat-icon>
                 </button>
               </div>
   
               <div pTooltip="Grammer Correct" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="correct-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="correct-button" 
                   (click)="translateCorrectSer($event,userStoryForm1.get('so_that')?.value,'CorrectSpellingInText')">
                   <mat-icon>spellcheck</mat-icon>
                 </button>
@@ -271,14 +276,14 @@
             <div class=" position-absolute right-0 d-flex" style="bottom: 10px; right: 0;">
 
               <div pTooltip="Translate" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="translate-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="translate-button" 
                   (click)="translateCorrectSer($event,userStoryForm1.get('user_flow')?.value,'TranslateFromArabicToEnglish')">
                   <mat-icon>translate</mat-icon>
                 </button>
               </div>
   
               <div pTooltip="Grammer Correct" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="correct-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="correct-button" 
                   (click)="translateCorrectSer($event,userStoryForm1.get('user_flow')?.value,'CorrectSpellingInText')">
                   <mat-icon>spellcheck</mat-icon>
                 </button>
@@ -304,14 +309,14 @@
             <div class=" position-absolute right-0 d-flex" style="bottom: 5px;right: 0;" >
 
               <div pTooltip="Translate" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="translate-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="translate-button" 
                   (click)="translateCorrectSer($event,useCaseForm2.get('use_case_title')?.value,'TranslateFromArabicToEnglish')">
                   <mat-icon>translate</mat-icon>
                 </button>
               </div>
   
               <div pTooltip="Grammer Correct" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="correct-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="correct-button" 
                   (click)="translateCorrectSer($event,useCaseForm2.get('use_case_title')?.value,'CorrectSpellingInText')">
                   <mat-icon>spellcheck</mat-icon>
                 </button>
@@ -332,14 +337,14 @@
             <div class=" position-absolute right-0 d-flex" style="bottom: 5px;right: 0;" >
 
               <div pTooltip="Translate" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="translate-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="translate-button" 
                   (click)="translateCorrectSer($event,useCaseForm2.get('actor')?.value,'TranslateFromArabicToEnglish')">
                   <mat-icon>translate</mat-icon>
                 </button>
               </div>
   
               <div pTooltip="Grammer Correct" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="correct-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="correct-button" 
                   (click)="translateCorrectSer($event,useCaseForm2.get('actor')?.value,'CorrectSpellingInText')">
                   <mat-icon>spellcheck</mat-icon>
                 </button>
@@ -362,14 +367,14 @@
             <div class=" position-absolute right-0 d-flex" style="bottom: 10px; right: 0;">
 
               <div pTooltip="Translate" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="translate-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="translate-button" 
                   (click)="translateCorrectSer($event,useCaseForm2.get('use_case_description')?.value,'TranslateFromArabicToEnglish')">
                   <mat-icon>translate</mat-icon>
                 </button>
               </div>
   
               <div pTooltip="Grammer Correct" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="correct-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="correct-button" 
                   (click)="translateCorrectSer($event,useCaseForm2.get('use_case_description')?.value,'CorrectSpellingInText')">
                   <mat-icon>spellcheck</mat-icon>
                 </button>
@@ -390,14 +395,14 @@
             <div class=" position-absolute right-0 d-flex" style="bottom: 10px; right: 0;">
 
               <div pTooltip="Translate" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="translate-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="translate-button" 
                   (click)="translateCorrectSer($event,useCaseForm2.get('preconditions')?.value,'TranslateFromArabicToEnglish')">
                   <mat-icon>translate</mat-icon>
                 </button>
               </div>
   
               <div pTooltip="Grammer Correct" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="correct-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="correct-button" 
                   (click)="translateCorrectSer($event,useCaseForm2.get('preconditions')?.value,'CorrectSpellingInText')">
                   <mat-icon>spellcheck</mat-icon>
                 </button>
@@ -419,14 +424,14 @@
             <div class=" position-absolute right-0 d-flex" style="bottom: 10px; right: 0;">
 
               <div pTooltip="Translate" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="translate-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="translate-button" 
                   (click)="translateCorrectSer($event,useCaseForm2.get('flow')?.value,'TranslateFromArabicToEnglish')">
                   <mat-icon>translate</mat-icon>
                 </button>
               </div>
   
               <div pTooltip="Grammer Correct" tooltipPosition="top" (click)="onOptionClick($event)">
-                <button mat-icon-button class="correct-button" [disabled]="!example?.subscripted"
+                <button mat-icon-button class="correct-button" 
                   (click)="translateCorrectSer($event,useCaseForm2.get('flow')?.value,'CorrectSpellingInText')">
                   <mat-icon>spellcheck</mat-icon>
                 </button>

@@ -250,7 +250,7 @@ export class Stepper2Component implements OnInit, AfterViewInit {
   }
 
   fireEvent() {
-    if (this.example?.subscripted) {
+    // if (this.example?.subscripted) {
       const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(
         this.table.nativeElement
       );
@@ -269,17 +269,18 @@ export class Stepper2Component implements OnInit, AfterViewInit {
           ].name
         }.xlsx`
       );
-    } else {
-      this.toaster.info(
-        'To enable this feature Please subscribe'
-      );
-      setTimeout(() => {
-        window.open(
-          `https://casesfly.ai/casefly-pricing-plan/?case=${this.example.user_id}`,
-          '_blank'
-        );
-      }, 1500);
-    }
+    // }
+    //  else {
+    //   this.toaster.info(
+    //     'To enable this feature Please subscribe'
+    //   );
+    //   setTimeout(() => {
+    //     window.open(
+    //       `https://casesfly.ai/casefly-pricing-plan/?case=${this.example.user_id}`,
+    //       '_blank'
+    //     );
+    //   }, 1500);
+    // }
   }
   // prevent space at first on input
   preventSpaceAtBegging(event: any) {
