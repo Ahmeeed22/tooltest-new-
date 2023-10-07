@@ -162,11 +162,11 @@ export class ProfileComponent  {
   }
 
   showTutorial(): void {
-    const dialogRef = this.dialog.open(TotarialComponent, {
-      width:"60%",
-      disableClose:true
-    });
-;
+    // const dialogRef = this.dialog.open(TotarialComponent, {
+    //   width:"60%",
+    //   disableClose:true
+    // });
+    window.open("https://casesfly.ai/rate-win/",'_self');
   }
 
 }

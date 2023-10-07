@@ -365,6 +365,6 @@ export class Stepper2Component implements OnInit, AfterViewInit {
     // });
   }
   feedback(){
-    window.open(`https://casesfly.ai/reviews/`, "_blank");
+    window.open(`https://casesfly.ai/rate-win/`, "_blank");
   }
 }
