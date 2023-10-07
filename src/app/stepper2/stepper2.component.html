@@ -467,7 +467,8 @@
 
 <div class="listBox" *ngIf="!flagTable">
   <div class="table-responsive" id="print-section">
-    <table class="table table-hover " #table>
+    <!-- thirdFormMain.value. -->
+    <table *ngIf="thirdFormMain.value.testing_technique !='rf'" class="table table-hover " #table>
       <thead>
         <tr class=" text-white text-light">
           <th>Result</th>
@@ -476,6 +477,18 @@
       <tbody>
         <tr class=" border" *ngFor="let data of result  ;let index=index" style="text-align: left;">
           <td class="disable-text-selection">{{data}}</td>
+        </tr>
+      </tbody>
+    </table>
+    <table *ngIf="thirdFormMain.value.testing_technique =='rf'"  class="table table-hover " #tablerf>
+      <thead>
+        <tr class=" text-white text-light">
+          <th *ngFor="let head of result[0]  ;let index=index">{{head}}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="border" *ngFor="let data of result.slice(1); let i = index" style="text-align: left;">
+          <td class="disable-text-selection" *ngFor="let itemData of data; let x = index">{{ itemData }}</td>
         </tr>
       </tbody>
     </table>

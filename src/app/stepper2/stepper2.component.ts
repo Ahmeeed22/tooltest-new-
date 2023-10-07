@@ -39,6 +39,7 @@ export interface User {
 })
 export class Stepper2Component implements OnInit, AfterViewInit {
   @ViewChild('table') table!: ElementRef;
+  @ViewChild('tablerf') tablerf!: ElementRef;
   wizarFinalData: any = {};
   finalData: any;
   firstFormGroup: any;
@@ -252,7 +253,7 @@ export class Stepper2Component implements OnInit, AfterViewInit {
   fireEvent() {
     // if (this.example?.subscripted) {
       const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(
-        this.table.nativeElement
+        this.thirdFormMain.value.testing_technique !='rf' ? this.table.nativeElement : this.tablerf.nativeElement
       );
       /* new format */
       var fmt = '0.00';
