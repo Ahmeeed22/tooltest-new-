@@ -101,44 +101,29 @@
         <mat-form-field appearance="outline" class="w-100">
           <mat-label>Select Test Case Techniques</mat-label>
           <mat-select formControlName="testing_technique" placeholder="Project type" required>
-            <mat-option  (click)="onOptionClick($event)" value="bva"><i
-                 class="fas fa-solid fa-crown" style="    width: 39px;
-                  height: 36px;
-                  color: #fca120;
-                  font-size: 26px;"></i>
-              Boundary Value Analysis (BVA) </mat-option>
-            <mat-option  (click)="onOptionClick($event)" value="dt"><i
-                 class="fas fa-solid fa-crown" style="    width: 39px;
-                  height: 36px;
-                  color: #fca120;
-                  font-size: 26px;"></i>Decision Tables </mat-option>
+            <mat-option   value="bva">UAT </mat-option>
+            <mat-option value="dt">API </mat-option>
                   <!-- <mat-option [disabledh]="!example?.subscripted" (click)="onOptionClick($event)" value="dt"><i
                     *ngIft="!example?.subscripted" class="fas fa-solid fa-crown" style="    width: 39px;
                       height: 36px;
                       color: #fca120;
                       font-size: 26px;"></i>Decision Tables </mat-option> -->
-            <mat-option  (click)="onOptionClick($event)" value="ep"><i
-                 class="fas fa-solid fa-crown" style="    width: 39px;
-                  height: 36px;
-                  color: #fca120;
-                  font-size: 26px;"></i>Equivalence partitioning</mat-option>
-            <mat-option  (click)="onOptionClick($event)" value="stt"><i
-                 class="fas fa-solid fa-crown" style="    width: 39px;
-                  height: 36px;
-                  color: #fca120;
-                  font-size: 26px;"></i>State Transition Testing</mat-option>
-            <mat-option value="rf">Requirements format</mat-option>
+            <mat-option value="ep">Edge & Boundy Cases</mat-option>
+            <mat-option  value="stt">Exploratory</mat-option>
+            <mat-option value="rf">Functionality</mat-option>
           </mat-select>
           <mat-error>required</mat-error>
         </mat-form-field>
       </form>
-      <label>
-        <input [value]="1" [(ngModel)]="sh" name="sh" type="radio" [checked]="isChecked" required /> User Story
-      </label>
-      <label>
-        <input class="ml-3" [value]="0" [(ngModel)]="sh" name="sh" type="radio" [checked]="!isChecked" /> Use Case
-      </label>
-      <form *ngIf="sh == 1" [formGroup]="userStoryForm1" class="">
+      <div *ngIf="thirdFormMain.value.testing_technique == 'bva' || thirdFormMain.value.testing_technique == 'ep' || thirdFormMain.value.testing_technique == 'rf'">
+        <label>
+          <input [value]="1" [(ngModel)]="sh" name="sh" type="radio" [checked]="isChecked"  /> User Story
+        </label>
+        <label>
+          <input class="ml-3" [value]="0" [(ngModel)]="sh" name="sh" type="radio" [checked]="!isChecked" /> Use Case
+        </label>
+      </div>
+      <form *ngIf="sh == 1 && (thirdFormMain.value.testing_technique == 'bva' || thirdFormMain.value.testing_technique == 'ep' || thirdFormMain.value.testing_technique == 'rf')" [formGroup]="userStoryForm1" class="">
         <ng-template matStepLabel>Testing Technique</ng-template>
         <mat-form-field appearance="outline" class="w-100 position-relative">
           <mat-label>User Story Title</mat-label>
@@ -293,7 +278,7 @@
         </mat-form-field>
 
       </form>
-      <form *ngIf="sh == 0 " [formGroup]="useCaseForm2" class="">
+      <form *ngIf="sh == 0 && (thirdFormMain.value.testing_technique == 'bva' || thirdFormMain.value.testing_technique == 'ep' || thirdFormMain.value.testing_technique == 'rf') " [formGroup]="useCaseForm2" class="">
         <ng-template matStepLabel>Project Data</ng-template>
         <mat-form-field appearance="outline" class="w-100 position-relative">
           <mat-label>Use Case Title</mat-label>
@@ -440,6 +425,42 @@
             </div>
         </mat-form-field>
       </form>
+      <!-- start  -->
+
+      <form *ngIf="thirdFormMain.value.testing_technique == 'dt' || thirdFormMain.value.testing_technique == 'stt'" [formGroup]="newFormateFormAPI" class="">
+        <ng-template matStepLabel>Project Data</ng-template>
+        <mat-form-field spellcheck="true" appearance="outline" class="w-100 mt-1 position-relative">
+          <mat-label>Enter Your Data</mat-label>
+          <textarea (keydown.space)="preventSpaceAtBegging($event)" rows="30" matInput
+            (keyup)="testt($event,'yourData',newFormateFormAPI)" formControlName="yourData" required placeholder="e.g. 1. User opens application
+                2. User selects desired feature 
+                3. System presents user with options for feature
+                "></textarea>
+          <mat-error
+            *ngIf="newFormateFormAPI.get('yourData')?.touched && newFormateFormAPI.get('yourData')?.hasError('required')">required</mat-error>
+          <mat-error *ngIf="newFormateFormAPI.get('yourData')?.touched && newFormateFormAPI.get('yourData')?.hasError('maxlength')">max
+            length 4700 char</mat-error>
+            <div class=" position-absolute right-0 d-flex" style="bottom: 10px; right: 0;">
+
+              <div pTooltip="Translate" tooltipPosition="top" (click)="onOptionClick($event)">
+                <button mat-icon-button class="translate-button" 
+                  (click)="translateCorrectSer($event,newFormateFormAPI.get('yourData')?.value,'TranslateFromArabicToEnglish')">
+                  <mat-icon>translate</mat-icon>
+                </button>
+              </div>
+  
+              <div pTooltip="Grammer Correct" tooltipPosition="top" (click)="onOptionClick($event)">
+                <button mat-icon-button class="correct-button" 
+                  (click)="translateCorrectSer($event,newFormateFormAPI.get('yourData')?.value,'CorrectSpellingInText')">
+                  <mat-icon>spellcheck</mat-icon>
+                </button>
+              </div>
+  
+            </div>
+        </mat-form-field>
+      </form>
+
+      <!-- end  -->
       <div class="d-flex justify-content-end">
         <button class="btn btn-danger m-3" [disabled]="stepper.selectedIndex === 0" mat-button (click)="goBack(stepper)"
           type="button">Back</button>
@@ -468,7 +489,7 @@
 <div class="listBox" *ngIf="!flagTable">
   <div class="table-responsive" id="print-section">
     <!-- thirdFormMain.value. -->
-    <table *ngIf="thirdFormMain.value.testing_technique !='rf'" class="table table-hover " #table>
+    <!-- <table *ngIf="thirdFormMain.value.testing_technique !='rf'" class="table table-hover " #table>
       <thead>
         <tr class=" text-white text-light">
           <th>Result</th>
@@ -479,8 +500,8 @@
           <td class="disable-text-selection">{{data}}</td>
         </tr>
       </tbody>
-    </table>
-    <table *ngIf="thirdFormMain.value.testing_technique =='rf'"  class="table table-hover " #tablerf>
+    </table> -->
+    <table class="table table-hover " #tablerf>
       <thead>
         <tr class=" text-white text-light">
           <th *ngFor="let head of result[0]  ;let index=index">{{head}}</th>

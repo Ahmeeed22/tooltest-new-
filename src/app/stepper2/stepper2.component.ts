@@ -5,10 +5,10 @@ import {
   AfterViewInit,
   ViewChild,
 } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { AbstractControl, FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { STEPPER_GLOBAL_OPTIONS } from '@angular/cdk/stepper';
 import { MatStepper, StepperOrientation } from '@angular/material/stepper';
-import { Observable } from 'rxjs';
+import { Observable, Subscription } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -79,6 +79,9 @@ export class Stepper2Component implements OnInit, AfterViewInit {
     preconditions: ['', [Validators.required, Validators.maxLength(1000)]],
     flow: ['', [Validators.required, Validators.maxLength(4700)]],
   });
+  newFormateFormAPI = this._formBuilder.group({
+    yourData: ['', [Validators.required, Validators.maxLength(4700)]],
+  });
   sh: any;
   example: any;
   constructor(
@@ -135,7 +138,13 @@ export class Stepper2Component implements OnInit, AfterViewInit {
   ];
   filteredOptions?: Observable<User[]>;
   x: any;
-  ngOnInit() {}
+  formSubscription !: Subscription;
+  ngOnInit() {
+    this.formSubscription = this.thirdFormMain.valueChanges.subscribe(changes => {
+      console.log('Form changes:', changes.testing_technique, this.thirdFormMain.value.testing_technique);
+      // You can perform additional actions based on the form changes here
+    });
+  }
 
   ngAfterViewInit() {
     this.elementRef.nativeElement
@@ -156,15 +165,34 @@ export class Stepper2Component implements OnInit, AfterViewInit {
   }
 
   goForwardToComplet(stepper: MatStepper) {
-    if (this.sh === 1) {
+    // console.log("ouuuuuuuuuuuuuuuuuuuter");
+
+    if (this.sh === 1 && !(this.thirdFormMain.value.testing_technique == 'dt' || this.thirdFormMain.value.testing_technique == 'stt')) {
+      console.log("111111111111");
+
       this.userStoryForm1.markAllAsTouched();
       if (this.userStoryForm1.valid && this.thirdFormMain.valid) {
         stepper.next();
       }
     }
-    if (this.sh === 0) {
+    if (this.sh === 0 && !(this.thirdFormMain.value.testing_technique == 'dt' || this.thirdFormMain.value.testing_technique == 'stt')) {
+      console.log("2222222222222");
+
       this.useCaseForm2.markAllAsTouched();
       if (this.useCaseForm2.valid && this.thirdFormMain.valid) {
+        stepper.next();
+      }
+    }
+
+    if (this.thirdFormMain.value.testing_technique == 'dt' || this.thirdFormMain.value.testing_technique == 'stt') {
+      console.log("innnnnere", this.newFormateFormAPI.valid, this.thirdFormMain.valid);
+
+      this.newFormateFormAPI.markAllAsTouched();
+      if (this.newFormateFormAPI.valid && this.thirdFormMain.valid) {
+        this.setFormGroupValid(this.userStoryForm1);
+        this.setFormGroupValid(this.useCaseForm2);
+        console.log("innnnnererrrrrrrrrrrrrrr", this.newFormateFormAPI.valid, this.thirdFormMain.valid);
+
         stepper.next();
       }
     }
@@ -192,16 +220,42 @@ export class Stepper2Component implements OnInit, AfterViewInit {
     if (!this.wizarFinalData['plan_id']) delete this.wizarFinalData['plan_id'];
 
     delete this.wizarFinalData['indexP'];
-    var selectedTech = this.sh
-      ? this.userStoryForm1.value
-      : this.useCaseForm2.value;
-    this.finalData = {
-      format: this.sh ? 'user_story' : 'use_case',
-      ...this.thirdFormMain.value,
-      project_title,
-      project_description,
-      ...selectedTech,
-    };
+    var selectedTech: any;
+    var extraData: any;
+    if (this.thirdFormMain.value.testing_technique == 'dt' || this.thirdFormMain.value.testing_technique == 'stt') {
+      selectedTech = this.newFormateFormAPI.value;
+      extraData={
+        use_case_title: "null",
+        as_a: "null",
+        i_want: "null",
+        so_that: "null",
+        user_flow: "null"
+      }
+      // this.finalData={...this.finalData,...extraData} ;
+
+      this.finalData = {
+        format: 'user_story',
+        ...this.thirdFormMain.value,
+        project_title,
+        project_description : `${project_description} ${selectedTech?.yourData}`,
+        ...extraData
+      };
+
+    } else {
+
+      selectedTech = this.sh
+        ? this.userStoryForm1.value
+        : this.useCaseForm2.value;
+
+        this.finalData = {
+          format: 'user_story',
+          ...this.thirdFormMain.value,
+          ...selectedTech,
+          project_title,
+          project_description : `${project_description}`,
+          
+        };
+    }
     this.finalData['project_name'] = this.finalData['project_title'];
     delete this.finalData['project_title'];
     let userDataUpdate = {
@@ -209,11 +263,11 @@ export class Stepper2Component implements OnInit, AfterViewInit {
       name: this.example.name,
       user_id: this.example.user_id,
     };
-    // console.log('dealingAi ', this.finalData);
+    console.log('dealingAi ', this.finalData);
     // console.log('addwizard ', this.wizarFinalData);
     // console.log('userDataUpdate ', userDataUpdate);
-    console.log("this.finalData",this.wizarFinalData);
-    
+    console.log("this.finalData", this.wizarFinalData);
+
     this._AuthService.dealingAi(this.finalData).subscribe({
       next: (res) => {
         console.log('dealingAi res ', res);
@@ -252,24 +306,23 @@ export class Stepper2Component implements OnInit, AfterViewInit {
 
   fireEvent() {
     // if (this.example?.subscripted) {
-      const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(
-        this.thirdFormMain.value.testing_technique !='rf' ? this.table.nativeElement : this.tablerf.nativeElement
-      );
-      /* new format */
-      var fmt = '0.00';
-      const wb: XLSX.WorkBook = XLSX.utils.book_new();
-      XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
-      var fmt = '@';
-      wb.Sheets['Sheet1']['F'] = fmt;
-      /* save to file */
-      XLSX.writeFile(
-        wb,
-        `_export_ ${
-          this.wizarFinalData.test_cases[
-            this.wizarFinalData.test_cases.length - 1
-          ].name
-        }.xlsx`
-      );
+    const ws: XLSX.WorkSheet = XLSX.utils.table_to_sheet(
+      this.thirdFormMain.value.testing_technique != 'rf' ? this.table.nativeElement : this.tablerf.nativeElement
+    );
+    /* new format */
+    var fmt = '0.00';
+    const wb: XLSX.WorkBook = XLSX.utils.book_new();
+    XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+    var fmt = '@';
+    wb.Sheets['Sheet1']['F'] = fmt;
+    /* save to file */
+    XLSX.writeFile(
+      wb,
+      `_export_ ${this.wizarFinalData.test_cases[
+        this.wizarFinalData.test_cases.length - 1
+      ].name
+      }.xlsx`
+    );
     // }
     //  else {
     //   this.toaster.info(
@@ -366,7 +419,36 @@ export class Stepper2Component implements OnInit, AfterViewInit {
     //   this.getAllServices()
     // });
   }
-  feedback(){
+  feedback() {
     window.open(`https://casesfly.ai/rate-win/`, "_blank");
   }
+
+  setFormGroupValid(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(controlName => {
+      const control = formGroup.get(controlName);
+      if (control instanceof FormGroup) {
+        // If the control is a FormGroup, recursively set its controls to valid
+        this.setFormGroupValid(control);
+      } else if (control) {
+        // Set a valid value for each control
+        if (control.validator) {
+          const validationErrors = control.validator({} as AbstractControl);
+          if (validationErrors) {
+            if (validationErrors['required']) {
+              control.setValue('valid value');
+            }
+            if (validationErrors['maxlength']) {
+              control.setValue('a'.repeat(validationErrors['maxlength'].requiredLength));
+            }
+            // Add more conditions based on the types of validators you are using
+          } else {
+            control.setValue('valid value');
+          }
+        } else {
+          control.setValue('valid value');
+        }
+      }
+    });
+  }
+
 }
